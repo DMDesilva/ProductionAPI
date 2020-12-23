@@ -47,5 +47,13 @@ namespace ProductionPrint.Controllers
             PlanBoard plan = new PlanBoard(CommonData.ConStr());
             return plan.LoadAllSectionPlanData(prm.stPram1);
         }
+
+        [HttpGet("loadPlannedProd")]
+        public DataTable LoadPlannedProd()
+        {
+            PlanBoard plan = new PlanBoard(CommonData.ConStr());
+            return plan.PlanProdData();
+        }
+
     }
 }

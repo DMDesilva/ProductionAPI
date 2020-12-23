@@ -55,7 +55,15 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("[dbo].[SewingPlan_Load]", objDIc);
             }
         }
+        public DataTable PlanProdData()
+        {
+           {
+                var objDIc = new Dictionary<string, object>();
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Plan_Orders", objDIc);
+            }
 
+      
+        }
         public DataTable LoadSectionPlanData(DateTime frmDt,int sec_Id)
         {
             {
