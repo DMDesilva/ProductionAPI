@@ -33,14 +33,27 @@ namespace ProductionPrint.Controllers
            //PlanBoard plan = new PlanBoard(CommonData.ConStr());
             return plan.PlanSave();
         }
+        [HttpPost("planChangeSaved")]
+        public DataTable PlanChangeSaved(PlanBoard plan)
+        {
+            //PlanBoard plan = new PlanBoard(CommonData.ConStr());
+            return plan.PlanChangeSave();
+        }
 
-        
-             [HttpPost("loadPlannedSec")]
+        [HttpPost("loadPlannedSec")]
         public DataTable LoadPlannedSec(ClsPrm prm)
         {
             PlanBoard plan = new PlanBoard(CommonData.ConStr());
             return plan.LoadSectionPlanData(prm.DtPram1, prm.iPram1);
         }
+        
+        [HttpGet("loadPlanData")]
+        public DataTable LoadPlanData()
+        {
+            PlanBoard plan = new PlanBoard(CommonData.ConStr());
+            return plan.LoadPlanData();
+        }
+
         [HttpPost("loadAllPlannedSec")]
         public DataTable LoadAllPlannedSec(ClsPrm prm)
         {

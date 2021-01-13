@@ -20,6 +20,12 @@ namespace ProductionPrint.Controllers
            WorkHours wrk = new WorkHours(CommonData.ConStr());
             return wrk.GetDash();
         }
+        [HttpGet("getDashDateBy")]
+        public DataSet GetDashDateBy()
+        {
+            WorkHours wrk = new WorkHours(CommonData.ConStr());
+            return wrk.GetDashDate();
+        }
 
 
         [HttpPost("getSection")]

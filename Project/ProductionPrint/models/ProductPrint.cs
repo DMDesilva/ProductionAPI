@@ -46,13 +46,13 @@ namespace ProductionPrint.models
 
             {
                 var objDIc = new Dictionary<string, object>();
-            //    {
+                //    {
 
-            //       {"Id",id},
-            //       { "IsActive",isActive}
+                //       {"Id",id},
+                //       { "IsActive",isActive}
 
-            //};
-              //  var dt = 
+                //};
+                //  var dt = 
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Prod_Print_Dashboard", objDIc); 
             }
 
@@ -75,6 +75,16 @@ namespace ProductionPrint.models
         public DataTable LoadUserGrp()
         {
             return (new DbAccess(ConnectionString)).FillDataTable("SELECT [Id] ,[group_name],[group_Id] FROM [dbo].[Auth_Users_Group]");
+        }
+        public DataTable LoadPrintOrderList()
+        {
+
+            {
+                var objDIc = new Dictionary<string, object>();
+                var dt = (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("GetPrintOrdList ", objDIc);
+                return dt;
+            }
+
         }
         public DataTable LoadPRintMachine()
         {

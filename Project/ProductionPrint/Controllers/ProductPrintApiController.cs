@@ -25,13 +25,19 @@ namespace ProductionPrint.Controllers
             ProductPrint pro = new ProductPrint(CommonData.ConStr());
             return pro.LoadPlants();
         }
+        [HttpGet("getPrintOrdList")]
+        public DataTable GetPrintOrdList()
+        {
+            ProductPrint pro = new ProductPrint(CommonData.ConStr());
+            return pro.LoadPrintOrderList();
+        }
         [HttpGet("getRooms")]
         public DataTable GetRooms()
         {
             ProductPrint pro = new ProductPrint(CommonData.ConStr());
             return pro.LoadRooms();
         }
-
+       
         [HttpPost("getAssignMachine")]
         public DataTable GetAssignMachine(ClsPrm prm)
         {

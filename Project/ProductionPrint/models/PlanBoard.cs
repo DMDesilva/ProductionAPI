@@ -9,11 +9,13 @@ namespace ProductionPrint.models
     public class PlanBoard
     {
         public Guid Idx { get; set; }
+        public Guid PIdx { get; set; }
+        public int plan_id { get; set; }
         public int plant_Id { get; set; }
         public int sec_Id { get; set; }
         public int sub_sec_Id { get; set; }
-        // public int ord_Id { get; set; }
-        //  public int plan_qnty { get; set; } 
+        public int ods_id { get; set; }
+        public int qnty { get; set; }
         public DateTime plan_Date { get; set; }
         public DateTime sewPln_date { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -27,12 +29,13 @@ namespace ProductionPrint.models
         {
             connection = conn;
             Idx = new Guid();
+            PIdx = new Guid();
             plant_Id = 0;
+            ods_id = 0;
+            qnty = 0;
+            plan_id = 0;
             sec_Id = 0;
             sub_sec_Id = 0;
-           // sub_sec_Id = 0;
-            //ord_Id = 0;
-            //plan_qnty = 0;
             plan_Date = DateTime.Now;
             planItem = new List<planItem>();
             
@@ -78,6 +81,14 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Load_SectionWisePaln", objDIc);
             }
         }
+        public DataTable LoadPlanData()
+        {
+            {
+                var objDIc = new Dictionary<string, object>();
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("LoadPlanOrder", objDIc);
+            }
+        }
+        
         public DataTable LoadAllSectionPlanData(string frmDt)
         {
             {
@@ -112,6 +123,27 @@ namespace ProductionPrint.models
                     
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Sec_wise_Plan_save", objDIc);
+            }
+        }
+        public DataTable PlanChangeSave()
+        {
+            {
+                var objDIc = new Dictionary<string, object>
+                {
+                    {"plant_Id",plant_Id},
+                    {"sec_Id",sec_Id},
+                    {"sub_sec_Id",sub_sec_Id},
+                    {"PIdx",PIdx},
+                    {"plan_id",plan_id},
+                    {"plan_Date",plan_Date},
+                    {"ord_Id",ods_id},
+                    {"qnty",qnty},
+                    {"sewPln_date",sewPln_date},
+                    { "Usr",Usr},
+                    
+
+                };
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Section_Change_PlanDate", objDIc);
             }
         }
     }

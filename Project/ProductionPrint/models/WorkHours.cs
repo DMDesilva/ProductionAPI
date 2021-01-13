@@ -167,6 +167,17 @@ namespace ProductionPrint.models
 
 
         }
+        public DataSet GetDashDate()
+        {
+            {
+                var objDIc = new Dictionary<string, object>();
+
+                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("GetEffeDateBy", objDIc);
+            }
+
+
+
+        }
 
         public DataTable GetReport(DateTime FrmDt, DateTime ToDt)
         {
