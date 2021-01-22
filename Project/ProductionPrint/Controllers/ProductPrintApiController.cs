@@ -147,6 +147,12 @@ namespace ProductionPrint.Controllers
             ProductPrint pro = new ProductPrint(CommonData.ConStr());
             return pro.SearchHeat(prm.DtPram1,prm.DtPram2);
         }
-
+        //
+        [HttpGet("loadSizes")]
+        public DataTable LoadSizes()
+        {
+            ProductPrint pro = new ProductPrint(CommonData.ConStr());
+            return pro.LoadSizes();
+        }
     }
 }

@@ -76,6 +76,15 @@ namespace ProductionPrint.models
         {
             return (new DbAccess(ConnectionString)).FillDataTable("SELECT [Id] ,[group_name],[group_Id] FROM [dbo].[Auth_Users_Group]");
         }
+
+        public DataTable LoadSizes()
+        {
+            {
+                //var objDIc = new Dictionary<string, object>();
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [sizes_category_id],[size_names],[sort_ordr] FROM [dbo].[mercha_size_master_breakdown]");
+            }
+        }
+
         public DataTable LoadPrintOrderList()
         {
 
