@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace ProductionPrint.models
         public DateTime tpDate { get; set; }
         public Guid usr { get; set; }
         public List<orderList> orderLists { get; set; }
+        public List<data> data { get; set; }
+       
         private string ConnectionString { get; set; }
 
         public TpPrintDepartment(string Conn)
@@ -18,6 +21,7 @@ namespace ProductionPrint.models
             tpDate = DateTime.Now;
             usr = new Guid();
             orderLists = new List<orderList>();
+            data= new List<data>();
             ConnectionString =Conn;
         }
         
@@ -51,7 +55,18 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("SaveTesprintMark", objDIc);
             }
         }
+        public DataTable SaveAust()
+        {
+            {
+                var objDIc = new Dictionary<string, object>
+                {
+                   
+                    {"orderList",new data("").InvItemListToDataTable(data) }
 
+                };
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("", objDIc);
+            }
+        }
     }
     public class orderList
     {
@@ -61,7 +76,7 @@ namespace ProductionPrint.models
         public Boolean a3 { get; set; }
         public Boolean nonetp { get; set; }
         public string coment { get; set; }
-        public string sizeMark   { get; set; }
+        public Boolean sizeMark   { get; set; }
         public Boolean nameSheet { get; set; }
         public string noSize { get; set; }
        
@@ -73,7 +88,7 @@ namespace ProductionPrint.models
             a3 = false;
             nonetp = false;
             coment = "";
-            sizeMark = "";
+            sizeMark = false; 
             nameSheet = false;
             noSize = "";
         }
@@ -87,7 +102,7 @@ namespace ProductionPrint.models
             dt1.Columns.Add("a3", typeof(Boolean));
             dt1.Columns.Add("nonetp", typeof(Boolean));
             dt1.Columns.Add("coment", typeof(string));
-            dt1.Columns.Add("sizeMark", typeof(string));
+            dt1.Columns.Add("sizeMark", typeof(Boolean));
             dt1.Columns.Add("nameSheet", typeof(Boolean));
             dt1.Columns.Add("noSize", typeof(string));
 
@@ -110,4 +125,60 @@ namespace ProductionPrint.models
             return dt1;
         }
     }
+
+    public class data
+    {
+        //[JsonProperty(PropertyName = "id")]
+        public int id { get; set; }
+        //[JsonProperty(PropertyName = "ShippingStatus")]
+        public string ShippingStatus { get; set; }
+       // [JsonProperty(PropertyName = "week")]
+        public string week { get; set; }
+        //[JsonProperty(PropertyName = "PO")]
+        public string PO { get; set; }
+        public data(string v)
+        {
+            id = 0;
+            ShippingStatus = "";
+            week ="";
+            PO = "";
+           
+        }
+        public DataTable InvItemListToDataTable(List<data> lst)
+        {
+            var dt1 = new DataTable();
+            dt1.Clear();
+            dt1.Columns.Add("id", typeof(int));
+            dt1.Columns.Add("ShippingStatus", typeof(string));
+            dt1.Columns.Add("week", typeof(string));
+            dt1.Columns.Add("PO", typeof(string));
+            //dt1.Columns.Add("nonetp", typeof(Boolean));
+            //dt1.Columns.Add("coment", typeof(string));
+            //dt1.Columns.Add("sizeMark", typeof(Boolean));
+            //dt1.Columns.Add("nameSheet", typeof(Boolean));
+            //dt1.Columns.Add("noSize", typeof(string));
+
+
+            foreach (var item in lst)
+            {
+
+                DataRow _plan = dt1.NewRow();
+                _plan["id"] = item.id;
+                _plan["shipSt"] = item.ShippingStatus;
+                _plan["week"] = item.week;
+                _plan["PO"] = item.PO;
+                //_plan["a3"] = item.a3;
+                //_plan["nonetp"] = item.nonetp;
+                //_plan["coment"] = item.coment;
+                //_plan["sizeMark"] = item.sizeMark;
+                //_plan["nameSheet"] = item.nameSheet;
+                //_plan["noSize"] = item.noSize;
+                dt1.Rows.Add(_plan);
+            }
+            return dt1;
+        }
+    }
+
+
+
 }

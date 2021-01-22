@@ -31,5 +31,12 @@ namespace ProductionPrint.Controllers
             //TpPrintDepartment tpDprt = new TpPrintDepartment(CommonData.ConStr());
             return tpDprt.SaveTestPrint();
         }
+        [HttpPost("saveAustralia")]
+        public DataTable SaveAustralia(TpPrintDepartment tpDprt)
+        {
+            //TpPrintDepartment tpDprt = new TpPrintDepartment(CommonData.ConStr());
+            return tpDprt.SaveAust();
+        }
+        
     }
 }
