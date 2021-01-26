@@ -19,6 +19,12 @@ namespace ProductionPrint.Controllers
             TpPrintDepartment tpDprt = new TpPrintDepartment(CommonData.ConStr());
             return tpDprt.LoadordrList();
         }
+        [HttpGet("loadAusPrintData")]
+        public DataTable LoadAusPrintData()
+        {
+            TpPrintDepartment tpDprt = new TpPrintDepartment(CommonData.ConStr());
+            return tpDprt.LoadAusTstPrintData();
+        }
         [HttpGet("loadTestPrintedData")]
         public DataTable LoadTestPrintedData()
         {

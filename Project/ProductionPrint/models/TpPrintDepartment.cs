@@ -32,8 +32,17 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [Idx] ,[ods_id] ,[po_no]  ,[tpDate] ,[design_id]  ,[product_no] ,[product_desc] ,[buyer_id] ,[buyer_category]  ,[pattern_id]  ,[pattern_name],[color_profile],[sizes] ,[country_id] ,[country_name] ,[fabric]  ,[markSt],[remark]  ,[sizeMark]  ,[nameSheet] ,[noSize] ,[createdDate]   ,[createdBy] ,[modifiedDate] ,[modifiedBy] ,[qnty] ,[tp] ,[a3] ,[nonetp] FROM [dbo].[VIEW_Test_PrintedMark] order by tpDate desc");
             }
         }
+
         
-        
+        public DataTable LoadAusTstPrintData()
+        {
+            {
+                
+                var objDIc = new Dictionary<string, object>();
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("LoadAusTstMark", objDIc);
+            }
+        }
+
         public DataTable LoadordrList()
         {
 
@@ -79,6 +88,13 @@ namespace ProductionPrint.models
         public Boolean sizeMark   { get; set; }
         public Boolean nameSheet { get; set; }
         public string noSize { get; set; }
+        public string po { get; set; }
+        public string product_no { get; set; }
+        public string fabric { get; set; }
+        public string pattern_name { get; set; }
+        public string coordinator { get; set; }
+        public string sizes { get; set; }
+        public string customer_name { get; set; }
        
         public orderList(string v)
         {
@@ -91,6 +107,13 @@ namespace ProductionPrint.models
             sizeMark = false; 
             nameSheet = false;
             noSize = "";
+            po = "";
+            product_no = "";
+            fabric = "";
+            pattern_name = "";
+            coordinator = "";
+            sizes = "";
+            customer_name = "";
         }
         public DataTable InvItemListToDataTable(List<orderList> lst)
         {
@@ -105,6 +128,13 @@ namespace ProductionPrint.models
             dt1.Columns.Add("sizeMark", typeof(Boolean));
             dt1.Columns.Add("nameSheet", typeof(Boolean));
             dt1.Columns.Add("noSize", typeof(string));
+            dt1.Columns.Add("po", typeof(string));
+            dt1.Columns.Add("product_no", typeof(string));
+            dt1.Columns.Add("fabric", typeof(string));
+            dt1.Columns.Add("pattern_name", typeof(string));
+            dt1.Columns.Add("coordinator", typeof(string));
+            dt1.Columns.Add("sizes", typeof(string));
+            dt1.Columns.Add("customer_name", typeof(string));
 
 
             foreach (var item in lst)
@@ -120,6 +150,13 @@ namespace ProductionPrint.models
                 _plan["sizeMark"] = item.sizeMark;
                 _plan["nameSheet"] = item.nameSheet;
                 _plan["noSize"] = item.noSize;
+                _plan["po"] = item.po;
+                _plan["product_no"] = item.product_no;
+                _plan["fabric"] = item.fabric;
+                _plan["pattern_name"] = item.pattern_name;
+                _plan["coordinator"] = item.coordinator;
+                _plan["sizes"] = item.sizes;
+                _plan["customer_name"] = item.customer_name;
                 dt1.Rows.Add(_plan);
             }
             return dt1;
