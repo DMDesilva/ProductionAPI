@@ -27,11 +27,12 @@ namespace ProductionPrint.models
             assignData = new List<assignData>();
             connection = Conn;
         }
-        public DataTable LoadDataDesign()
+        public DataSet LoadDataDesign()
         {
             {
-                //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [Idx] ,[ods_id] ,[po_no]  ,[tpDate] ,[design_id]  ,[product_no] ,[product_desc] ,[buyer_id] ,[buyer_category]  ,[pattern_id]  ,[pattern_name],[color_profile],[sizes] ,[country_id] ,[country_name] ,[fabric]  ,[markSt],[remark]  ,[sizeMark]  ,[nameSheet] ,[noSize] ,[createdDate]   ,[createdBy] ,[modifiedDate] ,[modifiedBy] ,[qnty] ,[tp] ,[a3] ,[nonetp], 0 as cs FROM [dbo].[VIEW_Test_PrintedMark] where [markSt]=1 and ([tp]='1' or [a3]='1') order by tpDate desc");
+                var objDIc = new Dictionary<string, object>();
+               // return (new DbAccess(CommonData.ConStr())).FillDataTable("");
+                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("LoadWorkPendData", objDIc);
             }
         }
         public DataTable LoadDesigners()
@@ -44,13 +45,13 @@ namespace ProductionPrint.models
         public DataTable LoadDesignCount()
         {
             {
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [designIdx], COUNT([ods_id]) as cntOrds  ,Sum([qnty]) as sumQnty FROM [dbo].[VIEW_AsignForDesigner] where IsActive=1 group by [designIdx]");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [designIdx], COUNT([PO]) as cntOrds  ,Sum([qnty]) as sumQnty FROM [dbo].[VIEW_LoadCompletedPo] where IsActive=1 group by [designIdx]");
             }
         }
         public DataTable LoadMarkAsignData()
-        {
+        {  //SELECT [Idx] ,[Id] ,[tpIdx]  ,[asignDate] ,[ods_id] ,[po_no] ,[designIdx]  ,[Username],[EpfNo] ,[IsActive] ,[remark],[sizeMark] ,[nameSheet] ,[noSize] ,[buyer_category],[buyer_id],[country_id] ,[country_name] ,[qnty],[sizes],[pattern_name],[fname],[product_no],[fabric],[comment] FROM [dbo].[VIEW_AsignForDesigner]
             {
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [Idx] ,[Id] ,[tpIdx]  ,[asignDate] ,[ods_id] ,[po_no] ,[designIdx]  ,[Username],[EpfNo] ,[IsActive] ,[remark],[sizeMark] ,[nameSheet] ,[noSize] ,[buyer_category],[buyer_id],[country_id] ,[country_name] ,[qnty],[sizes],[pattern_name],[fname],[product_no],[fabric] FROM [dbo].[VIEW_AsignForDesigner]");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [Idx] ,[designIdx] ,[fname] ,[Username]  ,[asignDate] ,[IsActive]  ,[comment] ,[remark],[markSt] ,[nameSheet]  ,[noSize]  ,[prcSt]   ,[sizeMark] ,[PO] as po_no,[Product] as product_no,[Fabric] ,[OrderType] ,[Client],[Coodinator],[Distributor],[bySize],[sizes],[tp],[a3] ,[nonetp],[Pattern] as pattern_name,[qnty]FROM [dbo].[VIEW_LoadCompletedPo]");
             }
         }
         public DataTable SaveDesign()
@@ -74,10 +75,13 @@ namespace ProductionPrint.models
     {
         public Guid idx { get; set; }
         public int ods_id { get; set; }
+        public string comment { get; set; }
+
         public assignData(string v)
         {
             idx = new Guid();
             ods_id = 0;
+            comment = "";
         }
         public DataTable InvItemListToDataTable(List<assignData> lst)
         {
@@ -85,12 +89,14 @@ namespace ProductionPrint.models
             dt1.Clear();
             dt1.Columns.Add("idx", typeof(Guid));
             dt1.Columns.Add("ods_id", typeof(int));
+            dt1.Columns.Add("comment", typeof(string));
             foreach (var item in lst)
             {
 
                 DataRow _Desplan = dt1.NewRow();
                 _Desplan["idx"] = item.idx;
                 _Desplan["ods_id"] = item.ods_id;
+                _Desplan["comment"] = item.comment;
               
                 dt1.Rows.Add(_Desplan);
             }

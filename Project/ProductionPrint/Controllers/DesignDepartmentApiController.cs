@@ -14,7 +14,7 @@ namespace ProductionPrint.Controllers
     public class DesignDepartmentApiController : ControllerBase
     {
         [HttpGet("loadPrintData")]
-        public DataTable LoadPrintData()
+        public DataSet LoadPrintData()
         {
             DesignDepartment DisgnDprt = new DesignDepartment(CommonData.ConStr());
             return DisgnDprt.LoadDataDesign();
