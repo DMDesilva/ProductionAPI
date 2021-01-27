@@ -15,6 +15,7 @@ namespace ProductionPrint.models
         public int isActive { get; set; }
         public int roomId { get; set; }
         public decimal size { get; set; }
+        public string sizeRn { get; set; }
         public int sub_sec_id { get; set; }
         public int OrdId { get; set; }
         public int Prod_Qnty { get; set; }
@@ -34,6 +35,8 @@ namespace ProductionPrint.models
             CreatedBy = new Guid();
             id = 0;
             isActive = 0;
+            roomId = 0;
+            sizeRn = "";
         }
 
         public DataTable LoadPlants()
@@ -85,12 +88,12 @@ namespace ProductionPrint.models
             }
         }
 
-        public DataTable LoadPrintOrderList()
+        public DataSet LoadPrintOrderList()
         {
 
             {
                 var objDIc = new Dictionary<string, object>();
-                var dt = (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("GetPrintOrdList ", objDIc);
+                var dt = (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("GetPrintOrdList ", objDIc);
                 return dt;
             }
 
@@ -174,7 +177,7 @@ namespace ProductionPrint.models
                    {"PrintSecId",PrintSecId},
                    {"roomId",roomId},
                    {"OrdId",OrdId},
-                   {"size",size},
+                   {"size",sizeRn},
                    {"Prod_Qnty",Prod_Qnty} ,
                    {"Prod_Shift",Prod_Shift},    
                    {"printComment",printComment},

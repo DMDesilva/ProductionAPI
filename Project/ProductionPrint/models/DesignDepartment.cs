@@ -51,7 +51,7 @@ namespace ProductionPrint.models
         public DataTable LoadMarkAsignData()
         {  //SELECT [Idx] ,[Id] ,[tpIdx]  ,[asignDate] ,[ods_id] ,[po_no] ,[designIdx]  ,[Username],[EpfNo] ,[IsActive] ,[remark],[sizeMark] ,[nameSheet] ,[noSize] ,[buyer_category],[buyer_id],[country_id] ,[country_name] ,[qnty],[sizes],[pattern_name],[fname],[product_no],[fabric],[comment] FROM [dbo].[VIEW_AsignForDesigner]
             {
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [Idx] ,[designIdx] ,[fname] ,[Username]  ,[asignDate] ,[IsActive]  ,[comment] ,[remark],[markSt] ,[nameSheet]  ,[noSize]  ,[prcSt]   ,[sizeMark] ,[PO] as po_no,[Product] as product_no,[Fabric] ,[OrderType] ,[Client],[Coodinator],[Distributor],[bySize],[sizes],[tp],[a3] ,[nonetp],[Pattern] as pattern_name,[qnty]FROM [dbo].[VIEW_LoadCompletedPo]");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [Idx] ,[designIdx] ,[fname] ,[Username]  ,[asignDate] ,[IsActive]  ,[comment] ,[remark],[markSt] ,[nameSheet]  ,[noSize]  ,[prcSt]   ,[sizeMark] ,[PO] as po_no,[Product] as product_no,[Fabric] ,[OrderType] ,[Client],[Coodinator],[Distributor],[bySize],[sizes],[tp],[a3] ,[nonetp],[Pattern] as pattern_name,[qnty] ,[ods_id],[designCmnt] FROM [dbo].[VIEW_LoadCompletedPo]");
             }
         }
         public DataTable SaveDesign()
