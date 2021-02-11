@@ -86,6 +86,13 @@ namespace ProductionPrint.Controllers
            Shipment shps = new Shipment(CommonData.ConStr());
             return shps.GetAWB();
         }
+        
+        [HttpGet("getAllInvoice")]
+        public DataSet getAllInvoice()
+        {
+            Shipment shps = new Shipment(CommonData.ConStr());
+            return shps.GetAllInvoice();
+        }
         [HttpPost("gettAWBFilterLoad")]
         public DataTable GetAWBFilterLoad(ClsPrm prm)
         {
@@ -155,5 +162,34 @@ namespace ProductionPrint.Controllers
             FreightCostDebit frghtDbt = new FreightCostDebit(CommonData.ConStr());
             return frghtDbt.GetFreghtDebitDtBy(prm.stPram1, prm.stPram2);
         }
+
+
+      
+        [HttpGet("getPayAccount")]
+        public DataTable GetPayAccount()
+        {
+            PaymentRelese payment = new PaymentRelese(CommonData.ConStr());
+            return payment.LoadPayAccount();
+        }
+
+      
+        [HttpPost("savePaymentRelese")]
+        public DataTable SavePaymentRelese(PaymentRelese payment)
+        {
+         //   PaymentRelese payment = new PaymentRelese(CommonData.ConStr());
+            return payment.SavePaymentRelese();
+
+        }
+
+
+        //Report View ----------------------------
+
+        [HttpGet("getDebitCostReport")]
+        public DataTable GetDebitCostReport()
+        {
+            ShipmentReport rprt = new ShipmentReport(CommonData.ConStr());
+            return rprt.LoadDebitCostReport();
+        }
+
     }
 }

@@ -188,9 +188,15 @@ namespace ProductionPrint.models
         {
             return (new DbAccess(Connection)).FillDataTable("SELECT DISTINCT([fforwrdIdx]) ,[Frght_Forwrd] FROM [ORACLE].[dbo].[VIEW_Shipment_AWB] where [IsActive]=1 OR [IsActive]=3");
         }
-
-       
-
+  
+      
+        public DataSet GetAllInvoice()
+        {
+            {
+                var objDIc = new Dictionary<string, object>();
+                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("AllInvBill", objDIc);
+            }
+        }
 
     }
 

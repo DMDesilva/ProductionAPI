@@ -152,7 +152,7 @@ namespace ProductionPrint.Controllers
         public DataTable DeletSwprd(ClsPrm prm)
         {
             WorkHours wrk = new WorkHours(CommonData.ConStr());
-            return wrk.DeleteSweingPrd(prm.gPram1);
+            return wrk.DeleteSweingPrd(prm.iPram1);
         }
 
         [HttpPost("getTotalQnty")]

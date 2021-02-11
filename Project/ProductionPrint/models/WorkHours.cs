@@ -87,14 +87,14 @@ namespace ProductionPrint.models
             }
         }
 
-        public DataTable DeleteSweingPrd(Guid Idx)
+        public DataTable DeleteSweingPrd(int Id)
         {
 
             {
                 var objDIc = new Dictionary<string, object>
                 {
 
-                   {"Idx",Idx}
+                   {"Id",Id}
 
                  };
                 var dt = (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("DeleteSweingProd", objDIc);
@@ -105,12 +105,7 @@ namespace ProductionPrint.models
         public DataTable LoadOrderList()
         {
             var obj = new Dictionary<string, object>();
-            //{
-            //    var objDIc = new Dictionary<string, object> {
-
-            //       {"",1}
-
-            //};
+           
             var dt = (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("OrdList", obj);
             return dt;
         }
