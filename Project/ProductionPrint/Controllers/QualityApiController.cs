@@ -42,5 +42,13 @@ namespace ProductionPrint.Controllers
             // fileDINumData frghtDbt = new fileDINumData(CommonData.ConStr());
             return file.SaveTransfile();
         }
+
+        [HttpPost("deleteFile")]
+        public DataTable DeleteFile(ClsPrm prm)
+        {
+            fileDINumData file = new fileDINumData(CommonData.ConStr());
+            return file.DeleteTransferFile(prm.gPram1);
+        }
+
     }
 }
