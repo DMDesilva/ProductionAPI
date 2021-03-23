@@ -69,12 +69,12 @@ namespace ProductionPrint.models
 
       
         }
-        public DataTable LoadSectionPlanData(DateTime frmDt,int sec_Id)
+        public DataTable LoadSectionPlanData(int sec_Id)
         {
             {
                 var objDIc = new Dictionary<string, object> {
 
-                   {"frmDt",frmDt},
+                ///   {"frmDt",frmDt},
                    {"sec_Id",sec_Id}
 
             };
@@ -124,7 +124,7 @@ namespace ProductionPrint.models
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Sec_wise_Plan_save", objDIc);
             }
-        }
+        } 
         public DataTable PlanChangeSave()
         {
             {

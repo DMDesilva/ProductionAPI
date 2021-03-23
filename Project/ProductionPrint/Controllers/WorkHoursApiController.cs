@@ -182,5 +182,14 @@ namespace ProductionPrint.Controllers
             WorkHours wrk = new WorkHours(CommonData.ConStr());
             return wrk.GetProdProfile();
         }
+
+        //---------------PO Change Qnty
+        //ChangeQnty
+        [HttpPost("changePOQnty")]
+        public DataTable ChangePOQnty(QntyChange qnyChng)
+        {
+            // WorkHours wrk = new WorkHours(CommonData.ConStr());
+            return qnyChng.ChangeQnty();
+        }
     }
 }

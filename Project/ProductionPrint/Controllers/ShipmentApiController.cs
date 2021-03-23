@@ -13,6 +13,12 @@ namespace ProductionPrint.Controllers
     [ApiController]
     public class ShipmentApiController : ControllerBase
     {
+        [HttpGet("loadAllAWBNo")]
+        public DataTable LoadAllAWBNo()
+        {
+            Shipment shps = new Shipment(CommonData.ConStr());
+            return shps.GetAllAWB();
+        }
         [HttpGet("loadAllData")]
         public DataSet LoadAllData()
         {

@@ -15,7 +15,7 @@ namespace ProductionPrint.models
         public DateTime workdate { get; set; }
         public Guid UsrId { get; set; }
         private string connection { get; set; }
-    public  Sectionproduction(string Conn)
+        public Sectionproduction(string Conn)
         {
             ord_Id = 0;
             plant_Id = 0;

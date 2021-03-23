@@ -70,6 +70,7 @@ namespace ProductionPrint.models
         public DataTable TotalQuantity(int sec_Id, int ord)
         {
             return (new DbAccess(Connection)).FillDataTable("SELECT ISNULL(sum([qnty]),0) as tot FROM [dbo].[prdctn_poprod_transa_daywrkhours_efficiency] where [sec_Id]='" + sec_Id.ToString()+ "' and ord_Id='"+ord.ToString()+"'");
+
         }
         public DataTable DeleteWorkHours(Guid Idx)
         {

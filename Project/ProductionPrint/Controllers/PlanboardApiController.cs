@@ -44,7 +44,7 @@ namespace ProductionPrint.Controllers
         public DataTable LoadPlannedSec(ClsPrm prm)
         {
             PlanBoard plan = new PlanBoard(CommonData.ConStr());
-            return plan.LoadSectionPlanData(prm.DtPram1, prm.iPram1);
+            return plan.LoadSectionPlanData( prm.iPram1);
         }
         
         [HttpGet("loadPlanData")]
@@ -68,6 +68,14 @@ namespace ProductionPrint.Controllers
             return plan.PlanProdData(prm.iPram1);
         }
 
-       
+        // Section Out Put
+        [HttpGet("loadPlanDataAll")]
+        public DataSet LoadPlanDataAll()
+        {
+            SectionProductionOut planAll = new SectionProductionOut(CommonData.ConStr());
+            return planAll.GetProduction();
+        }
+
+
     }
 }

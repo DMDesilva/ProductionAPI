@@ -65,7 +65,11 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("LoadShipment", objDIc);
             }
         }
-
+        
+        public DataTable GetAllAWB()
+        {
+            return (new DbAccess(Connection)).FillDataTable("SELECT [awbNo] FROM [dbo].[Ex_Im_Shipment_AWB_Details]");
+        }
         public DataTable MastModeAdd()
         {
             {
