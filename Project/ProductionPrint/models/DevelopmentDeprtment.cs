@@ -102,9 +102,6 @@ namespace ProductionPrint.models
                 _plan["sup_item_nme"] = item.sup_item_nme;
                 //  _plan["NewNic"] = item.NewNic;
 
-
-
-
                 dt1.Rows.Add(_plan);
             }
             return dt1;
