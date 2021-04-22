@@ -123,6 +123,21 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Change_UserPswd", objDIc);
             }
         }
+
+        public DataTable ChangePasswordAdmin()
+        {
+            string HashPwd = BCrypt.Net.BCrypt.HashPassword("abc@1234");
+            {
+                var objDIc = new Dictionary<string, object>
+                {
+                   {"user_Id",usrId},
+                   { "password",HashPwd}
+
+                };
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Change_UserPswd", objDIc);
+            }
+        }
+
         public DataTable LoadUsers()
         {
             

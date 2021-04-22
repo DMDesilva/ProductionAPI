@@ -32,7 +32,13 @@ namespace ProductionPrint.Controllers
            // Users usr = new Users(CommonData.ConStr());
             return usr.ChangePassword();
         }
-        //
+       
+        [HttpPost("changePassAdmin")]
+        public DataTable changePassAdmin(Users usr)
+        {
+            // Users usr = new Users(CommonData.ConStr());
+            return usr.ChangePasswordAdmin();
+        }
         [HttpGet("getAllUsers")]
         public DataTable GetAllUsers()
         {
