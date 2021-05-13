@@ -24,15 +24,15 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [pattern_id] ,CONCAT( [pattern_name],' - ',[pattern_description]) as pttn FROM [dbo].[develp_master_pattern] where [isdeleted]=0");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("Select  DISTINCT pattern_id,CONCAT( pattern_name ,' - ', pattern_description )as pttn from dbo.system_view_mercha_podata where despathed_date  between (SELECT CONVERT ( date, DATEADD(M, DATEDIFF(M, 0, GETDATE()) -2, 20))) and (SELECT CONVERT ( date, DATEADD(M, DATEDIFF(M, 0, GETDATE()) +3, 0)))");
             }
         }
         public DataSet LoadAllData()
         {
             {
+
                 var objDIc = new Dictionary<string, object>();
                 return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("LoadPttnAndFab", objDIc);
-
             }
         }
         public DataSet LoadFabByPttn()
@@ -40,7 +40,6 @@ namespace ProductionPrint.models
             {
                 var objDIc = new Dictionary<string, object>();
                 return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("FabConsumBypttn", objDIc);
-
             }
         }
         public DataTable SaveFabConsum()
@@ -50,11 +49,10 @@ namespace ProductionPrint.models
 
                     {"pattern_id",pattern_id},
                     {"fabric",new fabric("").InvItemListToDataTable(fabric) },
-                    {"usr",usr},
+                    {"usr",usr}
 
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("SaveFabConsumByPttn", objDIc);
-
             }
         }
 
@@ -63,7 +61,6 @@ namespace ProductionPrint.models
             {
                 var objDIc = new Dictionary<string, object>();
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("LoadForFabCon", objDIc);
-
             }
         }
 
@@ -92,7 +89,6 @@ namespace ProductionPrint.models
             dt1.Columns.Add("sup_item_code", typeof(string));
             dt1.Columns.Add("consum", typeof(decimal));
             dt1.Columns.Add("sup_item_nme", typeof(string));
-
 
             foreach (var item in lst)
             {

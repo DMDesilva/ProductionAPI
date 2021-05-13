@@ -116,7 +116,7 @@ namespace ProductionPrint.models
                 var objDIc = new Dictionary<string, object>
                 {
 
-                   {"user_Id",usrId},
+                   {"username",usrId},
                    { "password",HashPwd}
 
                 };
@@ -130,7 +130,7 @@ namespace ProductionPrint.models
             {
                 var objDIc = new Dictionary<string, object>
                 {
-                   {"user_Id",usrId},
+                   {"username",usrId},
                    { "password",HashPwd}
 
                 };
