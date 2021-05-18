@@ -45,6 +45,12 @@ namespace ProductionPrint.Controllers
             DevelopmentDeprtment dev = new DevelopmentDeprtment(CommonData.ConStr());
             return dev.LoadFabByPttn();
         }
-        
+
+        [HttpPost("sendEmailsFab")]
+        public DataTable SendEmailsFab(EmailSend emil)
+        {
+            //DevelopmentDeprtment dev = new DevelopmentDeprtment(CommonData.ConStr());
+            return emil.SendEmails();
+        }
     }
 }

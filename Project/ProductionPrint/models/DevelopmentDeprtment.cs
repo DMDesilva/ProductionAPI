@@ -24,7 +24,7 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("Select  DISTINCT pattern_id,CONCAT( pattern_name ,' - ', pattern_description )as pttn from dbo.system_view_mercha_podata where despathed_date  between (SELECT CONVERT ( date, DATEADD(M, DATEDIFF(M, 0, GETDATE()) -2, 20))) and (SELECT CONVERT ( date, DATEADD(M, DATEDIFF(M, 0, GETDATE()) +3, 0)))");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("Select DISTINCT pattern_id,CONCAT( pattern_name ,' - ', pattern_description )as pttn from dbo.system_view_mercha_podata where despathed_date  between (SELECT CONVERT ( date, DATEADD(M, DATEDIFF(M, 0, GETDATE()) -2, 20))) and (SELECT CONVERT ( date, DATEADD(M, DATEDIFF(M, 0, GETDATE()) +3, 0)))");
             }
         }
         public DataSet LoadAllData()
