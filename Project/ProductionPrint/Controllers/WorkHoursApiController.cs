@@ -191,5 +191,12 @@ namespace ProductionPrint.Controllers
             // WorkHours wrk = new WorkHours(CommonData.ConStr());
             return qnyChng.ChangeQnty();
         }
+
+        [HttpPost("sendChangeQnymail")]
+        public DataTable SendChangeQnymail(EmailSend Qntyemails)
+        {
+            // WorkHours wrk = new WorkHours(CommonData.ConStr());
+            return Qntyemails.SendEmailsQntyChange();
+        }
     }
 }

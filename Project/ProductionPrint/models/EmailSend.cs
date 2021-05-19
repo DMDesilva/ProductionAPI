@@ -15,6 +15,8 @@ namespace ProductionPrint.models
         public string sbcc { get; set; }
         public string sbody { get; set; }
         public string ssubject { get; set; }
+        public string po_no { get; set; }
+        public int qnty { get; set; }
 
         public EmailSend()
         {
@@ -23,6 +25,8 @@ namespace ProductionPrint.models
             sbcc = "";
             sbody = "";
             ssubject = "";
+            po_no = "";
+            qnty =0;
         }
         public DataTable SendEmails()
         {
@@ -49,6 +53,31 @@ namespace ProductionPrint.models
             return rtnVal;
         }
 
+        public DataTable SendEmailsQntyChange()
+        {
+            var rtnVal = new DataTable();
+            string sBody = "<!DOCTYPE html> " +
+               "<html> " +
+               "<head> " +
+               "<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'></head> " +
+
+
+           "<body>" +
+            //Mail Header
+
+            "<table style='border: 3px solid Blue; font-family: Cambria; height: 34px;'>" +
+            "<tbody>" +
+            "<tr><th style='width: 700px;'> Production Qnty Change </th></tr> " +
+            "</tbody>" +
+            "</table>" + "</br>" +
+            "<p>"+ DateTime.Now.ToString("yyyy-MM-dd")+"<p>" +
+            "<h3> <b>"+ po_no + "</b> </h3> "+ "<h4> change into "+ qnty + "PCs. </h4> " +"<p> Qnty Changed Successfully.</p>" +
+           //Auto Generate Word
+           "<hr><p><font size='1'><I>This is a Auto Generated Mail From JK Mail System Developed By JK IT Department [Generated Date " + DateTime.Now.ToString("yyyy-MM-dd") + " Time " + DateTime.Now.ToString("hh:mm:ss") + "- From JK Messenger ]</I></font></p>" +
+           "</hr></body></html>";
+            GenarateMail(sto, scc, sbcc, sBody, ssubject);
+            return rtnVal;
+        }
         private string GenarateMail(string sTo, string sCc, string sBcc, string sBody, string sSubject)
         {
             string returnValue = "";
