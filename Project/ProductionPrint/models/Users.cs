@@ -126,7 +126,7 @@ namespace ProductionPrint.models
 
         public DataTable ChangePasswordAdmin()
         {
-            string HashPwd = BCrypt.Net.BCrypt.HashPassword("abc@1234");
+            string HashPwd = BCrypt.Net.BCrypt.HashPassword("Jk@1234");
             {
                 var objDIc = new Dictionary<string, object>
                 {

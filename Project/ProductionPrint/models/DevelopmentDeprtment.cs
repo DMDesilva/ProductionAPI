@@ -73,13 +73,16 @@ namespace ProductionPrint.models
         public string sup_item_code { get; set; }
         public decimal consum { get; set; }
         public string sup_item_nme { get; set; }
-       
+        public int sb_itm_id { get; set; }
+        public string sb_itm_nme { get; set; }
         public fabric(string v)
         {
             itm_id = 0;
             sup_item_code = "";
             consum = 0;
             sup_item_nme = "";
+            sb_itm_id = 0;
+            sb_itm_nme = "";
         }
         public DataTable InvItemListToDataTable(List<fabric> lst)
         {
@@ -89,7 +92,8 @@ namespace ProductionPrint.models
             dt1.Columns.Add("sup_item_code", typeof(string));
             dt1.Columns.Add("consum", typeof(decimal));
             dt1.Columns.Add("sup_item_nme", typeof(string));
-
+            dt1.Columns.Add("sb_itm_id", typeof(int));
+            dt1.Columns.Add("sb_itm_nme", typeof(string));
             foreach (var item in lst)
             {
 
@@ -98,7 +102,8 @@ namespace ProductionPrint.models
                 _plan["sup_item_code"] = item.sup_item_code;
                 _plan["consum"] = item.consum;
                 _plan["sup_item_nme"] = item.sup_item_nme;
-                //  _plan["NewNic"] = item.NewNic;
+                _plan["sb_itm_id"] = item.sb_itm_id;
+                _plan["sb_itm_nme"] = item.sb_itm_nme;
 
                 dt1.Rows.Add(_plan);
             }
