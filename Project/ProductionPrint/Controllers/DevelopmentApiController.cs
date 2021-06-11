@@ -52,5 +52,13 @@ namespace ProductionPrint.Controllers
             //DevelopmentDeprtment dev = new DevelopmentDeprtment(CommonData.ConStr());
             return emil.SendEmails();
         }
+
+        //-----
+        [HttpPost("fabTransfer")]
+        public DataTable FabTransfer(DevelopmentDeprtment dev)
+        {
+           // DevelopmentDeprtment dev = new DevelopmentDeprtment(CommonData.ConStr());
+            return dev.FabTransPo();
+        }
     }
 }

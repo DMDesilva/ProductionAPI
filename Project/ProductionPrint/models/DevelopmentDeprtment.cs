@@ -9,15 +9,19 @@ namespace ProductionPrint.models
     public class DevelopmentDeprtment
     {
         public int pattern_id { get; set; }
+        public int ods_id { get; set; }
         public List<fabric> fabric { get; set; }
         public Guid usr { get; set; }
+        public Guid fabArrId { get; set; }
         private string connection { get; set; }
 
         public DevelopmentDeprtment(string conn)
         {
             pattern_id = 0;
+            ods_id = 0;
             fabric = new List<fabric>();
             usr = new Guid();
+            fabArrId = new Guid();
             connection = conn; 
         }
         public DataTable LoadingPatten()
@@ -64,6 +68,20 @@ namespace ProductionPrint.models
             }
         }
 
+        public DataTable FabTransPo()
+        {
+            {
+                var objDIc = new Dictionary<string, object> {
+
+                   // {"pattern_id",pattern_id},
+                    {"ods_id",ods_id},
+                    {"fabArrId",fabArrId},
+                    {"usr",usr}
+
+                };
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Save_fab_trans_po", objDIc);
+            }
+        }
 
     }
 
