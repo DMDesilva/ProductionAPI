@@ -34,7 +34,6 @@ namespace ProductionPrint.models
         public DataSet LoadAllData()
         {
             {
-
                 var objDIc = new Dictionary<string, object>();
                 return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("LoadPttnAndFab", objDIc);
             }
