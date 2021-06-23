@@ -26,5 +26,20 @@ namespace ProductionPrint.Controllers
           //  PrintMachineRepair printmach = new PrintMachineRepair(CommonData.ConStr());
             return printmach.Save_machine();
         }
+
+        //-----------------------------
+        [HttpGet("getbrakedwn")]
+        public DataTable Getbrakedwn()
+        {
+            BrakeDown brake= new BrakeDown(CommonData.ConStr());
+            return brake.LoadBrakeDown();
+        }
+        
+        [HttpPost("saveBrake")]
+        public DataTable SaveBrake(BrakeDown brake)
+        {
+            //  PrintMachineRepair printmach = new PrintMachineRepair(CommonData.ConStr());
+            return brake.Save_Brakedwn();
+        }
     }
 }
