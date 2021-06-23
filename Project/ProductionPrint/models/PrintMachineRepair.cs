@@ -40,7 +40,7 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [Idx] ,[id],[machine_mode]  ,[serial_no],[purchase_date] ,[purch_value],[supplier]  ,[owner],[ip_address],[img] FROM [dbo].[_PrintSec_machine]");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [Idx] ,[id],[machine_mode],[serial_no],CONVERT(DATE,[purchase_date]) as purchase_date,[purch_value],[supplier]  ,[owner],[ip_address],[img] ,0 as cs FROM [dbo].[_PrintSec_machine]");
             }
         }
         public DataTable Save_machine()
@@ -50,7 +50,7 @@ namespace ProductionPrint.models
                 {"idx",idx},
                 {"machine_mode",machine_mode},
                 {"serial_no",serial_no},
-                {"purchase_date", purchase_date},
+                {"purchase_date",purchase_date},
                 {"purch_value",purch_value},
                 {"supplier",supplier},
                 {"owner",owner},
