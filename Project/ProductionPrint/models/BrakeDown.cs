@@ -35,7 +35,7 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [Idx] ,[id] ,[machineIdx] ,[brake_date] ,[start_time] ,[end_time] ,[resone] FROM [dbo].[_PrintSec_machine_brakedwn]");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  brk.[Idx] ,brk.[machineIdx],brk.[brake_date] ,brk.[start_time] ,brk.[end_time] ,brk.[resone] ,prntmchn.[machine_mode],prntmchn.[serial_no]FROM [dbo].[_PrintSec_machine_brakedwn] brk INNER JOIN [dbo].[_PrintSec_machine] prntmchn on brk.[machineIdx]=prntmchn.Idx");
             }
         }
 
@@ -47,13 +47,12 @@ namespace ProductionPrint.models
                 {"machineIdx",machineIdx},
                 {"brake_date",brake_date},
                 {"start_time",start_time},
-                {"start_time",start_time},
                 {"end_time",end_time},
                 {"resone",resone},
                 {"usr",usr},
                 {"typ",typ}
             };
-                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Print_Machine_Save", objDIc);
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Print_Machine_BrkDwn", objDIc);
             }
         }
 
