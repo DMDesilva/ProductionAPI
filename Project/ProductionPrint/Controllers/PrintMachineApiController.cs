@@ -27,7 +27,29 @@ namespace ProductionPrint.Controllers
             return printmach.Save_machine();
         }
 
-        //-----------------------------
+        //-----------------------------------Sparepart Assign-----------------------------------------\\
+        [HttpGet("getsparepart")]
+        public DataTable Getsparepart()
+        {
+            SparepartAssign spare = new SparepartAssign(CommonData.ConStr());
+            return spare.LoadSparepart();
+        }
+
+        [HttpGet("getSpareprtmchn")]
+        public DataTable GetSpareprtmchn()
+        {
+            SparepartAssign spare = new SparepartAssign(CommonData.ConStr());
+            return spare.LoadAssignSparemachn();
+        }
+
+        [HttpPost("saveSparepart")]
+        public DataTable SaveSparepart(SparepartAssign spare)
+        {
+            
+            return spare.Save_Spareprts();
+        }
+
+        //----------------------------------- Brake Down-----------------------------------------------\\
         [HttpGet("getbrakedwn")]
         public DataTable Getbrakedwn()
         {
