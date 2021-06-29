@@ -58,7 +58,7 @@ namespace ProductionPrint.models
                 {"spartSerialNo",spartSerialNo},
                 {"pcount",pcount},
                 {"usr",usr}
-               // {"typ",typ}
+              // {"typ",typ}
             };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Print_Machine_Spareparts", objDIc);
             }

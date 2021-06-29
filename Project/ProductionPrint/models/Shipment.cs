@@ -8,6 +8,7 @@ namespace ProductionPrint.models
 {
     public class Shipment
     {
+        public Guid idx { get; set; }
         public DateTime shipdate { get; set; }
         public int typ { get; set; }
         public string mode { get; set; }
@@ -31,8 +32,10 @@ namespace ProductionPrint.models
         public string remark { get; set; }
         public Guid CreatedBy { get; set; }
         private string Connection { get; set; }
+        public int uptyp { get; set; }
         public Shipment(string Conn)
         {
+            idx= new Guid();
             shipdate = DateTime.Now;
             typ = 0;
             mode = "";
@@ -56,6 +59,7 @@ namespace ProductionPrint.models
             buyer = "";
             remark = "";
             CreatedBy = new Guid();
+            uptyp = 0;
         }
 
         public DataSet LoadData()
@@ -153,6 +157,7 @@ namespace ProductionPrint.models
         {
             {
                 var objDIc = new Dictionary<string, object> {
+                    {"idx",idx},
                     {"shipdate",shipdate},
                     { "typ",typ},
                     { "modeId",modeId},
@@ -165,7 +170,8 @@ namespace ProductionPrint.models
                     { "Cost_SecId",Cost_SecId},
                     { "buyerId",buyerId},
                     { "remark",remark},
-                    { "CreatedBy",CreatedBy}
+                    { "CreatedBy",CreatedBy},
+                    { "uptyp",uptyp}
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Shipment_AWB_Save", objDIc);
             }

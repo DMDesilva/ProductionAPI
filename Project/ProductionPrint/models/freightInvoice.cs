@@ -8,6 +8,7 @@ namespace ProductionPrint.models
 {
     public class freightInvoice
     {
+        public Guid idx{ get; set; }
         public Guid freightforwd { get; set; }
         public string freightInv { get; set; }
         public DateTime InvDate { get; set; }
@@ -20,11 +21,13 @@ namespace ProductionPrint.models
         public decimal otherCost { get; set; }
         public decimal totalCost { get; set; }
         public Guid CreatedBy { get; set; }
+        public int uptyp { get; set; }
        
         private string Connection { get; set; }
 
         public freightInvoice(string conn)
         {
+            idx = new Guid();
             freightforwd = new Guid();
             freightInv = "";
             InvDate = DateTime.Now;
@@ -37,6 +40,7 @@ namespace ProductionPrint.models
             otherCost = 0;
             totalCost = 0;
             CreatedBy = new Guid();
+            uptyp = 0;
             Connection = conn;
         }
 
@@ -44,18 +48,20 @@ namespace ProductionPrint.models
         {
             {
                 var objDIc = new Dictionary<string, object> {
+                    {"idx",idx},
                     {"freightforwd",freightforwd},
-                    { "freightInv",freightInv},
-                    { "InvDate",InvDate},
-                    { "awbIdx",awbIdx},
-                    { "weight",weight},
-                    { "frghCost",frghCost},
-                    { "addiCost",addiCost},
-                    { "fuelSurcharge",fuelSurcharge},
-                    { "exWrkChrg",exWrkChrg},
-                    { "otherCost",otherCost},
-                    { "totalCost",totalCost},
-                     { "CreatedBy",CreatedBy}
+                    {"freightInv",freightInv},
+                    {"InvDate",InvDate},
+                    {"awbIdx",awbIdx},
+                    {"weight",weight},
+                    {"frghCost",frghCost},
+                    {"addiCost",addiCost},
+                    {"fuelSurcharge",fuelSurcharge},
+                    {"exWrkChrg",exWrkChrg},
+                    {"otherCost",otherCost},
+                    {"totalCost",totalCost},
+                    {"CreatedBy",CreatedBy},
+                    {"uptyp",uptyp}
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Shipment_FreightInv", objDIc);
             }
