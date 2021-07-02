@@ -33,6 +33,14 @@ namespace ProductionPrint.Controllers
            //PlanBoard plan = new PlanBoard(CommonData.ConStr());
             return plan.PlanSave();
         }
+
+        [HttpPost("dateSecPlanSaved")]
+        public DataTable DateSecPlanSaved(PlanBoard plan)
+        {
+           //PlanBoard plan = new PlanBoard(CommonData.ConStr());
+            return plan.Date_SecPlanSave();
+        }
+
         [HttpPost("planChangeSaved")]
         public DataTable PlanChangeSaved(PlanBoard plan)
         {
@@ -52,6 +60,13 @@ namespace ProductionPrint.Controllers
         {
             PlanBoard plan = new PlanBoard(CommonData.ConStr());
             return plan.LoadPlanData();
+        }
+       
+        [HttpGet("loadSecforPlan")]
+        public DataTable LoadSecforPlan()
+        {
+            PlanBoard plan = new PlanBoard(CommonData.ConStr());
+            return plan.LoadSectionforPlan();
         }
 
         [HttpPost("loadAllPlannedSec")]

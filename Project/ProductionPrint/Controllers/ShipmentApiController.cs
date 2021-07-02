@@ -197,5 +197,12 @@ namespace ProductionPrint.Controllers
             return rprt.LoadDebitCostReport();
         }
 
+        [HttpPost("getDebitCostReportDateby")]
+        public DataTable GetDebitCostReportDateby(ShipmentReport rprt)
+        {
+          //  ShipmentReport rprt = new ShipmentReport(CommonData.ConStr());
+            return rprt.LoadDebitCostReportDateBy();
+        }
+
     }
 }

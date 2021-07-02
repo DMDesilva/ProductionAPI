@@ -23,6 +23,16 @@ namespace ProductionPrint.models
         public DateTime ModifiedDate { get; set; }
         public Guid ModifiedBy { get; set; }
         public List <planItem> planItem { get; set; }
+        public DateTime designPln_date { get; set; }
+        public DateTime printingPln_date { get; set; }
+        public DateTime hPrintingPln_date { get; set; }
+        public DateTime devPln_date { get; set; }
+        public DateTime scPritingPln_date { get; set; }
+        public DateTime reCutPln_date { get; set; }
+        public DateTime cutPln_date { get; set; }
+        public DateTime diCutPln_date { get; set; }
+        public DateTime packingPln_date { get; set; }
+        public DateTime embPln_date { get; set; }
         private string connection { get; set; }
 
         public PlanBoard(string conn)
@@ -42,7 +52,18 @@ namespace ProductionPrint.models
             CreatedDate = DateTime.Now;
             Usr = new Guid();
             ModifiedDate = DateTime.Now;
-           // ModifiedBy = new Guid();
+
+            designPln_date = DateTime.Now;
+            printingPln_date = DateTime.Now;
+            hPrintingPln_date = DateTime.Now;
+            devPln_date = DateTime.Now;
+            scPritingPln_date = DateTime.Now;
+            reCutPln_date = DateTime.Now;
+            cutPln_date = DateTime.Now;
+            diCutPln_date = DateTime.Now;
+            packingPln_date = DateTime.Now;
+            embPln_date = DateTime.Now;
+            // ModifiedBy = new Guid();
 
         }
 
@@ -79,6 +100,13 @@ namespace ProductionPrint.models
 
             };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Load_SectionWisePaln", objDIc);
+            }
+        }
+        public DataTable LoadSectionforPlan()
+        {
+            {
+                var objDIc = new Dictionary<string, object>();
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("SectionforPlan", objDIc);
             }
         }
         public DataTable LoadPlanData()
@@ -144,6 +172,26 @@ namespace ProductionPrint.models
 
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Section_Change_PlanDate", objDIc);
+            }
+        }
+        public DataTable Date_SecPlanSave()
+        {
+            {
+                var objDIc = new Dictionary<string, object>
+                {
+                    {"designPln_date",designPln_date},
+                    {"printingPln_date",printingPln_date},
+                    {"hPrintingPln_date",hPrintingPln_date},
+                    {"devPln_date",devPln_date},
+                    {"scPritingPln_date",scPritingPln_date},
+                    {"reCutPln_date",reCutPln_date},
+                    {"cutPln_date",cutPln_date},
+                    {"diCutPln_date",diCutPln_date},
+                    {"packingPln_date",packingPln_date},
+                    {"embPln_date",embPln_date},
+                    {"sewPln_date",sewPln_date}
+                };
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Save_date_Sec_Plan", objDIc);
             }
         }
     }
