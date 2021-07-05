@@ -53,16 +53,16 @@ namespace ProductionPrint.models
             Usr = new Guid();
             ModifiedDate = DateTime.Now;
 
-            designPln_date = DateTime.Now;
-            printingPln_date = DateTime.Now;
-            hPrintingPln_date = DateTime.Now;
-            devPln_date = DateTime.Now;
-            scPritingPln_date = DateTime.Now;
-            reCutPln_date = DateTime.Now;
-            cutPln_date = DateTime.Now;
+            designPln_date = new DateTime(0001,1, 1); 
+            printingPln_date = new DateTime(0001, 1, 1);
+            hPrintingPln_date = new DateTime(0001, 1, 1);
+            devPln_date = new DateTime(0001, 1, 1);
+            scPritingPln_date = new DateTime(0001, 1, 1);
+            reCutPln_date = new DateTime(0001, 1, 1);
+            cutPln_date = new DateTime(0001, 1, 1);
             diCutPln_date = DateTime.Now;
-            packingPln_date = DateTime.Now;
-            embPln_date = DateTime.Now;
+            packingPln_date = new DateTime(0001, 1, 1);
+            embPln_date = new DateTime(0001, 1, 1);
             // ModifiedBy = new Guid();
 
         }
@@ -95,7 +95,7 @@ namespace ProductionPrint.models
             {
                 var objDIc = new Dictionary<string, object> {
 
-                ///   {"frmDt",frmDt},
+                ///{"frmDt",frmDt},
                    {"sec_Id",sec_Id}
 
             };
@@ -120,8 +120,16 @@ namespace ProductionPrint.models
         public DataTable LoadAllSectionPlanData(string frmDt)
         {
             {
-                //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [Idx],[plan_date],[plant_Id] ,[plant_name] ,[sec_Id],[section_name] ,[sub_sec_Id]  ,[sub_sec_name] ,[St],[ord_Id] ,[po_no] ,[plan_qnty],[plan_id],[sewPln_date] FROM [dbo].[VIEW_Plan_SectionWise] where [plan_date]='" + frmDt.ToString()+ "'");
+                //var objDIc = new Dictionary<string, object>(); SELECT [subli_cat_id],[sublimation_category]FROM [dbo].[mercha_prodct_master_sublimacat]
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [Idx],[plan_date],[plant_Id] ,[plant_name] ,[sec_Id],[section_name] ,[St],[ord_Id] ,[po_no] ,[plan_qnty],[plan_id],[sewPln_date],[design_id] ,[subli_cat_id],[sublimation_category],0 as subcat FROM [dbo].[VIEW_Plan_SectionWise] where [plan_date]='" + frmDt.ToString()+ "'");
+            }
+        }
+
+        public DataTable LoadSublimct()
+        {
+            {
+                //var objDIc = new Dictionary<string, object>(); 
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [subli_cat_id],[sublimation_category]FROM [dbo].[mercha_prodct_master_sublimacat]");
             }
         }
 
@@ -189,7 +197,9 @@ namespace ProductionPrint.models
                     {"diCutPln_date",diCutPln_date},
                     {"packingPln_date",packingPln_date},
                     {"embPln_date",embPln_date},
-                    {"sewPln_date",sewPln_date}
+                    {"sewPln_date",sewPln_date},
+                    {"planItem",new planItem("").InvItemListToDataTable(planItem)},
+                    { "Usr",Usr}
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Save_date_Sec_Plan", objDIc);
             }
