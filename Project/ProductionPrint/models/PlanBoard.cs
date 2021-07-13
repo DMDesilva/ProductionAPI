@@ -33,6 +33,7 @@ namespace ProductionPrint.models
         public DateTime diCutPln_date { get; set; }
         public DateTime packingPln_date { get; set; }
         public DateTime embPln_date { get; set; }
+        public int typ { get; set; }
         private string connection { get; set; }
 
         public PlanBoard(string conn)
@@ -46,9 +47,9 @@ namespace ProductionPrint.models
             plan_id = 0;
             sec_Id = 0;
             sub_sec_Id = 0;
+         
             plan_Date = DateTime.Now;
             planItem = new List<planItem>();
-            
             CreatedDate = DateTime.Now;
             Usr = new Guid();
             ModifiedDate = DateTime.Now;
@@ -64,7 +65,7 @@ namespace ProductionPrint.models
             packingPln_date = new DateTime(0001, 1, 1);
             embPln_date = new DateTime(0001, 1, 1);
             // ModifiedBy = new Guid();
-
+            typ =0;
         }
 
         public DataTable LoadSewingPlan(DateTime frmDt)
@@ -176,6 +177,7 @@ namespace ProductionPrint.models
                     {"qnty",qnty},
                     {"sewPln_date",sewPln_date},
                     { "Usr",Usr},
+                    { "typ",typ}
                     
 
                 };
@@ -241,9 +243,6 @@ namespace ProductionPrint.models
                 _plan["plan_id"] = item.plan_id;
                 // _plan["Nic"] = item.Nic;
                 //  _plan["NewNic"] = item.NewNic;
-
-
-
 
                 dt1.Rows.Add(_plan);
             }

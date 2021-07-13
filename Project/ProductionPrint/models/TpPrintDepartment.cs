@@ -165,138 +165,140 @@ namespace ProductionPrint.models
 
     public class data
     {
-        
-        public int id { get; set; }
-        public string ShippingStatus { get; set; }
-        public string week { get; set; }
-        public string PO { get; set; }
-        public string Product { get; set; }
-        public string Quantity { get; set; }
-        public string BalanceQty { get; set; }
-        public string BySize { get; set; }
-        public string Pattern { get; set; }
-        public string Fabric { get; set; }
-        public string IsDyed { get; set; }
-        public string OrderDate { get; set; }
-        public string OrderType { get; set; }
-        public string Client { get; set; }
-        public string Coodinator { get; set; }
-        public string Distributor { get; set; }
-        public string Mode { get; set; }
-        public string Sizes { get; set; }
-        public string SizeCount { get; set; }
-        public string LabelName { get; set; }
-        public string LateOrder { get; set; }
-        public string PhotoApproval { get; set; }
-        public string IsRepeat { get; set; }
-        public string NameNum { get; set; }
+
+        //  public int id { get; set; }
+        public string po_no { get; set; }
+        public string product { get; set; }
+        public string order_qty { get; set; }
+        public string pattern { get; set; }
+        public string fabric { get; set; }
+        //  public string IsDyed { get; set; }
+        public string order_date { get; set; }
+        public string del_date { get; set; }
+        public string coordinator { get; set; }
+        public string order_type { get; set; }
+        public string distributer { get; set; }
+        public string client_name { get; set; }
+        public string sizes { get; set; }
+        public string print_type { get; set; }
+        public string ship_mode { get; set; }
+        public string label_name { get; set; }
+        public string order_sub_cat { get; set; }
+        public string is_repeat { get; set; }
+        public string by_size { get; set; }
         public string Comment { get; set; }
-        public string tp { get; set; }
-        public string a3 { get; set; }
-        public string nonTp { get; set; }
-        public string nameSheet { get; set; }
         public Guid usr { get; set; }
+        
+         //public string order_type { get; set; }
+         //public string SizeCount { get; set; }
+         //public string LateOrder { get; set; }
+         //public string PhotoApproval { get; set; }
+        //public string NameNum { get; set; }
+        //public string tp { get; set; }
+        //public string a3 { get; set; }
+        //public string nonTp { get; set; }
+        //public string nameSheet { get; set; }
+
         public data(string v)
         {
-            id = 0;
-            ShippingStatus = "";
-            week ="";
-            PO = "";
-            Product = "";
-            Quantity = "";
-            BalanceQty = "";
-            BySize = "";
-            Pattern = "";
-            Fabric = "";
-            IsDyed = "";
-            OrderDate = "";
-            OrderType = "";
-            Client = "";
-            Coodinator = "";
-            Distributor = "";
-            Mode = "";
-            Sizes = "";
-            SizeCount = "";
-            LabelName = "";
-            LateOrder = "";
-            PhotoApproval = "";
-            IsRepeat = "";
-            NameNum = "";
+            //   id = 0;   
+            po_no = "";
+            product = "";
+            order_qty = "";
+            pattern = "";
+            fabric = "";
+            order_date= "";
+            del_date = "";
+            coordinator = "";
+            order_type = "";
+            distributer = "";
+            client_name = "";
+            sizes = "";
+            print_type = "";
+            ship_mode = "";
+            label_name = "";
+            order_sub_cat = "";
+            is_repeat = "";
+            by_size = "";
             Comment = "";
-            tp = "";
-            a3 = "";
-            nonTp = "";
-            nameSheet = "";
+
+            //IsDyed = "";
+            //SizeCount = "";
+            //LateOrder = "";
+            //NameNum = "";
+            //tp = "";
+            //a3 = "";
+            //nonTp = "";
+            //nameSheet = "";
             usr = new Guid();
         }
         public DataTable InvItemListToDataTable(List<data> lst)
         {
             var dt1 = new DataTable();
             dt1.Clear();
-            dt1.Columns.Add("id", typeof(int));
-            dt1.Columns.Add("ShippingStatus", typeof(string));
-            dt1.Columns.Add("week", typeof(string));
-            dt1.Columns.Add("OrderDate", typeof(string));
-            dt1.Columns.Add("PO", typeof(string));
-            dt1.Columns.Add("Product", typeof(string));
-            dt1.Columns.Add("Pattern", typeof(string));
-            dt1.Columns.Add("Fabric", typeof(string));
-            dt1.Columns.Add("Quantity", typeof(string));
-            dt1.Columns.Add("BalanceQty", typeof(string));
-            dt1.Columns.Add("OrderType", typeof(string));
-            dt1.Columns.Add("Sizes", typeof(string));
-            dt1.Columns.Add("BySize", typeof(string));
-            dt1.Columns.Add("SizeCount", typeof(string));
-            dt1.Columns.Add("IsDyed", typeof(string));
-            dt1.Columns.Add("tp", typeof(string));
-            dt1.Columns.Add("a3", typeof(string));
-            dt1.Columns.Add("nonTp", typeof(string));
-            dt1.Columns.Add("nameSheet", typeof(string));
-            dt1.Columns.Add("Client", typeof(string));
-            dt1.Columns.Add("Coodinator", typeof(string));
-            dt1.Columns.Add("Distributor", typeof(string));
-            dt1.Columns.Add("Mode", typeof(string));
-            dt1.Columns.Add("LabelName", typeof(string));
-            dt1.Columns.Add("LateOrder", typeof(string));
-            dt1.Columns.Add("PhotoApproval", typeof(string));
-            dt1.Columns.Add("IsRepeat", typeof(string));
-            dt1.Columns.Add("NameNum", typeof(string));
+            dt1.Columns.Add("po_no", typeof(string));
+            dt1.Columns.Add("product", typeof(string));
+            //dt1.Columns.Add("week", typeof(string));
+            dt1.Columns.Add("order_qty", typeof(int));
+            dt1.Columns.Add("pattern", typeof(string));
+            dt1.Columns.Add("fabric", typeof(string));
+            dt1.Columns.Add("order_date", typeof(string));
+            dt1.Columns.Add("del_date", typeof(string));
+            dt1.Columns.Add("coordinator", typeof(string));
+            dt1.Columns.Add("distributer", typeof(string));
+            dt1.Columns.Add("client_name", typeof(string));
+            dt1.Columns.Add("sizes", typeof(string));
+            dt1.Columns.Add("print_type", typeof(string));
+            dt1.Columns.Add("ship_mode", typeof(string));
+            dt1.Columns.Add("label_name", typeof(string));
+            dt1.Columns.Add("by_size", typeof(string));
+            dt1.Columns.Add("is_repeat", typeof(string));
             dt1.Columns.Add("Comment", typeof(string));
+            //dt1.Columns.Add("nameSheet", typeof(string));
+            //dt1.Columns.Add("Client", typeof(string));
+            //dt1.Columns.Add("Coodinator", typeof(string));
+            //dt1.Columns.Add("Distributor", typeof(string));
+            //dt1.Columns.Add("Mode", typeof(string));
+            //dt1.Columns.Add("LabelName", typeof(string));
+            //dt1.Columns.Add("LateOrder", typeof(string));
+            //dt1.Columns.Add("PhotoApproval", typeof(string));
+            //dt1.Columns.Add("IsRepeat", typeof(string));
+            //dt1.Columns.Add("NameNum", typeof(string));
             dt1.Columns.Add("usr", typeof(Guid));
 
             foreach (var item in lst)
             {
                 DataRow _plan = dt1.NewRow();
-                _plan["id"] = item.id;
-                _plan["ShippingStatus"] = item.ShippingStatus;
-                _plan["week"] = item.week;
-                _plan["OrderDate"] = item.OrderDate;
-                _plan["PO"] = item.PO;
-                _plan["Product"] = item.Product;
-                _plan["Pattern"] = item.Pattern;
-                _plan["Fabric"] = item.Fabric;
-                _plan["Quantity"] =item.Quantity;
-                _plan["BalanceQty"] = item.BalanceQty;
-                _plan["OrderType"] = item.OrderType;
-                _plan["Sizes"] = item.Sizes;
-                _plan["BySize"] = item.BySize;
-                 _plan["SizeCount"] =item.SizeCount;
-                _plan["IsDyed"] = item.IsDyed;
-                _plan["tp"] = item.tp;
-                _plan["a3"] = item.a3;
-                _plan["nonTp"] = item.nonTp;
-                _plan["nameSheet"] = item.nameSheet;
-                _plan["Client"] = item.Client;
-                _plan["Coodinator"] = item.Coodinator;
-                _plan["Distributor"] = item.Distributor;
-                _plan["Mode"] = item.Mode;
-                _plan["LabelName"] = item.LabelName;
-                _plan["LateOrder"] = item.LateOrder;
-                _plan["PhotoApproval"] = item.PhotoApproval;
-                _plan["IsRepeat"] = item.IsRepeat;
-                _plan["NameNum"] = item.NameNum;
+               // _plan["id"] = item.id;
+                _plan["po_no"] = item.po_no;
+                _plan["product"] = item.product;
+                _plan["order_qty"] = item.order_qty;
+                _plan["pattern"] = item.pattern;
+                _plan["fabric"] = item.fabric;
+                _plan["order_date"] = item.order_date;
+                _plan["del_date"] = item.del_date;
+                _plan["coordinator"] =item.coordinator;
+                _plan["distributer"] = item.distributer;
+                _plan["client_name"] = item.client_name;
+                _plan["sizes"] = item.sizes;
+                _plan["print_type"] = item.print_type;
+                _plan["ship_mode"] =item.ship_mode;
+                _plan["label_name"] = item.label_name;
+                _plan["by_size"] = item.by_size;
+                _plan["is_repeat"] = item.is_repeat;
                 _plan["Comment"] = item.Comment;
-                _plan["usr"] =item.usr;
+                //_plan["nameSheet"] = item.nameSheet;
+                //_plan["Client"] = item.Client;
+                //_plan["Coodinator"] = item.Coodinator;
+                //_plan["Distributor"] = item.Distributor;
+                //_plan["Mode"] = item.Mode;
+                //_plan["LabelName"] = item.LabelName;
+                //_plan["LateOrder"] = item.LateOrder;
+                //_plan["PhotoApproval"] = item.PhotoApproval;
+                //_plan["IsRepeat"] = item.IsRepeat;
+                //_plan["NameNum"] = item.NameNum;
+                //_plan["Comment"] = item.Comment;
+                _plan["usr"] =item.usr;  
                 dt1.Rows.Add(_plan);
             }
             return dt1;

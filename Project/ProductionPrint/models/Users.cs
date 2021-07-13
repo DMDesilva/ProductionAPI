@@ -147,7 +147,6 @@ namespace ProductionPrint.models
 
     }
 
-
     public class UsersList
     {
         public Guid Idx { get; set; }
