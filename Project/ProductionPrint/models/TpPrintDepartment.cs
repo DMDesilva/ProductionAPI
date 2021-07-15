@@ -63,6 +63,7 @@ namespace ProductionPrint.models
 
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("SaveTesprintMark", objDIc);
+
             }
         }
         public DataTable SaveAust()
@@ -204,7 +205,7 @@ namespace ProductionPrint.models
             //   id = 0;   
             po_no = "";
             product = "";
-            order_qty = "";
+            order_qty ="";
             pattern = "";
             fabric = "";
             order_date= "";
@@ -239,18 +240,20 @@ namespace ProductionPrint.models
             dt1.Columns.Add("po_no", typeof(string));
             dt1.Columns.Add("product", typeof(string));
             //dt1.Columns.Add("week", typeof(string));
-            dt1.Columns.Add("order_qty", typeof(int));
+            dt1.Columns.Add("order_qty",typeof(string));
             dt1.Columns.Add("pattern", typeof(string));
             dt1.Columns.Add("fabric", typeof(string));
             dt1.Columns.Add("order_date", typeof(string));
             dt1.Columns.Add("del_date", typeof(string));
             dt1.Columns.Add("coordinator", typeof(string));
+            dt1.Columns.Add("order_type", typeof(string));
             dt1.Columns.Add("distributer", typeof(string));
             dt1.Columns.Add("client_name", typeof(string));
             dt1.Columns.Add("sizes", typeof(string));
-            dt1.Columns.Add("print_type", typeof(string));
+            dt1.Columns.Add("print_type",typeof(string));
             dt1.Columns.Add("ship_mode", typeof(string));
             dt1.Columns.Add("label_name", typeof(string));
+            dt1.Columns.Add("order_sub_cat", typeof(string));
             dt1.Columns.Add("by_size", typeof(string));
             dt1.Columns.Add("is_repeat", typeof(string));
             dt1.Columns.Add("Comment", typeof(string));
@@ -278,12 +281,14 @@ namespace ProductionPrint.models
                 _plan["order_date"] = item.order_date;
                 _plan["del_date"] = item.del_date;
                 _plan["coordinator"] =item.coordinator;
+                _plan["order_type"] =item.order_type;
                 _plan["distributer"] = item.distributer;
                 _plan["client_name"] = item.client_name;
                 _plan["sizes"] = item.sizes;
                 _plan["print_type"] = item.print_type;
                 _plan["ship_mode"] =item.ship_mode;
                 _plan["label_name"] = item.label_name;
+                _plan["order_sub_cat"] = item.order_sub_cat;
                 _plan["by_size"] = item.by_size;
                 _plan["is_repeat"] = item.is_repeat;
                 _plan["Comment"] = item.Comment;
