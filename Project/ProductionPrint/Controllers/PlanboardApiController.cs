@@ -61,7 +61,12 @@ namespace ProductionPrint.Controllers
             PlanBoard plan = new PlanBoard(CommonData.ConStr());
             return plan.LoadPlanData();
         }
-       
+        [HttpGet("loadSection")]
+        public DataTable LoadSection()
+        {
+            WorkHours wrk = new WorkHours(CommonData.ConStr());
+            return wrk.GetSections();
+        }
         [HttpGet("loadSecforPlan")]
         public DataTable LoadSecforPlan()
         {

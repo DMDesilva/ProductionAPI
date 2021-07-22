@@ -33,6 +33,10 @@ namespace ProductionPrint.models
         public DateTime diCutPln_date { get; set; }
         public DateTime packingPln_date { get; set; }
         public DateTime embPln_date { get; set; }
+        public DateTime tp_date { get; set; }
+        public DateTime tc_date { get; set; }
+        public DateTime num_date { get; set; }
+        public DateTime inp_date { get; set; }
         public int typ { get; set; }
         private string connection { get; set; }
 
@@ -64,6 +68,10 @@ namespace ProductionPrint.models
             diCutPln_date = DateTime.Now;
             packingPln_date = new DateTime(0001, 1, 1);
             embPln_date = new DateTime(0001, 1, 1);
+            tp_date = new DateTime(0001, 1, 1);
+            tc_date = new DateTime(0001, 1, 1);
+            num_date = new DateTime(0001, 1, 1);
+            inp_date = new DateTime(0001, 1, 1);
             // ModifiedBy = new Guid();
             typ =0;
         }
@@ -193,13 +201,17 @@ namespace ProductionPrint.models
                     {"printingPln_date",printingPln_date},
                     {"hPrintingPln_date",hPrintingPln_date},
                     {"devPln_date",devPln_date},
-                    {"scPritingPln_date",scPritingPln_date},
+                  //  {"scPritingPln_date",scPritingPln_date},
                     {"reCutPln_date",reCutPln_date},
-                    {"cutPln_date",cutPln_date},
-                    {"diCutPln_date",diCutPln_date},
+                //    {"cutPln_date",cutPln_date},
+                  //  {"diCutPln_date",diCutPln_date},
                     {"packingPln_date",packingPln_date},
-                    {"embPln_date",embPln_date},
+                 //   {"embPln_date",embPln_date},
                     {"sewPln_date",sewPln_date},
+                    {"tp_date",tp_date},
+                    {"tc_date",tc_date},
+                    {"num_date",num_date},
+                    {"inp_date",inp_date},
                     {"planItem",new planItem("").InvItemListToDataTable(planItem)},
                     { "Usr",Usr}
                 };

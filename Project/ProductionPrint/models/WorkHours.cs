@@ -51,7 +51,10 @@ namespace ProductionPrint.models
         {
             return (new DbAccess(Connection)).FillDataTable("select DISTINCT(section_id),section_name  FROM [dbo].[VIEW_Plant_bySection] where plant_id='" + pId.ToString() + "'");
         }
-
+        public DataTable GetSections()
+        {
+            return (new DbAccess(Connection)).FillDataTable("SELECT  [section_id] ,[section_name]FROM [dbo].[common_opratn_master_section]");
+        }
         public DataTable GetSubSection(int pId, int SId)
         {
             return (new DbAccess(Connection)).FillDataTable("select DISTINCT([sub_sec_id]) ,[sub_sec_name]  FROM[dbo].[VIEW_Plant_bySection] where[section_id]='" + SId.ToString() + "' and plant_id ='" + pId.ToString() + "'");
