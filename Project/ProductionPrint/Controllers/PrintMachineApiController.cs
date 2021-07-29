@@ -26,7 +26,14 @@ namespace ProductionPrint.Controllers
           //  PrintMachineRepair printmach = new PrintMachineRepair(CommonData.ConStr());
             return printmach.Save_machine();
         }
-
+        //--------------------------------------
+        //
+        [HttpPost("saveSerialNo")]
+        public DataTable SaveSerialNo(SparepartAssign spare)
+        {
+           
+            return spare.Save_SpareprtsSerial();
+        }
         //-----------------------------------Sparepart Assign-----------------------------------------\\
         [HttpGet("getsparepart")]
         public DataTable Getsparepart()
@@ -34,7 +41,12 @@ namespace ProductionPrint.Controllers
             SparepartAssign spare = new SparepartAssign(CommonData.ConStr());
             return spare.LoadSparepart();
         }
-
+        [HttpGet("getColor")]
+        public DataTable GetColor()
+        {
+            SparepartAssign spare = new SparepartAssign(CommonData.ConStr());
+            return spare.LoadColor();
+        }
         [HttpGet("getSpareprtmchn")]
         public DataTable GetSpareprtmchn()
         {

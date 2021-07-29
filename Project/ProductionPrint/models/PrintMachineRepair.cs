@@ -9,6 +9,7 @@ namespace ProductionPrint.models
     public class PrintMachineRepair
     {
         public Guid idx { get; set; }
+        public string machine_no { get; set; }
         public string machine_mode { get; set; }
         public string serial_no { get; set; }
         public DateTime purchase_date  { get; set; }
@@ -24,6 +25,7 @@ namespace ProductionPrint.models
         public PrintMachineRepair(string conn)
         {
             idx = new Guid();
+            machine_no = "";
             machine_mode = "";
             serial_no = "";
             purchase_date = DateTime.Now;
@@ -40,7 +42,7 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [Idx] ,[id],[machine_mode],[serial_no],CONVERT(DATE,[purchase_date]) as purchase_date,[purch_value],[supplier]  ,[owner],[ip_address],[img] ,0 as cs FROM [dbo].[_PrintSec_machine]");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [Idx] ,[id],[machine_mode],[serial_no],CONVERT(DATE,[purchase_date]) as purchase_date,[purch_value],[supplier]  ,[owner],[ip_address],[img] ,0 as cs ,[machine_no] FROM [dbo].[_PrintSec_machine] order by id");
             }
         }
         public DataTable Save_machine()
@@ -48,6 +50,7 @@ namespace ProductionPrint.models
             {
                 var objDIc = new Dictionary<string, object> {
                 {"idx",idx},
+                {"machine_no",machine_no},
                 {"machine_mode",machine_mode},
                 {"serial_no",serial_no},
                 {"purchase_date",purchase_date},
