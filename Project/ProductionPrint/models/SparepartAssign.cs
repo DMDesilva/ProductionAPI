@@ -10,11 +10,15 @@ namespace ProductionPrint.models
     {
         public Guid idx { get; set; }
         public Guid machineIdx { get; set; }
+        public Guid spart_serial_Idx { get; set; }
+        public Guid color_idx { get; set; }
         public DateTime assigndate { get; set; }
-        public string prnttyp { get; set; }
+        public int prnttyp { get; set; }
         public int spartsId { get; set; }
+        public int unit_id { get; set; }
         public int itm_id { get; set; }
         public int sb_itm_id { get; set; }
+        public string sb_itm_nme { get; set; }
         public int stock_qty { get; set; }
         public int s_qty { get; set; }
         public List<serials> serials { get; set; }
@@ -28,8 +32,11 @@ namespace ProductionPrint.models
         {
             idx = new Guid();
             machineIdx = new Guid();
+            color_idx = new Guid();
             assigndate = DateTime.Now;
             spartsId = 0;
+            prnttyp = 0;
+            unit_id = 0;
             spartsname = "";
             spartSerialNo = "";
             pcount = "";
@@ -38,6 +45,7 @@ namespace ProductionPrint.models
             itm_id = 0;
             sb_itm_id = 0;
             stock_qty = 0;
+            sb_itm_nme = "";
             s_qty = 0;
             serials = new List<serials>(); 
             connection = conn;
@@ -46,14 +54,39 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [sb_itm_id] ,[sb_itm_nme] ,[itm_id],[stock_qty],([stock_qty]-[sqnty]) as sqnty FROM [erpWarehouse].[dbo].[itm_lgr_transa_stock$sub] where (itm_id=6043 or  itm_id=6010) and [stock_qty] >0  order by itm_id");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [sb_itm_id] ,[sb_itm_nme] ,[itm_id],[stock_qty],([stock_qty]-[sqnty]) as sqnty , 0 as expanded  FROM [erpWarehouse].[dbo].[itm_lgr_transa_stock$sub] where (itm_id=6043 or  itm_id=6010) and [stock_qty] >0  order by itm_id");
             }
         }
+
+        public DataTable LoadSpartAssignData()
+        {
+            {
+                //var objDIc = new Dictionary<string, object>(); 
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [idx],[machineIdx] ,[machine_no],[machine_mode],[serial_no],[assigndate],[prnttyp],[spartsId],[spartsname],[spart_serial_Idx],[color_idx],[colors] ,[unit_id],[unit],[count],[isActive],[st] FROM [dbo].[VIEW_PrintSec_Spart_assign_details]");
+            }
+        }
+
+        public DataTable LoadSpartSerial()
+        {
+            {
+                //var objDIc = new Dictionary<string, object>();
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [idx],[itm_id],[sb_itm_id] ,[stock_qty],[s_qty] ,[serial_no] ,[sb_itm_nme] FROM [dbo].[VIEW_Print_Sec_sparepart_Serial]");
+            }
+        }
+
         public DataTable LoadColor()
         {
             {
                 //var objDIc = new Dictionary<string, object>();
                 return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [idx],[id] ,[colors],[isActive] FROM [dbo].[_PrintSec_machine_colors] order by id");
+            }
+        }
+       
+        public DataTable LoadUnit()
+        {
+            {
+                //var objDIc = new Dictionary<string, object>();
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [id],[unit] FROM [dbo].[_PrintSec_Units]");
             }
         }
         public DataTable LoadAssignSparemachn()
@@ -70,10 +103,12 @@ namespace ProductionPrint.models
                // {"idx",idx},
                 {"machineIdx",machineIdx},
                 {"assigndate",assigndate},
+                {"prnttyp",prnttyp},
                 {"spartsId",spartsId},
                 {"spartsname",spartsname},
-                {"spartSerialNo",spartSerialNo},
-                {"pcount",pcount},
+                {"color_idx",color_idx},
+                {"unit_id",unit_id},
+                {"count",pcount},
                 {"usr",usr}
               // {"typ",typ}
             };
@@ -87,6 +122,7 @@ namespace ProductionPrint.models
                
                 {"itm_id",itm_id},
                 {"sb_itm_id",sb_itm_id},
+                {"sb_itm_nme",sb_itm_nme},
                 {"stock_qty",stock_qty},
                 {"s_qty",s_qty},
                 {"serials",new serials("").InvItemListToDataTable(serials)},

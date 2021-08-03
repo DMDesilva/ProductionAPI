@@ -28,6 +28,13 @@ namespace ProductionPrint.Controllers
         }
         //--------------------------------------
         //
+        [HttpGet("getSpareSerial")]
+        public DataTable GetetSpareSerial()
+        {
+            SparepartAssign spare = new SparepartAssign(CommonData.ConStr());
+            return spare.LoadSpartSerial();
+        }
+
         [HttpPost("saveSerialNo")]
         public DataTable SaveSerialNo(SparepartAssign spare)
         {
@@ -47,11 +54,26 @@ namespace ProductionPrint.Controllers
             SparepartAssign spare = new SparepartAssign(CommonData.ConStr());
             return spare.LoadColor();
         }
+        //
+        [HttpGet("getUnit")]
+        public DataTable GetUnit()
+        {
+            SparepartAssign spare = new SparepartAssign(CommonData.ConStr());
+            return spare.LoadUnit();
+        }
+
         [HttpGet("getSpareprtmchn")]
         public DataTable GetSpareprtmchn()
         {
             SparepartAssign spare = new SparepartAssign(CommonData.ConStr());
             return spare.LoadAssignSparemachn();
+        }
+
+        [HttpGet("getSpartAssignData")]
+        public DataTable GetSpartAssignData()
+        {
+            SparepartAssign spare = new SparepartAssign(CommonData.ConStr());
+            return spare.LoadSpartAssignData();
         }
 
         [HttpPost("saveSparepart")]
