@@ -10,6 +10,7 @@ namespace ProductionPrint.models
     {
         public Guid idx { get; set; }
         public Guid machineIdx { get; set; }
+        public Guid assignIdx { get; set; }
         public Guid spart_serial_Idx { get; set; }
         public Guid color_idx { get; set; }
         public DateTime assigndate { get; set; }
@@ -26,12 +27,14 @@ namespace ProductionPrint.models
         public string spartSerialNo {get; set; }
         public string pcount { get; set; }
         public Guid usr { get; set; }
+        public int typ { get; set; }
         private string connection { get; set; }
 
         public SparepartAssign(string conn)
         {
             idx = new Guid();
             machineIdx = new Guid();
+            assignIdx = new Guid();
             color_idx = new Guid();
             assigndate = DateTime.Now;
             spartsId = 0;
@@ -47,6 +50,7 @@ namespace ProductionPrint.models
             stock_qty = 0;
             sb_itm_nme = "";
             s_qty = 0;
+            typ = 0;
             serials = new List<serials>(); 
             connection = conn;
         }
@@ -62,7 +66,8 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>(); 
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [idx],[machineIdx] ,[machine_no],[machine_mode],[serial_no],[assigndate],[prnttyp],[spartsId],[spartsname],[spart_serial_Idx],[color_idx],[colors] ,[unit_id],[unit],[count],[isActive],[st] FROM [dbo].[VIEW_PrintSec_Spart_assign_details]");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("924139" +
+                    "");
             }
         }
 
@@ -70,7 +75,7 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [idx],[itm_id],[sb_itm_id] ,[stock_qty],[s_qty] ,[serial_no] ,[sb_itm_nme] FROM [dbo].[VIEW_Print_Sec_sparepart_Serial]");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [idx],[spart_serial_Idx],[itm_id],[sb_itm_id] ,[stock_qty],[s_qty] ,[serial_no] ,[sb_itm_nme],[isActive] FROM [dbo].[VIEW_Print_Sec_sparepart_Serial]");
             }
         }
 
@@ -132,7 +137,23 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Print_Machine_Spart_serial", objDIc);
             }
         }
-        //
+
+        public DataTable Save_ApproveIssue()
+        {
+            {
+                var objDIc = new Dictionary<string, object> {
+
+                {"assignIdx",assignIdx},
+                {"spart_serial_Idx",spart_serial_Idx},
+                {"machineIdx",machineIdx},
+                {"spartsId",spartsId},
+                {"usr",usr},
+                {"typ",typ}
+            };
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Print_sec_prt_app_issue", objDIc);
+            }
+        }
+
     }
 
     public class serials

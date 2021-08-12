@@ -20,6 +20,12 @@ namespace ProductionPrint.Controllers
             return bin.LoadItems();
         }
 
+        [HttpGet("loadSubCat")]
+        public DataSet LoadSubCat()
+        {
+            QntyChange sub = new QntyChange(CommonData.ConStr());
+            return sub.LoadSubCat();
+        }
         [HttpPost("loadsubItem")]
         public DataTable LoadsubItem(ClsPrm prm)
         {
@@ -33,5 +39,14 @@ namespace ProductionPrint.Controllers
             Bincard bin = new Bincard();
             return bin.LoadBincard(prm.iPram1);
         }
+
+        //---------
+        [HttpPost("saveSubCat")]
+        public DataTable SaveSubCat(QntyChange sub)
+        {
+           
+            return sub.SaveSubliCat();
+        }
+
     }
 }

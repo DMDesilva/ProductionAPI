@@ -20,7 +20,7 @@ namespace ProductionPrint.models
 
         public DataTable LoadDebitCostReport()
         {
-            return (new DbAccess(Connection)).FillDataTable("SELECT  [Idx],[BuyerIdx] ,[Buyer],[AWB_NoByIdx] ,[awbNo],[Freight_Cost],[Add_Cost],[Fuel_Surcharge],[Ex_wrk_Chrge],[Other_Cost],[Total_Cost],[Debit_Note_No] ,[Deb_Note_Amnt],[Difference],[Ship_wght] ,[IsActive],[CreatedDate],[Frght_Forwrd],[Cost_Sec],[mode] ,[type] FROM [dbo].[VIEW_Shipment_FreightDebit]");
+            return (new DbAccess(Connection)).FillDataTable("SELECT  [Idx],[BuyerIdx] ,[Buyer],[AWB_NoByIdx] ,[awbNo],[Freight_Cost],[Add_Cost],[Fuel_Surcharge],[Ex_wrk_Chrge],[Other_Cost],[Total_Cost],[Debit_Note_No] ,[Deb_Note_Amnt],[Difference],[Ship_wght] ,[IsActive],[CreatedDate],[Frght_Forwrd],[Cost_Sec],[mode] ,[type],[Shipdate] FROM [dbo].[VIEW_Shipment_FreightDebit]");
         }
         
         public DataTable LoadDebitCostReportDateBy()

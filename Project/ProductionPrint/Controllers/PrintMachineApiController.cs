@@ -82,7 +82,14 @@ namespace ProductionPrint.Controllers
             
             return spare.Save_Spareprts();
         }
+        //----------------Request
+       
+            [HttpPost("saveApproveIssue")]
+        public DataTable SaveApproveIssue(SparepartAssign spare)
+        {
 
+            return spare.Save_ApproveIssue();
+        }
         //----------------------------------- Brake Down-----------------------------------------------\\
         [HttpGet("getbrakedwn")]
         public DataTable Getbrakedwn()
