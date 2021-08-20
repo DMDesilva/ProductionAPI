@@ -68,7 +68,11 @@ namespace ProductionPrint.models
 
             connection = conn;
         }
-        //
+        
+        public DataTable GetItms()
+        {
+            return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [itm_id],[sup_item_code] ,[sup_item_nme],[sb_itm_id],[sb_itm_nme],[cat_id],[cat_name] ,[stock_qty] ,[unit_id],[itm_image] ,[unit_name],0 as cs FROM [erpWarehouse].[dbo].[VIEW_Item_details]");
+        }
         public DataSet Load_Mast_data()
         {
             {

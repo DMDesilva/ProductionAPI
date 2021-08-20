@@ -27,5 +27,19 @@ namespace ProductionPrint.Controllers
             PatternCreate ptn = new PatternCreate(CommonData.ConStr());
             return ptn.Load_Mast_data();
         }
+
+        [HttpPost("saveItmsMast")]
+        public DataTable SaveItmsMast(Items itms)
+        {
+
+            return itms.Save_Itms();
+        }
+
+        [HttpGet("get_Accessories")]
+        public DataTable Get_Accessories()
+        {
+            PatternCreate ptn = new PatternCreate(CommonData.ConStr());
+            return ptn.GetItms();
+        }
     }
 }
