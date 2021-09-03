@@ -14,20 +14,24 @@ namespace ProductionPrint.models
         public string buyer_category { get; set; }
         public string buyer_code { get; set; }
         public string buyer_po_code { get; set; }
-        public string address { get; set; }
+        public string address1 { get; set; }
+        public string address2 { get; set; }
+        public string address3 { get; set; }
         public string city { get; set; }
         public string state { get; set; }
         public string postal_code { get; set; }
         public string country { get; set; }
         public string invoice_name { get; set; }
         public string invoice_address { get; set; }
+        public string invoice_address2 { get; set; }
+        public string invoice_address3 { get; set; }
         public string contract_title { get; set; }
         public string contract_name { get; set; }
         public string email_address { get; set; }
         public string m_num { get; set; }
         public string p_num { get; set; }
         public string extention { get; set; }
-        public string fax_no { get; set; }
+        public int fax_no { get; set; }
         public int shipment_terms { get; set; }
         public string port { get; set; }
         public string c_account_no { get; set; }
@@ -36,7 +40,7 @@ namespace ProductionPrint.models
         public int inv_typ { get; set; }
         public string currency { get; set; }
         public int paymnt_terms { get; set; }
-        public string credit_limit { get; set; }
+        public decimal credit_limit { get; set; }
         public string payment_name { get; set; }
         public string paymnt_email { get; set; }
         public string paymnt_mobile_no { get; set; }
@@ -58,20 +62,28 @@ namespace ProductionPrint.models
             buyer_category = "";
             buyer_code = "";
             buyer_po_code = "";
-            address = "";
+
+            address1 = "";
+            address2 = "";
+            address3 = "";
+
             city = "";
             state = "";
             postal_code = "";
             country = "";
             invoice_name = "";
+
             invoice_address = "";
+            invoice_address2 = "";
+            invoice_address3 = "";
+
             contract_title = "";
             contract_name = "";
             email_address = "";
             m_num = "";
             p_num = "";
             extention = "";
-            fax_no = "";
+            fax_no =0;
             shipment_terms =0;
             port = "";
             c_account_no = "";
@@ -80,7 +92,7 @@ namespace ProductionPrint.models
             inv_typ =0;
             currency = "";
             paymnt_terms = 0;
-            credit_limit = "";
+            credit_limit =0;
             payment_name = "";
             paymnt_email = "";
             paymnt_mobile_no = "";
@@ -98,7 +110,7 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [Idx],[id]  ,[buyer] ,[buyer_category],[buyer_code] ,[buyer_po_code] ,[address],[city] ,[state] ,[postal_code] ,[country],[invoice_name],[invoice_address] ,[contract_title],[contract_name],[email_address],[m_num] ,[p_num],[extention] ,[port] ,[c_account_no],[vat],[svat] ,[fax_no],[paymnt_terms] ,[Pay_terms],[currency] ,[credit_limit],[payment_name],[paymnt_email],[paymnt_mobile_no],[email_paymnt_inv] ,[email_shipment] ,[shipment_terms]  ,[shipmet_terms],[inv_typ],[invtyp],[img1],[img2],[img3],[img4] FROM [dbo].[VIEW_Merchandiser_Buyer_details]");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [Idx],[id]  ,[buyer] ,[buyer_category],[buyer_code] ,[buyer_po_code] ,[address1],[address2],[address3],[city] ,[state] ,[postal_code] ,[country],[invoice_name],[invoice_address1] ,[invoice_address2] ,[invoice_address3] ,[contract_title],[contract_name],[email_address],[m_num] ,[p_num],[extention] ,[port] ,[c_account_no],[vat],[svat] ,[fax_no],[paymnt_terms] ,[Pay_terms],[currency] ,[credit_limit],[payment_name],[paymnt_email],[paymnt_mobile_no],[email_paymnt_inv] ,[email_shipment] ,[shipment_terms]  ,[shipmet_terms],[inv_typ],[invtyp],[img1],[img2],[img3],[img4] FROM [dbo].[VIEW_Merchandiser_Buyer_details]");
             }
         }
         public DataTable LoadingShipmentTerms()
@@ -126,21 +138,24 @@ namespace ProductionPrint.models
 
         public DataTable Save_BuyerCat()
         {
-            {
-                var objDIc = new Dictionary<string, object> {
+            {                                                                                                                                                                                                                                                 var objDIc = new Dictionary<string, object> {
                 {"idx",idx},
                 {"product",product},
                 {"buyer",buyer},
                 {"buyer_category", buyer_category},
                 {"buyer_code",buyer_code},
                 {"buyer_po_code",buyer_po_code },
-                {"address",address},
+                {"address1",address1},
+                {"address2",address2},
+                {"address3",address3},
                 {"city",city},
                 {"state",state},
                 {"postal_code",postal_code},
-                {"country",country},
+                {"country",country},       
                 {"invoice_name",invoice_name},
                 {"invoice_address",invoice_address},
+                {"invoice_address2",invoice_address2},
+                {"invoice_address3",invoice_address2},
                 {"contract_title",contract_title}, 
                 {"contract_name",contract_name},
                 {"email_address",email_address},
@@ -169,7 +184,7 @@ namespace ProductionPrint.models
                 {"usr",usr},
                 {"typ",typ}
             };
-                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Mechandiser_buyer_save", objDIc);
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("[dbo].[Mechandiser_buyer_save]", objDIc);
             }
         }
 
