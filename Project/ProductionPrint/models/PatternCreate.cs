@@ -36,6 +36,7 @@ namespace ProductionPrint.models
 
         public Guid item_id { get; set; }
         public Guid item_sub_id { get; set; }
+        public Guid pttn_other_idx { get; set; }
         public string item_desc { get; set; }
 
         public int id{ get; set; }
@@ -50,6 +51,11 @@ namespace ProductionPrint.models
         public decimal machine_smv { get; set; }
         public decimal cost_smv { get; set; }
         public decimal prod_smv { get; set; }
+
+        public decimal sweing_smv { get; set; }
+        public decimal pck_smv { get; set; }
+        public decimal ws_smv { get; set; }
+
         public int cat_id { get; set; }
         public string description { get; set; }
 
@@ -62,12 +68,14 @@ namespace ProductionPrint.models
         public Guid usr { get; set; }
         public List<accesseries> accesseries { get; set; }
         public List<fabricCon> fabricCon { get; set; }
+        public List<pttnEmb> pttnEmb { get; set; }
         private string connection { get; set; }
 
         public PatternCreate( string conn)
         {
             buyer_id = new Guid();
             pattern_id = new Guid();
+            pttn_other_idx = new Guid();
             pattern_name = "";
             pattern_des = "";
             origin_ref = "";
@@ -105,6 +113,10 @@ namespace ProductionPrint.models
             cost_smv = 0;
             prod_smv = 0;
 
+            sweing_smv=0;
+            pck_smv = 0;
+            ws_smv = 0;
+
             cat_id = 0;
             description = "";
 
@@ -118,6 +130,7 @@ namespace ProductionPrint.models
             usr = new Guid();
             accesseries = new List<accesseries>();
             fabricCon = new List<fabricCon>();
+            pttnEmb = new List<pttnEmb>();
             connection = conn;
         }
         
@@ -163,45 +176,44 @@ namespace ProductionPrint.models
                 var objDIc = new Dictionary<string, object> {
                 {"buyer_id",buyer_id},
                 {"pattern_name",pattern_name},
+                {"gender",gender},
+                {"agegroup",age_group},
+                {"item_ids",item_id},
+                {"pttn_other_idx",pttn_other_idx},
+                {"size_set_id",size_set_id},
+                {"keyword",keyword},
                 {"pattern_des",pattern_des},
                 {"origin_ref",origin_ref},
-                {"corr_pattern",corr_pattern},
-                {"keyword",keyword},
-                {"specil_att",specil_att},
+                {"corr_pattern",corr_pattern},    
                 {"fact_des",fact_des},
-                {"print_typ_id",print_typ_id},
                 {"note",note},
-                {"fac_note",fac_note},
-                {"mark_desc",mark_desc},
-                {"conv_fact",conv_fact},
-                {"suplier_id",suplier_id},
                 {"isCore",isCore},
                 {"isActive",isActive},
 
                 {"request_by",request_by},
                 {"firm_Qty",firm_Qty},
                 {"potential_Qty",potential_Qty},
-                {"customer",customer},
-
-                {"item_ids",item_id},
-                {"item_sub_id",item_sub_id},
-                {"gender",gender},
-                {"agegroup",age_group},
-                {"size_set_id",size_set_id},
-                {"unit_id",unit_id},
-                {"machine_smv",machine_smv},
+                {"customer",customer},              
+                //{"item_sub_id",item_sub_id},               
+                               
+                //{"unit_id",unit_id},
+                //{"machine_smv",machine_smv},
     
                 {"cat_id",cat_id},
 
-                {"cost_smv",cost_smv},
-                {"prod_smv",prod_smv},
+                {"sweing_smv",sweing_smv},
+                {"pck_smv",pck_smv},
+                {"ws_smv",ws_smv},
 
                 {"imgs",imgs},
                 {"mesur_imgs",mesur_imgs},
-                { "spec_mesur_imgs",spec_mesur_imgs},
+                {"spec_mesur_imgs",spec_mesur_imgs},
                 {"garmnt_nt",garmnt_nt},
+
                 {"accesseries",new accesseries().InvItemListToDataTable(accesseries)},
                 {"fabricCon",new fabricCon().InvItemListToDataTable(fabricCon)},
+                {"pttnEmb",new pttnEmb().InvItemListToDataTable(pttnEmb)},
+
                 {"usr",usr},
                 {"typ",typ}
             };
@@ -241,8 +253,7 @@ namespace ProductionPrint.models
             dt1.Columns.Add("sb_itm_nme", typeof(string));
             dt1.Columns.Add("sup_item_code", typeof(string));
             dt1.Columns.Add("sup_item_nme", typeof(string));
-            dt1.Columns.Add("consm", typeof(decimal));
-
+            dt1.Columns.Add("consm",typeof(decimal));
 
             foreach (var item in lst)
             {
@@ -305,4 +316,35 @@ namespace ProductionPrint.models
         }
 
     }
-   }
+
+    public class pttnEmb
+    {
+        public int emb_id { get; set; }
+
+        public pttnEmb()
+        {
+            emb_id = 0;
+        }
+
+        public DataTable InvItemListToDataTable(List<pttnEmb> lst)
+        {
+            var dt1 = new DataTable();
+            dt1.Clear();
+            dt1.Columns.Add("emb_id", typeof(int));
+
+            foreach (var item in lst)
+            {
+
+                DataRow _acc = dt1.NewRow();
+                _acc["emb_id"] = item.emb_id;
+                dt1.Rows.Add(_acc);
+            }
+            return dt1;
+        }
+
+    }
+
+
+}
+
+
