@@ -69,6 +69,7 @@ namespace ProductionPrint.models
         public List<accesseries> accesseries { get; set; }
         public List<fabricCon> fabricCon { get; set; }
         public List<pttnEmb> pttnEmb { get; set; }
+        public List<mesurements> mesurements { get; set; }
         private string connection { get; set; }
 
         public PatternCreate( string conn)
@@ -213,7 +214,7 @@ namespace ProductionPrint.models
                 {"accesseries",new accesseries().InvItemListToDataTable(accesseries)},
                 {"fabricCon",new fabricCon().InvItemListToDataTable(fabricCon)},
                 {"pttnEmb",new pttnEmb().InvItemListToDataTable(pttnEmb)},
-
+                {"mesurements",new mesurements().InvItemListToDataTable(mesurements)},
                 {"usr",usr},
                 {"typ",typ}
             };
@@ -344,7 +345,68 @@ namespace ProductionPrint.models
 
     }
 
+    public class mesurements
+    {
+        public int id { get; set; }
+        public decimal xxs { get; set; }
+        public decimal xs { get; set; }
+        public decimal s { get; set; }
+        public decimal m { get; set; }
+        public decimal l { get; set; }
+        public decimal xl { get; set; }
+        public decimal xl2 { get; set; }
+        public decimal xl3 { get; set; }
+        public decimal xl4 { get; set; }
 
+        public mesurements()
+        {
+            id = 0;
+            xxs = 0;
+            xs = 0;
+            s = 0;
+            m = 0;
+            l = 0;
+            xl = 0;
+            xl2 = 0;
+            xl3 = 0;
+            xl4 = 0;
+        }
+
+        public DataTable InvItemListToDataTable(List<mesurements> lst)
+        {
+            var dt1 = new DataTable();
+            dt1.Clear();
+            dt1.Columns.Add("id", typeof(int));
+            dt1.Columns.Add("xxs", typeof(decimal));
+            dt1.Columns.Add("xs", typeof(decimal));
+            dt1.Columns.Add("s", typeof(decimal));
+            dt1.Columns.Add("m", typeof(decimal));
+            dt1.Columns.Add("l", typeof(decimal));
+            dt1.Columns.Add("xl", typeof(decimal));
+            dt1.Columns.Add("xl2", typeof(decimal));
+            dt1.Columns.Add("xl3", typeof(decimal));
+            dt1.Columns.Add("xl4", typeof(decimal));
+
+            foreach (var item in lst)
+            {
+
+                DataRow _acc = dt1.NewRow();
+                _acc["id"] = item.id;
+                _acc["xxs"] = item.xxs;
+                _acc["xs"] = item.xs;
+                _acc["s"] = item.s;
+                _acc["m"] = item.m;
+                _acc["l"] = item.l;
+                _acc["xl"] = item.xl;
+                _acc["xl2"] = item.xl2;
+                _acc["xl3"] = item.xl3;
+                _acc["xl4"] = item.xl4;
+                dt1.Rows.Add(_acc);
+            }
+            return dt1;
+        }
+
+    }
 }
 
 
