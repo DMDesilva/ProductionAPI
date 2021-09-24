@@ -348,6 +348,7 @@ namespace ProductionPrint.models
     public class mesurements
     {
         public int id { get; set; }
+        public decimal grading { get; set; }
         public decimal xxs { get; set; }
         public decimal xs { get; set; }
         public decimal s { get; set; }
@@ -361,6 +362,7 @@ namespace ProductionPrint.models
         public mesurements()
         {
             id = 0;
+            grading = 0;
             xxs = 0;
             xs = 0;
             s = 0;
@@ -377,7 +379,8 @@ namespace ProductionPrint.models
             var dt1 = new DataTable();
             dt1.Clear();
             dt1.Columns.Add("id", typeof(int));
-            dt1.Columns.Add("xxs", typeof(decimal));
+            dt1.Columns.Add("grading",typeof(decimal));
+            dt1.Columns.Add("xxs",typeof(decimal));
             dt1.Columns.Add("xs", typeof(decimal));
             dt1.Columns.Add("s", typeof(decimal));
             dt1.Columns.Add("m", typeof(decimal));
@@ -392,6 +395,7 @@ namespace ProductionPrint.models
 
                 DataRow _acc = dt1.NewRow();
                 _acc["id"] = item.id;
+                _acc["grading"] = item.grading;
                 _acc["xxs"] = item.xxs;
                 _acc["xs"] = item.xs;
                 _acc["s"] = item.s;

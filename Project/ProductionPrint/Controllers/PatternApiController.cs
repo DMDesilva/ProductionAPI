@@ -53,5 +53,13 @@ namespace ProductionPrint.Controllers
             PatternCreate ptn = new PatternCreate(CommonData.ConStr());
             return ptn.GetItms();
         }
+
+        //-----------SMV----------------------
+        [HttpGet("get_Operation")]
+        public DataTable Get_Operation()
+        {
+            smv_operation smv = new smv_operation(CommonData.ConStr());
+            return smv.LoadOperation();
+        }
     }
 }
