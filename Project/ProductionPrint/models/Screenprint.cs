@@ -35,6 +35,13 @@ namespace ProductionPrint.models
             }
         }
 
+        public DataSet Load_Dashbord()
+        {
+            {
+                var objDIc = new Dictionary<string, object>();
+                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("_Secreen_print_dashbord", objDIc);
+            }
+        }
 
         public DataTable Save_spr()
         {
