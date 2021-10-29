@@ -8,6 +8,7 @@ namespace ProductionPrint.models
 {
     public class workassign
     {
+        public int id { get; set; }
         public int wid { get; set; }
         public string wrkername { get; set; }
         public string img { get; set; }
@@ -21,6 +22,7 @@ namespace ProductionPrint.models
         public int typ { get; set; }
         public workassign()
         {
+            id = 0;
             wid = 0;
             pcs = 0;
             wrkername = "";
@@ -35,7 +37,7 @@ namespace ProductionPrint.models
         }
         public DataTable GetWrkhour()
         {
-            return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [id] ,[worker] ,[img] ,[wrk_date] ,[work_hr_strt],[work_hr_end] FROM [dbo].[VIEW_Screen_Print_wrk_hr_details] where [wrk_date]=CONVERT(DATE,GETDATE())");
+            return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [id],[trns_id],[worker] ,[img] ,[wrk_date] ,[work_hr_strt],[work_hr_end] FROM [dbo].[VIEW_Screen_Print_wrk_hr_details] where [wrk_date]=CONVERT(DATE,GETDATE())");
         }
 
         public DataTable GetWrkproductDetais()
@@ -47,11 +49,13 @@ namespace ProductionPrint.models
         {
             {
                 var objDIc = new Dictionary<string, object> {
-
+                   {"id",id},
                    {"wid",wid},
                    {"wrk_date",wrk_date},
                    {"strtTime",strtTime},
-                   {"endTime",endTime}
+                   {"endTime",endTime},
+                   {"usr",usr},
+                   {"typ",typ}
             };
 
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Save_workhr", objDIc);

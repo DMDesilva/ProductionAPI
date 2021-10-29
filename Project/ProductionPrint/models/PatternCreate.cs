@@ -280,6 +280,7 @@ namespace ProductionPrint.models
         public int sb_itm_id { get; set; }
         public string sup_item_code { get; set; }
         public string sb_itm_nme { get; set; }
+        public string sup_item_nme { get; set; }
         public decimal consum { get; set; }
 
         public  fabricCon()
@@ -287,6 +288,7 @@ namespace ProductionPrint.models
             itm_id = 0;
             sb_itm_id = 0;
             sup_item_code = "";
+            sup_item_nme = "";
             sb_itm_nme = "";
             consum = 0;
         }
@@ -299,6 +301,7 @@ namespace ProductionPrint.models
             dt1.Columns.Add("sb_itm_id", typeof(int));
             dt1.Columns.Add("sb_itm_nme", typeof(string));
             dt1.Columns.Add("sup_item_code", typeof(string));
+            dt1.Columns.Add("sup_item_nme", typeof(string));
             dt1.Columns.Add("consum", typeof(decimal));
 
             foreach (var item in lst)
@@ -309,6 +312,7 @@ namespace ProductionPrint.models
                 _acc["sb_itm_id"] = item.sb_itm_id;
                 _acc["sb_itm_nme"] = item.sb_itm_nme;
                 _acc["sup_item_code"] = item.sup_item_code;
+                _acc["sup_item_nme"] = item.sup_item_nme;
                 _acc["consum"] = item.consum;
 
                 dt1.Rows.Add(_acc);

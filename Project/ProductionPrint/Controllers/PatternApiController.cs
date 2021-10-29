@@ -61,5 +61,14 @@ namespace ProductionPrint.Controllers
             smv_operation smv = new smv_operation(CommonData.ConStr());
             return smv.LoadOperation();
         }
+
+        [HttpGet("get_SMV_mast")]
+        public DataSet Get_SMV_mast()
+        {
+            smv_operation smv = new smv_operation(CommonData.ConStr());
+            return smv.Load_MAST_Type();
+        }
+
+
     }
 }
