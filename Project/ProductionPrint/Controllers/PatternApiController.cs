@@ -69,6 +69,11 @@ namespace ProductionPrint.Controllers
             return smv.Load_MAST_Type();
         }
 
+        [HttpPost("saveSMV_OP_dt")]
+        public DataTable SaveSMV_OP_dt(smv_operation smv)
+        {
 
+            return smv.Save_SMV_OP_dt();
+        }
     }
 }

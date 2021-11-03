@@ -19,7 +19,7 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT itm_id,CONCAT(sup_item_code,'  -  ' ,sup_item_nme) as itmnms , sup_item_code,sup_item_nme FROM [erpWarehouse].[dbo].[itm_lgr_transa_stock] WHERE (isdeleted = 0) AND (actve = 1)  order by itm_id");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT itm_id,CONCAT(sup_item_code,'  -  ' ,sup_item_nme) as itmnms , sup_item_code,sup_item_nme FROM [erpWarehouse].[dbo].[itm_lgr_transa_stock] WHERE (isdeleted = 0) AND (actve = 1)  and ([cat_id]=1094 or [cat_id]=8 ) order by itm_id");
             }
         }
 
