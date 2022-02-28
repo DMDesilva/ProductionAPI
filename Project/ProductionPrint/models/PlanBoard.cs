@@ -23,6 +23,7 @@ namespace ProductionPrint.models
         public DateTime ModifiedDate { get; set; }
         public Guid ModifiedBy { get; set; }
         public List <planItem> planItem { get; set; }
+        public List<pln_sec> pln_sec { get; set; }
         public DateTime designPln_date { get; set; }
         public DateTime printingPln_date { get; set; }
         public DateTime hPrintingPln_date { get; set; }
@@ -51,43 +52,51 @@ namespace ProductionPrint.models
             plan_id = 0;
             sec_Id = 0;
             sub_sec_Id = 0;
-         
             plan_Date = DateTime.Now;
             planItem = new List<planItem>();
+            pln_sec = new List<pln_sec>();
             CreatedDate = DateTime.Now;
             Usr = new Guid();
             ModifiedDate = DateTime.Now;
-
-            designPln_date = new DateTime(0001,1, 1); 
-            printingPln_date = new DateTime(0001, 1, 1);
-            hPrintingPln_date = new DateTime(0001, 1, 1);
-            devPln_date = new DateTime(0001, 1, 1);
-            scPritingPln_date = new DateTime(0001, 1, 1);
-            reCutPln_date = new DateTime(0001, 1, 1);
-            cutPln_date = new DateTime(0001, 1, 1);
+            designPln_date = DateTime.Now;
+            printingPln_date = DateTime.Now;
+            hPrintingPln_date = DateTime.Now;
+            devPln_date = DateTime.Now;
+            scPritingPln_date = DateTime.Now;
+            reCutPln_date = DateTime.Now;
+            cutPln_date = DateTime.Now;
             diCutPln_date = DateTime.Now;
-            packingPln_date = new DateTime(0001, 1, 1);
-            embPln_date = new DateTime(0001, 1, 1);
-            tp_date = new DateTime(0001, 1, 1);
-            tc_date = new DateTime(0001, 1, 1);
-            num_date = new DateTime(0001, 1, 1);
-            inp_date = new DateTime(0001, 1, 1);
+            packingPln_date = DateTime.Now;
+            embPln_date = DateTime.Now;
+            tp_date = DateTime.Now;
+            tc_date = DateTime.Now;
+            num_date = DateTime.Now;
+            inp_date = DateTime.Now;
+            //new DateTime(0001, 1, 1);
             // ModifiedBy = new Guid();
             typ =0;
         }
 
-        public DataTable LoadSewingPlan(DateTime frmDt)
+        public DataSet LoadSewingPlan(DateTime frmDt)
         {
             {
                 var objDIc = new Dictionary<string, object> {
 
-                   {"frmDt",frmDt},
-                  // {"toDt",toDt}
+                   {"frmDt",frmDt}
+                  //{"toDt",toDt}
 
             };
-                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("[dbo].[SewingPlan_Load]", objDIc);
+                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("[dbo].[SewingPlan_Load]", objDIc);
             }
         }
+
+        public DataTable Load_Plan_Section()
+        {
+            {
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [id],[pln_sec_name],0 as cs,CONVERT(datetime2(7),Getdate()) as sec_dt ,[isActive] FROM [dbo].[_Production_MAST_plan_sections]");
+            }
+        }
+
         public DataTable PlanProdData(int st)
         {
            {
@@ -165,11 +174,11 @@ namespace ProductionPrint.models
                     {"sewPln_date",sewPln_date},
                     { "Usr",Usr},
                     {"planItem",new planItem("").InvItemListToDataTable(planItem) }
-                    
+
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Sec_wise_Plan_save", objDIc);
             }
-        } 
+        }
         public DataTable PlanChangeSave()
         {
             {
@@ -186,36 +195,51 @@ namespace ProductionPrint.models
                     {"sewPln_date",sewPln_date},
                     { "Usr",Usr},
                     { "typ",typ}
-                    
+
 
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Section_Change_PlanDate", objDIc);
             }
         }
-        public DataTable Date_SecPlanSave()
+
+        public DataTable Date_SectionPlanSave()
         {
             {
                 var objDIc = new Dictionary<string, object>
                 {
-                    {"designPln_date",designPln_date},
-                    {"printingPln_date",printingPln_date},
-                    {"hPrintingPln_date",hPrintingPln_date},
-                    {"devPln_date",devPln_date},
-                  //  {"scPritingPln_date",scPritingPln_date},
-                    {"reCutPln_date",reCutPln_date},
-                //    {"cutPln_date",cutPln_date},
-                  //  {"diCutPln_date",diCutPln_date},
-                    {"packingPln_date",packingPln_date},
-                 //   {"embPln_date",embPln_date},
-                    {"sewPln_date",sewPln_date},
-                    {"tp_date",tp_date},
-                    {"tc_date",tc_date},
-                    {"num_date",num_date},
-                    {"inp_date",inp_date},
-                    {"planItem",new planItem("").InvItemListToDataTable(planItem)},
+                    {"pln_sec",new pln_sec("").InvItemListToDataTable(pln_sec)},
+                   // {"planItem",new planItem("").InvItemListToDataTable(planItem)},
                     { "Usr",Usr}
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Save_date_Sec_Plan", objDIc);
+            }
+        }
+
+            public DataTable Date_SecPlanSave()
+        {
+            {
+                var objDIc = new Dictionary<string, object>
+                {
+                //    {"designPln_date",designPln_date},
+                //    {"printingPln_date",printingPln_date},
+                //    {"hPrintingPln_date",hPrintingPln_date},
+                //    {"devPln_date",devPln_date},
+                //  //  {"scPritingPln_date",scPritingPln_date},
+                //    {"reCutPln_date",reCutPln_date},
+                ////    {"cutPln_date",cutPln_date},
+                //  //  {"diCutPln_date",diCutPln_date},
+                //    {"packingPln_date",packingPln_date},
+                // // {"embPln_date",embPln_date},
+                //    {"sewPln_date",sewPln_date},
+                //    {"tp_date",tp_date},
+                //    {"tc_date",tc_date},
+                //    {"num_date",num_date},
+                //    {"inp_date",inp_date},
+                    {"pln_sec",new pln_sec("").InvItemListToDataTable(pln_sec)},
+                   {"planItem",new planItem("").InvItemListToDataTable(planItem)},
+                   { "Usr",Usr}
+                };
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Plan_section_wise", objDIc);
             }
         }
     }
@@ -253,8 +277,8 @@ namespace ProductionPrint.models
                 _plan["ods_id"] = item.ods_id;
                 _plan["order_qty"] = item.order_qty;
                 _plan["plan_id"] = item.plan_id;
-                // _plan["Nic"] = item.Nic;
-                //  _plan["NewNic"] = item.NewNic;
+                //_plan["Nic"] = item.Nic;
+               //_plan["NewNic"] = item.NewNic;
 
                 dt1.Rows.Add(_plan);
             }
@@ -262,4 +286,42 @@ namespace ProductionPrint.models
         }
 
     }
+}
+
+public class pln_sec
+{
+
+    public int id { get; set; }
+    public string pln_sec_name { get; set; }
+    public DateTime sec_dt { get; set; }
+    public bool cs { get; set; }
+
+    public pln_sec(string v)
+    {
+        id = 0;
+        pln_sec_name = "";
+        sec_dt = DateTime.Now;
+        cs = false;
+    }
+    public DataTable InvItemListToDataTable(List<pln_sec> lst)
+    {
+        var dt1 = new DataTable();
+        dt1.Clear();
+        dt1.Columns.Add("id", typeof(int));
+        dt1.Columns.Add("pln_sec_name", typeof(string));
+        dt1.Columns.Add("sec_dt", typeof(DateTime));
+        dt1.Columns.Add("cs", typeof(bool));
+        foreach (var item in lst)
+        {
+
+            DataRow _plan = dt1.NewRow();
+            _plan["id"] = item.id;
+            _plan["pln_sec_name"] = item.pln_sec_name;
+            _plan["sec_dt"] = item.sec_dt;
+            _plan["cs"] = item.cs;
+            dt1.Rows.Add(_plan);
+        }
+        return dt1;
+    }
+
 }

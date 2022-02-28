@@ -75,5 +75,19 @@ namespace ProductionPrint.Controllers
 
             return smv.Save_SMV_OP_dt();
         }
+        //---------------------------Costing-----------------
+        [HttpPost("save_Costing")]
+        public DataTable Save_Costing(CostSheet cost)
+        {
+            return cost.Save_Costing();
+        }
+
+        
+        [HttpGet("get_load_cost_data")]
+        public DataSet Get_load_cost_data()
+        {
+            CostSheet cost = new CostSheet();
+            return cost.LoadCostingDt();
+        }
     }
 }

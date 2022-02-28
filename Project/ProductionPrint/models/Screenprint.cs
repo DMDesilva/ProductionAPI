@@ -26,7 +26,7 @@ namespace ProductionPrint.models
             ups = 0;
 
         }
-
+        
         public DataSet Load_spr_details()
         {
             {

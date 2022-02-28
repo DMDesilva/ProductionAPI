@@ -63,10 +63,12 @@ namespace ProductionPrint.models
         public string mesur_imgs { get; set; }
         public string garmnt_nt { get; set; }
         public string spec_mesur_imgs { get; set; }
+        public string emb { get; set; }
 
         public int typ { get; set; } 
         public Guid usr { get; set; }
         public List<accesseries> accesseries { get; set; }
+        public List<pack_access> pack_access { get; set; }
         public List<fabricCon> fabricCon { get; set; }
         public List<pttnEmb> pttnEmb { get; set; }
         public List<mesurements> mesurements { get; set; }
@@ -97,6 +99,7 @@ namespace ProductionPrint.models
             firm_Qty = "";
             potential_Qty = "";
             customer = "";
+            emb = "";
 
             item_id = new Guid();
             item_sub_id = new Guid();
@@ -130,6 +133,7 @@ namespace ProductionPrint.models
             fac_note= "";
             usr = new Guid();
             accesseries = new List<accesseries>();
+            pack_access = new List<pack_access>();
             fabricCon = new List<fabricCon>();
             pttnEmb = new List<pttnEmb>();
             connection = conn;
@@ -164,13 +168,14 @@ namespace ProductionPrint.models
                 {"catergory",catergory},
                 {"gender",gender},
                 {"description",description},
+                {"emb",emb},
                 {"typ",typ},
                 {"usr",usr}
             };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_Merchandiser_pttninfo_MAST_Save", objDIc);
             }
         }
-
+        
         public DataTable Save_Pattern_Create()
         {
             {
@@ -212,6 +217,7 @@ namespace ProductionPrint.models
                 {"garmnt_nt",garmnt_nt},
 
                 {"accesseries",new accesseries().InvItemListToDataTable(accesseries)},
+                {"pack_access",new pack_access().InvItemListToDataTable(pack_access)},
                 {"fabricCon",new fabricCon().InvItemListToDataTable(fabricCon)},
                 {"pttnEmb",new pttnEmb().InvItemListToDataTable(pttnEmb)},
                 {"mesurements",new mesurements().InvItemListToDataTable(mesurements)},
@@ -266,6 +272,60 @@ namespace ProductionPrint.models
                 _acc["sb_itm_nme"] = item.sb_itm_nme;
                 _acc["sup_item_code"] = item.sup_item_code;
                 _acc["sup_item_nme"] = item.sup_item_nme;
+                _acc["consm"] = item.consm;
+               
+                dt1.Rows.Add(_acc);
+            }
+            return dt1;
+        }
+    }
+    public class pack_access
+    {
+        public int itm_id { get; set; }
+        public int sb_itm_id { get; set; }
+        public string cat_name { get; set; }
+        public string sb_itm_nme { get; set; }
+        public string sup_item_code { get; set; }
+        public string sup_item_nme { get; set; }
+        public string unit { get; set; }
+        public decimal consm { get; set; }
+
+        public pack_access()
+        {
+            itm_id = 0;
+            sb_itm_id = 0;
+            cat_name = "";
+            sb_itm_nme = "";
+            sup_item_code = "";
+            sup_item_nme = "";
+            unit = "";
+            consm = 0;
+        }
+
+        public DataTable InvItemListToDataTable(List<pack_access> lst)
+        {
+            var dt1 = new DataTable();
+            dt1.Clear();
+            dt1.Columns.Add("itm_id", typeof(int));
+            dt1.Columns.Add("sb_itm_id", typeof(int));
+            dt1.Columns.Add("cat_name", typeof(string));
+            dt1.Columns.Add("sb_itm_nme", typeof(string));
+            dt1.Columns.Add("sup_item_code", typeof(string));
+            dt1.Columns.Add("sup_item_nme", typeof(string));
+            dt1.Columns.Add("unit", typeof(string));
+            dt1.Columns.Add("consm",typeof(decimal));
+
+            foreach (var item in lst)
+            {
+
+                DataRow _acc = dt1.NewRow();
+                _acc["itm_id"] = item.itm_id;
+                _acc["sb_itm_id"] = item.sb_itm_id;
+                _acc["cat_name"] = item.cat_name;
+                _acc["sb_itm_nme"] = item.sb_itm_nme;
+                _acc["sup_item_code"] = item.sup_item_code;
+                _acc["sup_item_nme"] = item.sup_item_nme;
+                _acc["unit"] = item.unit;
                 _acc["consm"] = item.consm;
                
                 dt1.Rows.Add(_acc);

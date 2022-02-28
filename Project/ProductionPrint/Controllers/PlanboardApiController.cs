@@ -15,7 +15,7 @@ namespace ProductionPrint.Controllers
     {
         
         [HttpPost("getSewingPlan")]
-        public DataTable GetSewingPlan(ClsPrm prm)
+        public DataSet GetSewingPlan(ClsPrm prm)
         {
             PlanBoard plan = new PlanBoard(CommonData.ConStr());
             return plan.LoadSewingPlan(prm.DtPram1);
@@ -61,6 +61,13 @@ namespace ProductionPrint.Controllers
             PlanBoard plan = new PlanBoard(CommonData.ConStr());
             return plan.LoadPlanData();
         }
+        //
+        [HttpGet("loadPlanSec")]
+        public DataTable LoadPlanSec()
+        {
+            PlanBoard plan = new PlanBoard(CommonData.ConStr());
+            return plan.Load_Plan_Section();
+        }
         [HttpGet("loadSection")]
         public DataTable LoadSection()
         {
@@ -102,6 +109,11 @@ namespace ProductionPrint.Controllers
             return planAll.GetProduction();
         }
 
+        [HttpPost("saveplanSection")]
+        public DataTable saveplanSection(PlanBoard plan)
+        {  
+            return plan.Date_SectionPlanSave();
+        }
 
     }
 }
