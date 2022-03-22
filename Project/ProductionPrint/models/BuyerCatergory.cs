@@ -109,8 +109,15 @@ namespace ProductionPrint.models
         public DataTable LoadBuyerCatergory()
         {
             {
-                //var objDIc = new Dictionary<string, object>();
+                //var objDIc = new Dictionary<string, object>();   SELECT  [Idx],[id]  ,[buyer] ,[buyer_category],[buyer_code] ,[buyer_po_code]FROM [dbo].[VIEW_Merchandiser_Buyer_details]
                 return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [Idx],[id]  ,[buyer] ,[buyer_category],[buyer_code] ,[buyer_po_code] ,[address1],[address2],[address3],[city] ,[state] ,[postal_code] ,[country],[invoice_name],[invoice_address1] ,[invoice_address2] ,[invoice_address3] ,[contract_title],[contract_name],[email_address],[m_num] ,[p_num],[extention] ,[port] ,[c_account_no],[vat],[svat] ,[fax_no],[paymnt_terms] ,[Pay_terms],[currency] ,[credit_limit],[payment_name],[paymnt_email],[paymnt_mobile_no],[email_paymnt_inv] ,[email_shipment] ,[shipment_terms]  ,[shipmet_terms],[inv_typ],[invtyp],[img1],[img2],[img3],[img4] FROM [dbo].[VIEW_Merchandiser_Buyer_details]");
+            }
+        }
+        public DataTable LoadBuyer()
+        {
+            {
+                //var objDIc = new Dictionary<string, object>();   
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [Idx],[id]  ,[buyer] ,[buyer_category],[buyer_code] ,[buyer_po_code]FROM [dbo].[VIEW_Merchandiser_Buyer_details]");
             }
         }
         public DataTable LoadingShipmentTerms()

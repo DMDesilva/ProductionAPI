@@ -30,7 +30,7 @@ namespace ProductionPrint.Controllers
         }
 
         [HttpPost("getSizes")]
-        public DataTable GetSizes(warehouseFabRequest ware)
+        public DataSet GetSizes(warehouseFabRequest ware)
         {
             return ware.SizesGet();
         }

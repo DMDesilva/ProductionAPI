@@ -141,8 +141,22 @@ namespace ProductionPrint.models
         
         public DataTable GetItms()
         {
-            return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [itm_id],[sup_item_code] ,[sup_item_nme],[sb_itm_id],[sb_itm_nme],[cat_id],[cat_name] ,[stock_qty] ,[unit_id],[unit_name],0 as cs ,0 as consm ,CONCAT([sup_item_nme],' - ',[sb_itm_nme],' - ',[cat_name]) as itms , CONCAT([sup_item_code],' - ', [sup_item_nme],' - ',[sb_itm_nme]) AS fabitm ,0 as consum FROM [erpWarehouse].[dbo].[VIEW_Item_details] where stock_qty >0");
+            return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [itm_id],[sup_item_code] ,[sup_item_nme],[sb_itm_id],[sb_itm_nme],[cat_id],[cat_name] ,[stock_qty] ,[unit_id],[unit_name],0 as cs ,0 as consm ,CONCAT([sup_item_nme],' - ',[sb_itm_nme],' - ',[cat_name]) as itms , CONCAT([sup_item_code],' - ', [sup_item_nme],' - ',[sb_itm_nme]) AS fabitm ,0 as consum FROM [erpWarehouse].[dbo].[VIEW_Item_details]");
         }
+
+        public DataTable GetItmsCater()
+        {
+            return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [id],[mst_nme] FROM [dbo].[_Merchandiser_MAST_itms_catergory]");
+        }
+
+        public DataTable Get_Items_Cat()
+        {
+            {
+                var objDIc = new Dictionary<string, object>();
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_Itms_cate_sub_master", objDIc);
+            }
+        }
+
         public DataSet Load_Mast_data()
         {
             {

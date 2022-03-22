@@ -46,7 +46,7 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT dept_id, dept_nme FROM [sysTower].dbo.user_master_dep ORDER BY dept_nme");
             }
         }
-        public DataTable SizesGet()
+        public DataSet SizesGet()
         {
             {
                 var objDIc = new Dictionary<string, object>
@@ -54,7 +54,7 @@ namespace ProductionPrint.models
 
                     { "ord_id",ord_id}
                 };
-                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_size_split_ods", objDIc);
+                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("_size_split_ods", objDIc);
             }
         }
         public DataSet Load_req_fab_info()
@@ -88,6 +88,7 @@ namespace ProductionPrint.models
 
     public class itemlist
     {
+        public string id { get; set; }
         public int ord_id { get; set; }
         public string size { get; set; }
         public int qnty { get; set; }
@@ -96,6 +97,7 @@ namespace ProductionPrint.models
 
         public itemlist()
         {
+            id = "";
             ord_id = 0;
             qnty = 0;
             bln_qnty = 0;
@@ -108,6 +110,7 @@ namespace ProductionPrint.models
         {
             var dt1 = new DataTable();
             dt1.Clear();
+            dt1.Columns.Add("id", typeof(string));
             dt1.Columns.Add("ord_id", typeof(int));
             dt1.Columns.Add("size", typeof(string));
             dt1.Columns.Add("qnty", typeof(int));
@@ -116,6 +119,7 @@ namespace ProductionPrint.models
             {
 
                 DataRow _itmlists = dt1.NewRow();
+                _itmlists["id"] = item.id;
                 _itmlists["ord_id"] = item.ord_id;
                 _itmlists["size"] = item.size;
                 _itmlists["qnty"] = item.qnty;
@@ -131,7 +135,9 @@ namespace ProductionPrint.models
     public class ods_list {
 
         public int ord_id { get; set; }
+        public string itm_id { get; set; }
         public int order_qty { get; set; }
+        public int add_qnty { get; set; }
         public bool isTest { get; set; }
         public bool isBulk { get; set; }
         public bool isDamage { get; set; }
@@ -140,7 +146,9 @@ namespace ProductionPrint.models
         public ods_list()
         {
             ord_id = 0;
+            itm_id = "";
             order_qty = 0;
+            add_qnty = 0;
             isTest = false;
             isBulk = false;
             isDamage = false;
@@ -151,7 +159,9 @@ namespace ProductionPrint.models
             var dt1 = new DataTable();
             dt1.Clear();
             dt1.Columns.Add("ord_id", typeof(int));
+            dt1.Columns.Add("itm_id", typeof(string));
             dt1.Columns.Add("order_qty", typeof(int));
+            dt1.Columns.Add("add_qnty", typeof(int));
             dt1.Columns.Add("isTest", typeof(bool));
             dt1.Columns.Add("isBulk", typeof(bool));
             dt1.Columns.Add("isDamage", typeof(bool));
@@ -161,7 +171,9 @@ namespace ProductionPrint.models
 
                 DataRow _itmlists = dt1.NewRow();
                 _itmlists["ord_id"] = item.ord_id;
+                _itmlists["itm_id"] = item.itm_id;
                 _itmlists["order_qty"] = item.order_qty;
+                _itmlists["add_qnty"] = item.add_qnty;
                 _itmlists["isTest"] = item.isTest;
                 _itmlists["isBulk"] = item.isBulk;
                 _itmlists["isDamage"] = item.isDamage;

@@ -89,5 +89,23 @@ namespace ProductionPrint.Controllers
             CostSheet cost = new CostSheet();
             return cost.LoadCostingDt();
         }
+
+        [HttpGet("get_items")]
+        public DataTable Get_items()
+        {
+            PatternCreate pttn = new PatternCreate(CommonData.ConStr());
+            return pttn.Get_Items_Cat();
+        }
+
+        [HttpGet("get_items_Cat")]
+        public DataTable Get_items_Cat()
+        {
+            PatternCreate pttn = new PatternCreate(CommonData.ConStr());
+            return pttn.GetItmsCater();
+        }
+
+
+
+
     }
 }

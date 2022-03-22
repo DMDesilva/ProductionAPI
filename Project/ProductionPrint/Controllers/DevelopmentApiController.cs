@@ -60,5 +60,35 @@ namespace ProductionPrint.Controllers
            // DevelopmentDeprtment dev = new DevelopmentDeprtment(CommonData.ConStr());
             return dev.FabTransPo();
         }
+
+        ///--------------
+        [HttpGet("loadPttn")]
+        public DataTable LoadPttn()
+        {
+            Quality qua = new Quality();
+            return qua.Loadpatterns();
+        }
+
+        [HttpPost("itmCat_Save")]
+        public DataTable ItmCat_Save(DevelopmentDeprtment dev)
+        {
+            // DevelopmentDeprtment dev = new DevelopmentDeprtment(CommonData.ConStr());
+            return dev.ItmCatSave();
+        }
+
+        [HttpPost("save_itmsCat")]
+        public DataTable save_itmsCat(DevelopmentDeprtment dev)
+        {
+            // DevelopmentDeprtment dev = new DevelopmentDeprtment(CommonData.ConStr());
+            return dev.save_itmsCat();
+        }
+
+        [HttpGet("getMastItmsCat")]
+        public DataSet GetMastItmsCat()
+        {
+            DevelopmentDeprtment dev = new DevelopmentDeprtment(CommonData.ConStr());
+            return dev.SelectMastItmsCat();
+        }
+
     }
 }

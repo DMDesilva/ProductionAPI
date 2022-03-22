@@ -19,7 +19,13 @@ namespace ProductionPrint.Controllers
             BuyerCatergory buy = new BuyerCatergory(CommonData.ConStr());
             return buy.LoadBuyerCatergory();
         }
-
+        [HttpGet("getLoadBuyer")]
+        public DataTable GetLoadBuyer()
+        {
+            BuyerCatergory buy = new BuyerCatergory(CommonData.ConStr());
+            return buy.LoadBuyer();
+        }
+        
         [HttpGet("getShipTerms")]
         public DataTable GetShipTerms()
         {
