@@ -8,6 +8,7 @@ namespace ProductionPrint.models
 {
     public class PatternCreate
     {
+        public Guid idx { get; set; } 
         public Guid buyer_id { get; set; } 
         public Guid pattern_id { get; set; } 
         public string pattern_name { get; set; } 
@@ -66,6 +67,7 @@ namespace ProductionPrint.models
         public string emb { get; set; }
 
         public int typ { get; set; } 
+        public int st { get; set; } 
         public Guid usr { get; set; }
         public List<accesseries> accesseries { get; set; }
         public List<pack_access> pack_access { get; set; }
@@ -76,6 +78,7 @@ namespace ProductionPrint.models
 
         public PatternCreate( string conn)
         {
+            idx = new Guid();
             buyer_id = new Guid();
             pattern_id = new Guid();
             pttn_other_idx = new Guid();
@@ -129,6 +132,7 @@ namespace ProductionPrint.models
             garmnt_nt = "";
             spec_mesur_imgs = "";
             typ = 0;
+            st = 0;
             note = "";
             fac_note= "";
             usr = new Guid();
@@ -194,6 +198,7 @@ namespace ProductionPrint.models
         {
             {
                 var objDIc = new Dictionary<string, object> {
+                {"idx",idx},
                 {"buyer_id",buyer_id},
                 {"pattern_name",pattern_name},
                 {"gender",gender},
@@ -209,34 +214,29 @@ namespace ProductionPrint.models
                 {"note",note},
                 {"isCore",isCore},
                 {"isActive",isActive},
-
                 {"request_by",request_by},
                 {"firm_Qty",firm_Qty},
                 {"potential_Qty",potential_Qty},
                 {"customer",customer},              
-                //{"item_sub_id",item_sub_id},               
-                               
+                //{"item_sub_id",item_sub_id},                
                 //{"unit_id",unit_id},
                 //{"machine_smv",machine_smv},
-    
                 {"cat_id",cat_id},
-
                 {"sweing_smv",sweing_smv},
                 {"pck_smv",pck_smv},
                 {"ws_smv",ws_smv},
-
                 {"imgs",imgs},
                 {"mesur_imgs",mesur_imgs},
                 {"spec_mesur_imgs",spec_mesur_imgs},
                 {"garmnt_nt",garmnt_nt},
-
                 {"accesseries",new accesseries().InvItemListToDataTable(accesseries)},
                 {"pack_access",new pack_access().InvItemListToDataTable(pack_access)},
                 {"fabricCon",new fabricCon().InvItemListToDataTable(fabricCon)},
                 {"pttnEmb",new pttnEmb().InvItemListToDataTable(pttnEmb)},
                 {"mesurements",new mesurements().InvItemListToDataTable(mesurements)},
                 {"usr",usr},
-                {"typ",typ}
+                {"typ",typ},
+                {"st",st}
             };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_pattern_save", objDIc);
             }
