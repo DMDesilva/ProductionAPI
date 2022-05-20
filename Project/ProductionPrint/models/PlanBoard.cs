@@ -9,10 +9,14 @@ namespace ProductionPrint.models
     public class PlanBoard
     {
         public Guid Idx { get; set; }
+        public Guid idx { get; set; }
         public Guid PIdx { get; set; }
+        public Guid plan_Idx { get; set; }
         public int plan_id { get; set; }
+        public int cmm_mst_sec_id { get; set; }
         public int plant_Id { get; set; }
         public int sec_Id { get; set; }
+        public int sec_id { get; set; }
         public int sub_sec_Id { get; set; }
         public int ods_id { get; set; }
         public int qnty { get; set; }
@@ -22,8 +26,8 @@ namespace ProductionPrint.models
         public Guid Usr { get; set; }
         public DateTime ModifiedDate { get; set; }
         public Guid ModifiedBy { get; set; }
-        public List <planItem> planItem { get; set; }
-        public List<pln_sec> pln_sec { get; set; }
+     //   public List <planItem> planItem { get; set; }
+     //   public List<pln_sec> pln_sec { get; set; }
         public DateTime designPln_date { get; set; }
         public DateTime printingPln_date { get; set; }
         public DateTime hPrintingPln_date { get; set; }
@@ -45,16 +49,20 @@ namespace ProductionPrint.models
         {
             connection = conn;
             Idx = new Guid();
+            idx = new Guid();
             PIdx = new Guid();
+            plan_Idx = new Guid();
             plant_Id = 0;
             ods_id = 0;
             qnty = 0;
             plan_id = 0;
             sec_Id = 0;
+            sec_id = 0;
+            cmm_mst_sec_id = 0;
             sub_sec_Id = 0;
             plan_Date = DateTime.Now;
-            planItem = new List<planItem>();
-            pln_sec = new List<pln_sec>();
+          //  planItem = new List<planItem>();
+            //pln_sec = new List<pln_sec>();
             CreatedDate = DateTime.Now;
             Usr = new Guid();
             ModifiedDate = DateTime.Now;
@@ -93,7 +101,7 @@ namespace ProductionPrint.models
         public DataTable Load_Plan_Section()
         {
             {
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [id],[pln_sec_name],0 as cs,CONVERT(datetime2(7),Getdate()) as sec_dt ,[isActive] FROM [dbo].[_Production_MAST_plan_sections]");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [id],[pln_sec_name],0 as cs,CONVERT(datetime2(7),Getdate()) as sec_dt ,[isActive],[cmm_mst_sec_id] FROM [dbo].[_Production_MAST_plan_sections]");
             }
         }
 
@@ -135,11 +143,16 @@ namespace ProductionPrint.models
             }
         }
         
-        public DataTable LoadAllSectionPlanData(string frmDt)
+        public DataSet LoadAllSectionPlanData(string frmDt)
         {
             {
                 //var objDIc = new Dictionary<string, object>(); SELECT [subli_cat_id],[sublimation_category]FROM [dbo].[mercha_prodct_master_sublimacat]
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [Idx],[plan_date],[plant_Id] ,[plant_name] ,[sec_Id],[section_name] ,[St],[ord_Id] ,[po_no] ,[plan_qnty],[plan_id],[sewPln_date],[design_id] ,[subli_cat_id],[sublimation_category],0 as subcat FROM [dbo].[VIEW_Plan_SectionWise] where [plan_date]='" + frmDt.ToString()+ "'");
+                var objDIc = new Dictionary<string, object>
+                {
+                    {"from",frmDt}
+                };
+                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("_plan_section_po", objDIc);
+               // return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [Idx],[plan_date],[plant_Id] ,[plant_name] ,[sec_Id],[section_name] ,[St],[ord_Id] ,[po_no] ,[plan_qnty],[plan_id],[sewPln_date],[design_id] ,[subli_cat_id],[sublimation_category],0 as subcat FROM [dbo].[VIEW_Plan_SectionWise] where [plan_date]='" + frmDt.ToString()+ "'");
             }
         }
 
@@ -173,26 +186,27 @@ namespace ProductionPrint.models
                     {"plan_Date",plan_Date},
                     {"sewPln_date",sewPln_date},
                     { "Usr",Usr},
-                    {"planItem",new planItem("").InvItemListToDataTable(planItem) }
+                  //  {"planItem",new planItem("").InvItemListToDataTable(planItem) }
 
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Sec_wise_Plan_save", objDIc);
             }
         }
-        public DataTable PlanChangeSave()
+        public DataTable PlanChangeSave(Guid idx, int cmm_mst_sec_id, Guid plan_Idx, int plan_id,
+            DateTime plan_Date,int ods_id, Guid Usr,int typ)
         {
             {
                 var objDIc = new Dictionary<string, object>
                 {
-                    {"plant_Id",plant_Id},
-                    {"sec_Id",sec_Id},
-                    {"sub_sec_Id",sub_sec_Id},
-                    {"PIdx",PIdx},
+                    //{"plant_Id",plant_Id},
+                    {"idx",idx},
+                    {"cmm_mst_sec_id",cmm_mst_sec_id},
+                    {"PIdx",plan_Idx},
                     {"plan_id",plan_id},
                     {"plan_Date",plan_Date},
                     {"ord_Id",ods_id},
-                    {"qnty",qnty},
-                    {"sewPln_date",sewPln_date},
+                    //{"qnty",qnty},
+                   // {"sewPln_date",sewPln_date},
                     { "Usr",Usr},
                     { "typ",typ}
 
@@ -207,7 +221,7 @@ namespace ProductionPrint.models
             {
                 var objDIc = new Dictionary<string, object>
                 {
-                    {"pln_sec",new pln_sec("").InvItemListToDataTable(pln_sec)},
+                  //  {"pln_sec",new pln_sec("").InvItemListToDataTable(pln_sec)},
                    // {"planItem",new planItem("").InvItemListToDataTable(planItem)},
                     { "Usr",Usr}
                 };
@@ -215,113 +229,117 @@ namespace ProductionPrint.models
             }
         }
 
-            public DataTable Date_SecPlanSave()
+        //        public DataTable Date_SecPlanSave()
+        //    {
+        //        {
+        //            var objDIc = new Dictionary<string, object>
+        //            {
+        //            //    {"designPln_date",designPln_date},
+        //            //    {"printingPln_date",printingPln_date},
+        //            //    {"hPrintingPln_date",hPrintingPln_date},
+        //            //    {"devPln_date",devPln_date},
+        //            //  //  {"scPritingPln_date",scPritingPln_date},
+        //            //    {"reCutPln_date",reCutPln_date},
+        //            ////    {"cutPln_date",cutPln_date},
+        //            //  //  {"diCutPln_date",diCutPln_date},
+        //            //    {"packingPln_date",packingPln_date},
+        //            // // {"embPln_date",embPln_date},
+        //            //    {"sewPln_date",sewPln_date},
+        //            //    {"tp_date",tp_date},
+        //            //    {"tc_date",tc_date},
+        //            //    {"num_date",num_date},
+        //            //    {"inp_date",inp_date},
+        //               {"pln_sec",new pln_sec("").InvItemListToDataTable(pln_sec)},
+        //               {"planItem",new planItem("").InvItemListToDataTable(planItem)},
+        //               { "Usr",Usr}
+        //            };
+        //            return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Plan_section_wise", objDIc);
+        //        }
+        //    }
+        //}
+
+        public class planItem
         {
+
+            public int plan_id { get; set; }
+            public int ods_id { get; set; }
+            public int order_qty { get; set; }
+            // public string Nic { get; set; }
+            // public string NewNic { get; set; }
+
+
+            public planItem(string v)
             {
-                var objDIc = new Dictionary<string, object>
-                {
-                //    {"designPln_date",designPln_date},
-                //    {"printingPln_date",printingPln_date},
-                //    {"hPrintingPln_date",hPrintingPln_date},
-                //    {"devPln_date",devPln_date},
-                //  //  {"scPritingPln_date",scPritingPln_date},
-                //    {"reCutPln_date",reCutPln_date},
-                ////    {"cutPln_date",cutPln_date},
-                //  //  {"diCutPln_date",diCutPln_date},
-                //    {"packingPln_date",packingPln_date},
-                // // {"embPln_date",embPln_date},
-                //    {"sewPln_date",sewPln_date},
-                //    {"tp_date",tp_date},
-                //    {"tc_date",tc_date},
-                //    {"num_date",num_date},
-                //    {"inp_date",inp_date},
-                    {"pln_sec",new pln_sec("").InvItemListToDataTable(pln_sec)},
-                   {"planItem",new planItem("").InvItemListToDataTable(planItem)},
-                   { "Usr",Usr}
-                };
-                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Plan_section_wise", objDIc);
+                plan_id = 0;
+                ods_id = 0;
+                order_qty = 0;
             }
+            public DataTable InvItemListToDataTable(List<planItem> lst)
+            {
+                var dt1 = new DataTable();
+                dt1.Clear();
+                dt1.Columns.Add("ods_id", typeof(int));
+                dt1.Columns.Add("order_qty", typeof(int));
+                dt1.Columns.Add("plan_id", typeof(int));
+                //dt1.Columns.Add("NewNic", typeof(string));
+
+
+                foreach (var item in lst)
+                {
+
+                    DataRow _plan = dt1.NewRow();
+                    _plan["ods_id"] = item.ods_id;
+                    _plan["order_qty"] = item.order_qty;
+                    _plan["plan_id"] = item.plan_id;
+                    //_plan["Nic"] = item.Nic;
+                    //_plan["NewNic"] = item.NewNic;
+
+                    dt1.Rows.Add(_plan);
+                }
+                return dt1;
+            }
+
         }
     }
 
-    public class planItem
+    public class pln_sec
     {
-        
-        public int plan_id { get; set; }
-        public int ods_id { get; set; }
-        public int order_qty { get; set; }
-       // public string Nic { get; set; }
-       // public string NewNic { get; set; }
-        
 
-        public planItem(string v)
+        public int id { get; set; }
+        public int cmm_mst_sec_id { get; set; }
+        public string pln_sec_name { get; set; }
+        public DateTime sec_dt { get; set; }
+        public bool cs { get; set; }
+
+        public pln_sec(string v)
         {
-            plan_id = 0;
-            ods_id = 0;
-            order_qty = 0;
+            id = 0;
+            cmm_mst_sec_id = 0;
+            pln_sec_name = "";
+            sec_dt = DateTime.Now;
+            cs = false;
         }
-        public DataTable InvItemListToDataTable(List<planItem> lst)
+        public DataTable InvItemListToDataTable(List<pln_sec> lst)
         {
             var dt1 = new DataTable();
             dt1.Clear();
-            dt1.Columns.Add("ods_id", typeof(int));
-            dt1.Columns.Add("order_qty", typeof(int));
-            dt1.Columns.Add("plan_id", typeof(int));
-            //dt1.Columns.Add("NewNic", typeof(string));
-
-
+            dt1.Columns.Add("id", typeof(int));
+            dt1.Columns.Add("cmm_mst_sec_id", typeof(int));
+            dt1.Columns.Add("pln_sec_name", typeof(string));
+            dt1.Columns.Add("sec_dt", typeof(DateTime));
+            dt1.Columns.Add("cs", typeof(bool));
             foreach (var item in lst)
             {
 
                 DataRow _plan = dt1.NewRow();
-                _plan["ods_id"] = item.ods_id;
-                _plan["order_qty"] = item.order_qty;
-                _plan["plan_id"] = item.plan_id;
-                //_plan["Nic"] = item.Nic;
-               //_plan["NewNic"] = item.NewNic;
-
+                _plan["id"] = item.id;
+                _plan["cmm_mst_sec_id"] = item.cmm_mst_sec_id;
+                _plan["pln_sec_name"] = item.pln_sec_name;
+                _plan["sec_dt"] = item.sec_dt;
+                _plan["cs"] = item.cs;
                 dt1.Rows.Add(_plan);
             }
             return dt1;
         }
-
     }
-}
-
-public class pln_sec
-{
-
-    public int id { get; set; }
-    public string pln_sec_name { get; set; }
-    public DateTime sec_dt { get; set; }
-    public bool cs { get; set; }
-
-    public pln_sec(string v)
-    {
-        id = 0;
-        pln_sec_name = "";
-        sec_dt = DateTime.Now;
-        cs = false;
-    }
-    public DataTable InvItemListToDataTable(List<pln_sec> lst)
-    {
-        var dt1 = new DataTable();
-        dt1.Clear();
-        dt1.Columns.Add("id", typeof(int));
-        dt1.Columns.Add("pln_sec_name", typeof(string));
-        dt1.Columns.Add("sec_dt", typeof(DateTime));
-        dt1.Columns.Add("cs", typeof(bool));
-        foreach (var item in lst)
-        {
-
-            DataRow _plan = dt1.NewRow();
-            _plan["id"] = item.id;
-            _plan["pln_sec_name"] = item.pln_sec_name;
-            _plan["sec_dt"] = item.sec_dt;
-            _plan["cs"] = item.cs;
-            dt1.Rows.Add(_plan);
-        }
-        return dt1;
-    }
-
 }

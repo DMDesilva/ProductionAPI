@@ -34,18 +34,19 @@ namespace ProductionPrint.Controllers
             return plan.PlanSave();
         }
 
-        [HttpPost("dateSecPlanSaved")]
-        public DataTable DateSecPlanSaved(PlanBoard plan)
-        {
-           //PlanBoard plan = new PlanBoard(CommonData.ConStr());
-            return plan.Date_SecPlanSave();
-        }
+        //[HttpPost("dateSecPlanSaved")]
+        //public DataTable DateSecPlanSaved(PlanBoard plan)
+        //{
+        //   //PlanBoard plan = new PlanBoard(CommonData.ConStr());
+        //    return plan.Date_SecPlanSave();
+        //}
 
-        [HttpPost("planChangeSaved")]
-        public DataTable PlanChangeSaved(PlanBoard plan)
+        [HttpPost("planChange")]
+        public DataTable PlanChange(ClsPrm prm)
         {
-            //PlanBoard plan = new PlanBoard(CommonData.ConStr());
-            return plan.PlanChangeSave();
+            PlanBoard plan = new PlanBoard(CommonData.ConStr());
+            return plan.PlanChangeSave(prm.gPram1,prm.iPram1,prm.gPram2,prm.iPram2,prm.DtPram1, 
+                prm.iPram3, prm.gPram3,prm.iPram4);
         }
 
         [HttpPost("loadPlannedSec")]
@@ -82,7 +83,7 @@ namespace ProductionPrint.Controllers
         }
 
         [HttpPost("loadAllPlannedSec")]
-        public DataTable LoadAllPlannedSec(ClsPrm prm)
+        public DataSet LoadAllPlannedSec(ClsPrm prm)
         {
             PlanBoard plan = new PlanBoard(CommonData.ConStr());
             return plan.LoadAllSectionPlanData(prm.stPram1);
@@ -110,10 +111,16 @@ namespace ProductionPrint.Controllers
         }
 
         [HttpPost("saveplanSection")]
-        public DataTable saveplanSection(PlanBoard plan)
+        public DataTable saveplanSection(SectionPlan plan)
         {  
-            return plan.Date_SectionPlanSave();
+            return plan.SectionPlanSave();
         }
 
+        [HttpPost("sectionSave")]
+        public DataTable SectionSave(SectionPlan plan)
+        {
+            return plan.SectionSave();
+        }
+        
     }
 }

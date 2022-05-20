@@ -60,6 +60,8 @@ namespace ProductionPrint.models
         public int cat_id { get; set; }
         public string description { get; set; }
 
+        public string reqname { get; set; }
+
         public string imgs { get; set; }
         public string mesur_imgs { get; set; }
         public string garmnt_nt { get; set; }
@@ -103,6 +105,7 @@ namespace ProductionPrint.models
             potential_Qty = "";
             customer = "";
             emb = "";
+            reqname = "";
 
             item_id = new Guid();
             item_sub_id = new Guid();
@@ -141,11 +144,13 @@ namespace ProductionPrint.models
             fabricCon = new List<fabricCon>();
             pttnEmb = new List<pttnEmb>();
             connection = conn;
+
+
         }
         
         public DataTable GetItms()
         {
-            return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [itm_id],[sup_item_code] ,[sup_item_nme],[sb_itm_id],[sb_itm_nme],[cat_id],[cat_name] ,[stock_qty] ,[unit_id],[unit_name],0 as cs ,0 as consm ,CONCAT([sup_item_nme],' - ',[sb_itm_nme],' - ',[cat_name]) as itms , CONCAT([sup_item_code],' - ', [sup_item_nme],' - ',[sb_itm_nme]) AS fabitm ,0 as consum FROM [erpWarehouse].[dbo].[VIEW_Item_details]");
+            return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [itm_id],[sup_item_code] ,[sup_item_nme],[sb_itm_id],[sb_itm_nme],[cat_id],[cat_name] ,[stock_qty] ,[unit_id],[unit_name],[unit_name] as unit,0 as cs ,0 as consm ,CONCAT([sup_item_nme],' - ',[sb_itm_nme],' - ',[cat_name]) as itms , CONCAT([sup_item_code],' - ', [sup_item_nme],' - ',[sb_itm_nme]) AS fabitm ,0 as consum FROM [erpWarehouse].[dbo].[VIEW_Item_details]");
         }
 
         public DataTable GetItmsCater()
@@ -187,6 +192,7 @@ namespace ProductionPrint.models
                 {"gender",gender},
                 {"description",description},
                 {"emb",emb},
+                {"reqname",reqname},
                 {"typ",typ},
                 {"usr",usr}
             };
@@ -251,6 +257,7 @@ namespace ProductionPrint.models
         public string sb_itm_nme { get; set; }
         public string sup_item_code { get; set; }
         public string sup_item_nme { get; set; }
+        public string unit_name { get; set; }
         public decimal consm { get; set; }
 
         public accesseries()
@@ -261,6 +268,7 @@ namespace ProductionPrint.models
             sb_itm_nme = "";
             sup_item_code = "";
             sup_item_nme = "";
+            unit_name = "";
             consm = 0;
         }
 
@@ -274,6 +282,7 @@ namespace ProductionPrint.models
             dt1.Columns.Add("sb_itm_nme", typeof(string));
             dt1.Columns.Add("sup_item_code", typeof(string));
             dt1.Columns.Add("sup_item_nme", typeof(string));
+            dt1.Columns.Add("unit_name", typeof(string));
             dt1.Columns.Add("consm",typeof(decimal));
 
             foreach (var item in lst)
@@ -286,6 +295,7 @@ namespace ProductionPrint.models
                 _acc["sb_itm_nme"] = item.sb_itm_nme;
                 _acc["sup_item_code"] = item.sup_item_code;
                 _acc["sup_item_nme"] = item.sup_item_nme;
+                _acc["unit_name"] = item.unit_name;
                 _acc["consm"] = item.consm;
                
                 dt1.Rows.Add(_acc);
@@ -353,6 +363,7 @@ namespace ProductionPrint.models
         public int itm_id { get; set; }
         public int sb_itm_id { get; set; }
         public string sup_item_code { get; set; }
+        public string unit_name { get; set; }
         public string sb_itm_nme { get; set; }
         public string sup_item_nme { get; set; }
         public decimal consum { get; set; }
@@ -364,6 +375,7 @@ namespace ProductionPrint.models
             sup_item_code = "";
             sup_item_nme = "";
             sb_itm_nme = "";
+            unit_name = "";
             consum = 0;
         }
 
@@ -376,6 +388,7 @@ namespace ProductionPrint.models
             dt1.Columns.Add("sb_itm_nme", typeof(string));
             dt1.Columns.Add("sup_item_code", typeof(string));
             dt1.Columns.Add("sup_item_nme", typeof(string));
+            dt1.Columns.Add("unit_name", typeof(string));
             dt1.Columns.Add("consum", typeof(decimal));
 
             foreach (var item in lst)
@@ -387,6 +400,7 @@ namespace ProductionPrint.models
                 _acc["sb_itm_nme"] = item.sb_itm_nme;
                 _acc["sup_item_code"] = item.sup_item_code;
                 _acc["sup_item_nme"] = item.sup_item_nme;
+                _acc["unit_name"] = item.unit_name;
                 _acc["consum"] = item.consum;
 
                 dt1.Rows.Add(_acc);

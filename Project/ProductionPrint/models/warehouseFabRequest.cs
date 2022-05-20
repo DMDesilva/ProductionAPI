@@ -18,6 +18,7 @@ namespace ProductionPrint.models
         public List<ods_list> ods_list { get; set; }
         public decimal stock_qty { get; set; }
         public string unit { get; set; }
+        public string dmg_msg { get; set; }
         public int typ { get; set; }
         public Guid usr { get; set; }
 
@@ -31,6 +32,7 @@ namespace ProductionPrint.models
             req_qty = 0;
             stock_qty = 0;
             unit = "";
+            dmg_msg = "";
             itmnms = "";
             typ = 0;
             itemlist = new List<itemlist>();
@@ -51,10 +53,10 @@ namespace ProductionPrint.models
             {
                 var objDIc = new Dictionary<string, object>
                 {
-
-                    { "ord_id",ord_id}
+                    { "ord_id",ord_id},
+                    { "itm_id",itm_id}
                 };
-                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("_size_split_ods", objDIc);
+                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("_size_split_ods_TEST", objDIc);
             }
         }
         public DataSet Load_req_fab_info()
@@ -78,6 +80,7 @@ namespace ProductionPrint.models
                     {"stock_qty",stock_qty},
                     {"itemlist",new itemlist().InvItemListToDataTable(itemlist)},
                     {"ods_list",new ods_list().InvItemListToDataTable(ods_list)},
+                    {"dmg_msg",dmg_msg},
                     {"typ",typ},
                     {"usr",usr}
                 };

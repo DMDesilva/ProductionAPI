@@ -158,5 +158,12 @@ namespace ProductionPrint.Controllers
             ProductPrint pro = new ProductPrint(CommonData.ConStr());
             return pro.LoadSizes();
         }
+        //----------
+        //[HttpPost("dateSecPlanSaved")]
+        //public DataTable DateSecPlanSaved(PlanBoard plan)
+        //{
+        //    //PlanBoard plan = new PlanBoard(CommonData.ConStr());
+        //    return plan.Date_SecPlanSave();
+        //}
     }
 }
