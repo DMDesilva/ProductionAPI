@@ -159,11 +159,18 @@ namespace ProductionPrint.Controllers
             return pro.LoadSizes();
         }
         //----------
-        //[HttpPost("dateSecPlanSaved")]
-        //public DataTable DateSecPlanSaved(PlanBoard plan)
-        //{
-        //    //PlanBoard plan = new PlanBoard(CommonData.ConStr());
-        //    return plan.Date_SecPlanSave();
-        //}
+        [HttpPost("save_Production")]
+        public DataTable Save_Production(HourlyProduction hwrk)
+        {
+            //PlanBoard plan = new PlanBoard(CommonData.ConStr());
+            return hwrk.Save_Production();
+        }
+
+        [HttpGet("load_production_all")]
+        public DataTable Load_production_all()
+        {
+            HourlyProduction pro = new HourlyProduction();
+            return pro.Load_production_all();
+        }
     }
 }

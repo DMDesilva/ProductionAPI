@@ -69,7 +69,7 @@ namespace ProductionPrint.models
         {
             return (new DbAccess(Connection)).FillDataTable("SELECT Idx, [Id],[trans_date],[ord_Id],[po_no],[plant_Id] ,[plant_name],[sec_Id],[section_name],[sub_sec_Id],[sub_sec_name],[start_time] ,[end_time],[smo],[work_hour],[qnty]FROM [dbo].[VIEW_WorkHours] where trans_date= CONVERT(date,[dbo].[GetSLCurrTime] ())");
         }
-        // 
+      
         public DataTable TotalQuantity(int sec_Id, int ord)
         {
             return (new DbAccess(Connection)).FillDataTable("SELECT ISNULL(sum([qnty]),0) as tot FROM [dbo].[prdctn_poprod_transa_daywrkhours_efficiency] where [sec_Id]='" + sec_Id.ToString()+ "' and ord_Id='"+ord.ToString()+"'");
