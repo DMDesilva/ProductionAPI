@@ -83,6 +83,13 @@ namespace ProductionPrint.Controllers
             return dev.save_itmsCat();
         }
 
+        [HttpPost("itemPriceChange")]
+        public DataTable ItemPriceChange(DevelopmentDeprtment dev)
+        {
+            // DevelopmentDeprtment dev = new DevelopmentDeprtment(CommonData.ConStr());
+            return dev.ItemPriceChange();
+        }
+
         [HttpGet("getMastItmsCat")]
         public DataSet GetMastItmsCat()
         {

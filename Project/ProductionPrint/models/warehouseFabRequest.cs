@@ -20,6 +20,7 @@ namespace ProductionPrint.models
         public string unit { get; set; }
         public string dmg_msg { get; set; }
         public int typ { get; set; }
+        public int st { get; set; }
         public Guid usr { get; set; }
 
         private string connection { get; set; }
@@ -39,6 +40,7 @@ namespace ProductionPrint.models
             ods_list = new List<ods_list>();
             usr = new Guid();
             connection = con;
+            st = 0;
         }
 
         public DataTable LoadDepartments()
@@ -54,9 +56,10 @@ namespace ProductionPrint.models
                 var objDIc = new Dictionary<string, object>
                 {
                     { "ord_id",ord_id},
-                    { "itm_id",itm_id}
+                    { "itm_id",itm_id},
+                    { "st",st}
                 };
-                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("_size_split_ods_TEST", objDIc);
+                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("[dbo].[_size_split_ods_TEST]", objDIc);
             }
         }
         public DataSet Load_req_fab_info()
@@ -66,6 +69,14 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("_Load_warehouse_req_fab_info", objDIc);
             }
         }
+        public DataSet Load_warehouse_report()
+        {
+            {
+                var objDIc = new Dictionary<string, object>();
+                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("_Load_warehouse_report", objDIc);
+            }
+        }
+
         public DataTable Save_warehouse_fab_req()
         {
             {
@@ -144,7 +155,7 @@ namespace ProductionPrint.models
         public bool isTest { get; set; }
         public bool isBulk { get; set; }
         public bool isDamage { get; set; }
-
+        public bool isTypin { get; set; }
 
         public ods_list()
         {
@@ -155,6 +166,7 @@ namespace ProductionPrint.models
             isTest = false;
             isBulk = false;
             isDamage = false;
+            isTypin = false;
         }
 
         public DataTable InvItemListToDataTable(List<ods_list> lst)
@@ -168,6 +180,7 @@ namespace ProductionPrint.models
             dt1.Columns.Add("isTest", typeof(bool));
             dt1.Columns.Add("isBulk", typeof(bool));
             dt1.Columns.Add("isDamage", typeof(bool));
+            dt1.Columns.Add("isTypin", typeof(bool));
 
             foreach (var item in lst)
             {
@@ -180,6 +193,7 @@ namespace ProductionPrint.models
                 _itmlists["isTest"] = item.isTest;
                 _itmlists["isBulk"] = item.isBulk;
                 _itmlists["isDamage"] = item.isDamage;
+                _itmlists["isTypin"] = item.isDamage;
 
                 dt1.Rows.Add(_itmlists);
 

@@ -43,10 +43,11 @@ namespace ProductionPrint.models
         public int id{ get; set; }
         public string p_type { get; set; }
         public string size { get; set; }
-        public int agegroup { get; set; }
+        public string agegroup { get; set; }
         public int age_group { get; set; }
         public string catergory { get; set; }
-        public int gender { get; set; }
+        //public int gender { get; set; }
+        public string gender { get; set; }
         public int size_set_id { get; set; }
         public int unit_id { get; set; }
         public decimal machine_smv { get; set; }
@@ -113,10 +114,10 @@ namespace ProductionPrint.models
 
             p_type = "";
             size = "";
-            agegroup  = 0;
+            agegroup  = "";
             age_group = 0;
             catergory = "";
-            gender = 0;
+            gender = "";
             size_set_id = 0;
             unit_id = 0;
             machine_smv = 0;
@@ -144,7 +145,6 @@ namespace ProductionPrint.models
             fabricCon = new List<fabricCon>();
             pttnEmb = new List<pttnEmb>();
             connection = conn;
-
 
         }
         
@@ -196,7 +196,7 @@ namespace ProductionPrint.models
                 {"typ",typ},
                 {"usr",usr}
             };
-                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_Merchandiser_pttninfo_MAST_Save", objDIc);
+        return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_Merchandiser_pttninfo_MAST_Save", objDIc);
             }
         }
         
@@ -244,7 +244,7 @@ namespace ProductionPrint.models
                 {"typ",typ},
                 {"st",st}
             };
-                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_pattern_save", objDIc);
+         return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_pattern_save_test", objDIc);
             }
         }
     }

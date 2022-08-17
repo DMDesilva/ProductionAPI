@@ -16,6 +16,9 @@ namespace ProductionPrint.models
         public int iPram3 { get; set; }
         public int iPram4 { get; set; }
 
+        public Decimal dPram1{ get; set; }
+        public Decimal dPram2{ get; set; }
+        public Decimal dPram3{ get; set; }
 
         public string stPram1 { get; set; }
         public string stPram2 { get; set; }

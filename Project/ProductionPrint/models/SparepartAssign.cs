@@ -25,6 +25,7 @@ namespace ProductionPrint.models
         public List<serials> serials { get; set; }
         public string spartsname {get; set; }
         public string spartSerialNo {get; set; }
+        public string img {get; set; }
         public string pcount { get; set; }
         public Guid usr { get; set; }
         public int typ { get; set; }
@@ -49,6 +50,7 @@ namespace ProductionPrint.models
             sb_itm_id = 0;
             stock_qty = 0;
             sb_itm_nme = "";
+            img = "";
             s_qty = 0;
             typ = 0;
             serials = new List<serials>(); 
@@ -58,7 +60,7 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [sb_itm_id] ,[sb_itm_nme] ,[itm_id],[stock_qty],([stock_qty]-[sqnty]) as sqnty , 0 as expanded  FROM [erpWarehouse].[dbo].[itm_lgr_transa_stock$sub] where (itm_id=6043 or  itm_id=6010) and [stock_qty] >0  order by itm_id");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [sb_itm_id] ,[sb_itm_nme] ,[itm_id],[stock_qty],([stock_qty]-[sqnty]) as sqnty , 0 as expanded,[img],[blncqnty]  FROM [erpWarehouse].[dbo].[itm_lgr_transa_stock$sub] where (itm_id=6043 or  itm_id=6010) and [stock_qty] >0  order by itm_id");
             }
         }
 
@@ -66,8 +68,9 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>(); 
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("924139" +
-                    "");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [idx] ,[machineIdx] ,[machine_no] ,[machine_mode],[serial_no]," +
+                    "[assigndate]  ,[prnttyp],[spartsId],[spartsname] ,[color_idx] ,[colors],[unit_id]  ,[unit] ,[count] ,[isActive] ,[st],[spart_serial_Idx] " +
+                    " ,[img]FROM [dbo].[VIEW_PrintSec_Spart_assign_details] order by [assigndate]  desc");
             }
         }
 
@@ -118,6 +121,17 @@ namespace ProductionPrint.models
               // {"typ",typ}
             };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Print_Machine_Spareparts", objDIc);
+            }
+        }
+        public DataTable Update_spart_img()
+        {
+            {
+                var objDIc = new Dictionary<string, object> {
+               // {"idx",idx},
+                {"sb_itm_id",sb_itm_id},
+                {"img",img}
+            };
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_print_repair_imgupdate", objDIc);
             }
         }
         public DataTable Save_SpareprtsSerial()

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ProductionPrint.HubConfig;
 
 namespace ProductionPrint
 {
@@ -27,8 +28,11 @@ namespace ProductionPrint
         {
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSignalR(options=> {
+                options.EnableDetailedErrors = true;
+            });
         }
-
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -43,9 +47,18 @@ namespace ProductionPrint
 
             app.UseCors(x => x.AllowAnyOrigin()
             .AllowAnyHeader()
-            .AllowAnyMethod());
+            .AllowAnyMethod()
+            //.WithOrigins("http://localhost:4200/","http://124.43.16.68:80/Product/")
+            );
+            
             app.UseHttpsRedirection();
             app.UseMvc();
+            //app.UseMigrationsEndPoint();
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<InventoryHub>("/notify");
+            });
+
         }
     }
 }

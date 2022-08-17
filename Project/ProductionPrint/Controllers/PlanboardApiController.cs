@@ -27,6 +27,7 @@ namespace ProductionPrint.Controllers
             PlanBoard plan = new PlanBoard(CommonData.ConStr());
             return plan.PlanDashboard(prm.stPram1, prm.stPram2);
         }
+
         [HttpPost("planSaved")]
         public DataTable PlanSaved(PlanBoard plan)
         {
@@ -47,6 +48,13 @@ namespace ProductionPrint.Controllers
             PlanBoard plan = new PlanBoard(CommonData.ConStr());
             return plan.PlanChangeSave(prm.gPram1,prm.iPram1,prm.gPram2,prm.iPram2,prm.DtPram1, 
                 prm.iPram3, prm.gPram3,prm.iPram4);
+        }
+
+        [HttpPost("loadorderdisplay")]
+        public DataTable Loadorderdisplay(ClsPrm prm)
+        {
+            PlanBoard plan = new PlanBoard(CommonData.ConStr());
+            return plan.Loadorderdisplay(prm.DtPram1,prm.DtPram2);
         }
 
         [HttpPost("loadPlannedSec")]

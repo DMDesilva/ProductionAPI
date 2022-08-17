@@ -110,14 +110,14 @@ namespace ProductionPrint.models
             {
                 MailMessage msg = new MailMessage();
                 SmtpClient client = new SmtpClient();
-                client.Host = "smtp.gmail.com";
+                client.Host = "5.189.189.152";
                 client.Port = 587;
-                client.EnableSsl = true;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.EnableSsl = false;
+               client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential("jkmsngr@gmail.com", "jkMail@123");
+                client.Credentials = new NetworkCredential("jkmsngr@jkgmnt.com", "jkm!1234");
                 client.Timeout = 20000;
-                MailAddress mailAdress = new MailAddress("jkmsngr@gmail.com", "JK Messenger");
+                MailAddress mailAdress = new MailAddress("madusanka@jkgmnt.com", "JK Messenger");
                 msg.From = mailAdress;
 
                 if (sTo.Trim().Length > 0)

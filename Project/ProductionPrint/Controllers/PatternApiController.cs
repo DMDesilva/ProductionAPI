@@ -104,8 +104,40 @@ namespace ProductionPrint.Controllers
             return pttn.GetItmsCater();
         }
 
+        //-------------------------------Garments Mesurement------------
+        [HttpGet("get_sizes")]
+        public DataTable Get_sizes()
+        {
+            GarmentsMesurement grmn = new GarmentsMesurement(CommonData.ConStr());
+            return grmn.GetSizes();
+        }
+        [HttpGet("getmesurepattern")]
+        public DataTable Getmesurepattern()
+        {
+            GarmentsMesurement grmn = new GarmentsMesurement(CommonData.ConStr());
+            return grmn.Getmesurepattern();
+        }
 
+        [HttpPost("save_spect_sheet")]
+        public DataTable Save_spect_sheet(GarmentsMesurement grmn)
+        {
+            return grmn.save_spect_Sheet();
+        }
 
-
+        [HttpPost("get_spect_sheet_details")]
+        public DataSet Get_spect_sheet_details(GarmentsMesurement grmn)
+        {
+            return grmn.Get_spect_sheet_details();
+        }
+        [HttpPost("update_column_size")]
+        public DataTable Update_column_size(GarmentsMesurement grmn)
+        {
+            return grmn.update_column_size();
+        }
+        [HttpPost("update_garment_sheet")]
+        public DataTable Update_garment_sheet(GarmentsMesurement grmn)
+        {
+            return grmn.update_garment_sheet();
+        }
     }
 }

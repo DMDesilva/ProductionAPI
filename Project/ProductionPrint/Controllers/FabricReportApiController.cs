@@ -34,5 +34,7 @@ namespace ProductionPrint.Controllers
             fabricReport fbric = new fabricReport(CommonData.ConStr()); 
             return fbric.SearchDtByFabDatails(prm.DtPram1);
         }
+        //-----------------------------
+        
     }
 }

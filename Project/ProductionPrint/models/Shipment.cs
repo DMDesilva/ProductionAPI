@@ -191,7 +191,7 @@ namespace ProductionPrint.models
 
         public DataTable GetAWBDetailsDateBy(string SrchDt,string FrmDt)
         {
-            return (new DbAccess(Connection)).FillDataTable("SELECT [Idx],[awbNo],[Shipdate],[type] ,[suppBuy] ,[SuppOrBuy] ,[SuppBuyCntry],[county],[fforwrdIdx] ,[Frght_Forwrd]  ,[ExIm_Inv_No]  ,[merchandiser] ,[mrchndisr] ,[costSec] ,[Cost_Sec]  ,[remark],[modeId] ,[mode],[buyer] ,[BuyerName],[IsActive] FROM [dbo].[VIEW_Shipment_AWB] where [IsActive]=1 and [Shipdate] between '" + FrmDt.ToString() + "' and '" + SrchDt.ToString()+ "' ");
+            return (new DbAccess(Connection)).FillDataTable("SELECT [Idx],[awbNo],[Shipdate],[type] ,[suppBuy] ,[SuppOrBuy] ,[SuppBuyCntry],[county],[fforwrdIdx] ,[Frght_Forwrd]  ,[ExIm_Inv_No]  ,[merchandiser] ,[mrchndisr] ,[costSec] ,[Cost_Sec]  ,[remark],[modeId] ,[mode],[buyer] ,[BuyerName],[IsActive] FROM [dbo].[VIEW_Shipment_AWB] where [IsActive]=1 and CONVERT(date,[Shipdate]) between '" + FrmDt.ToString() + "' and '" + SrchDt.ToString()+ "' ");
         }
         //-------------------------------freight forword---------
         public DataTable GetFrieghtByAwb()

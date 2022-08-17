@@ -172,5 +172,6 @@ namespace ProductionPrint.Controllers
             HourlyProduction pro = new HourlyProduction();
             return pro.Load_production_all();
         }
+
     }
 }

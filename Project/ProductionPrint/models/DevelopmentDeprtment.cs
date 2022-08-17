@@ -11,8 +11,10 @@ namespace ProductionPrint.models
         public int pattern_id { get; set; }
         public int ods_id { get; set; }
         public int cat_id { get; set; }
+        public decimal itm_price { get; set; }
         public List<fabric> fabric { get; set; }
         public List<itmsList> itmsList { get; set; }
+        public Guid idx { get; set; }
         public Guid usr { get; set; }
         public Guid fabArrId { get; set; }
         public string cat_name { get; set; }
@@ -23,8 +25,10 @@ namespace ProductionPrint.models
             pattern_id = 0;
             ods_id = 0;
             cat_id = 0;
+            itm_price = 0;
             fabric = new List<fabric>();
             itmsList = new List<itmsList>();
+            idx = new Guid();
             usr = new Guid();
             fabArrId = new Guid();
             connection = conn; 
@@ -91,6 +95,19 @@ namespace ProductionPrint.models
 
                 };
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("Save_fab_trans_po", objDIc);
+            }
+        }
+        public DataTable ItemPriceChange()
+        {
+            {
+                var objDIc = new Dictionary<string, object> {
+
+                   // {"pattern_id",pattern_id},
+                    {"idx",idx},
+                    {"itm_price",itm_price}
+
+                };
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_itm_price_update", objDIc);
             }
         }
 

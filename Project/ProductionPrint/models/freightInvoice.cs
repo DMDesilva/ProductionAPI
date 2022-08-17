@@ -69,12 +69,12 @@ namespace ProductionPrint.models
 
         public DataTable GetFreiInv()
         {
-            return (new DbAccess(Connection)).FillDataTable("SELECT  [Idx],[AWBFreForwrdIdx] ,[Frght_Forwrd]  ,[Frwrd_InvNo] ,[InvDate],[AWB_No],[awbNo],[Ship_wght],[FCost] ,[AddCost] ,[Fuel_Surcharge],[Ex_wrk_Chrg] ,[Othr_Cost],[Totalcost],[IsActive],[AWBIsAc] FROM [dbo].[VIEW_Shipment_FreightInvoice]");
+            return (new DbAccess(Connection)).FillDataTable("SELECT  [Idx],[AWBFreForwrdIdx] ,[Frght_Forwrd]  ,[Frwrd_InvNo] ,[InvDate],[AWB_No],[awbNo],[Ship_wght],[FCost] ,[AddCost] ,[Fuel_Surcharge],[Ex_wrk_Chrg] ,[Othr_Cost],[Totalcost],[IsActive],[AWBIsAc] FROM [dbo].[VIEW_Shipment_FreightInvoice] order by  [InvDate] DESC");
 
         }
         public DataTable GetFreiInvDateBy(string SrchDt , string FrmDt)
         {
-            return (new DbAccess(Connection)).FillDataTable("SELECT  [Idx],[AWBFreForwrdIdx] ,[Frght_Forwrd]  ,[Frwrd_InvNo] ,[InvDate],[AWB_No],[awbNo],[Ship_wght],[FCost] ,[AddCost] ,[Fuel_Surcharge],[Ex_wrk_Chrg] ,[Othr_Cost],[Totalcost],[IsActive] FROM [dbo].[VIEW_Shipment_FreightInvoice] where [InvDate] between '" + FrmDt.ToString() + "' and '" + SrchDt.ToString()+ "'");
+            return (new DbAccess(Connection)).FillDataTable("SELECT  [Idx],[AWBFreForwrdIdx] ,[Frght_Forwrd]  ,[Frwrd_InvNo] ,[InvDate],[AWB_No],[awbNo],[Ship_wght],[FCost] ,[AddCost] ,[Fuel_Surcharge],[Ex_wrk_Chrg] ,[Othr_Cost],[Totalcost],[IsActive] FROM [dbo].[VIEW_Shipment_FreightInvoice] where CONVERT(date,[InvDate]) between '" + FrmDt.ToString() + "' and '" + SrchDt.ToString()+ "' order by  [InvDate] DESC ");
 
         }
     }

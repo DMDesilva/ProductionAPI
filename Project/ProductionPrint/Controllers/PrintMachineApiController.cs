@@ -82,9 +82,14 @@ namespace ProductionPrint.Controllers
             
             return spare.Save_Spareprts();
         }
-        //----------------Request
-       
-            [HttpPost("saveApproveIssue")]
+
+        [HttpPost("update_spart_img")]
+        public DataTable Update_spart_img(SparepartAssign spare)
+        {
+            return spare.Update_spart_img();
+        }
+        //----------------Request----------
+         [HttpPost("saveApproveIssue")]
         public DataTable SaveApproveIssue(SparepartAssign spare)
         {
 

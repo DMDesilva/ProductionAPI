@@ -40,5 +40,12 @@ namespace ProductionPrint.Controllers
         {
             return ware.Save_warehouse_fab_req();
         }
+
+        [HttpGet("load_warehouse_report")]
+        public DataSet Load_warehouse_report()
+        {
+            warehouseFabRequest rpt = new warehouseFabRequest(CommonData.ConStr());
+            return rpt.Load_warehouse_report();
+        }
     }
 }
