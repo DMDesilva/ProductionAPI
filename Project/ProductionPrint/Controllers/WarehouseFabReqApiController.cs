@@ -29,6 +29,13 @@ namespace ProductionPrint.Controllers
             return ware.Load_req_fab_info();
         }
 
+        [HttpGet("loadReqPo")]
+        public DataTable LoadReqPo()
+        {
+            warehouseFabRequest ware = new warehouseFabRequest(CommonData.ConStr());
+            return ware.LoadReqPo();
+        }
+
         [HttpPost("getSizes")]
         public DataSet GetSizes(warehouseFabRequest ware)
         {

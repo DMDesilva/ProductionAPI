@@ -26,7 +26,14 @@ namespace ProductionPrint
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins("http://124.43.16.68/PrintProduction")
+                      .AllowCredentials();
+                });
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSignalR(options=> {
                 options.EnableDetailedErrors = true;
@@ -49,6 +56,7 @@ namespace ProductionPrint
             .AllowAnyHeader()
             .AllowAnyMethod()
             //.WithOrigins("http://localhost:4200/","http://124.43.16.68:80/Product/")
+             
             );
             
             app.UseHttpsRedirection();
@@ -57,6 +65,7 @@ namespace ProductionPrint
             app.UseSignalR(routes =>
             {
                 routes.MapHub<InventoryHub>("/notify");
+                
             });
 
         }

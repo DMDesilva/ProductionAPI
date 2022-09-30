@@ -34,6 +34,12 @@ namespace ProductionPrint.Controllers
             SparepartAssign spare = new SparepartAssign(CommonData.ConStr());
             return spare.LoadSpartSerial();
         }
+        [HttpGet("getSerialAssign_mc")]
+        public DataTable GetSerialAssign_mc()
+        {
+            SparepartAssign spare = new SparepartAssign(CommonData.ConStr());
+            return spare.LoadSpartSerialAssign_mc();
+        }
 
         [HttpPost("saveSerialNo")]
         public DataTable SaveSerialNo(SparepartAssign spare)

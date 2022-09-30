@@ -82,5 +82,43 @@ namespace ProductionPrint.Controllers
         {
             return mc.GenaralJobSave();
         }
+
+        [HttpPost("jobassignSave")]
+        public DataTable JobassignSave(mcinventory mc)
+        {
+            return mc.jobassignSave();
+        }
+
+        [HttpGet("getallspare")]
+        public DataTable Getallspare()
+        {
+            mcinventory mc = new mcinventory(CommonData.ConStr());
+            return mc.GetAllSparepart();
+        }
+
+        [HttpGet("getAllparts")]
+        public DataTable GetAllparts()
+        {
+            mcinventory mc = new mcinventory(CommonData.ConStr());
+            return mc.GetAllparts();
+        }
+        [HttpGet("getAssinedJob")]
+        public DataTable GetAssinedJob()
+        {
+            mcinventory mc = new mcinventory(CommonData.ConStr());
+            return mc.GetAssinedJob();
+        }
+
+        [HttpPost("jobend")]
+        public DataTable Jobend(mcinventory mc)
+        {
+            return mc.JobEnd();
+        }
+
+        [HttpPost("jobCreate")]
+        public DataTable JobCreate(mcinventory mc)
+        {
+            return mc.JobCreate();
+        }
     }
 }

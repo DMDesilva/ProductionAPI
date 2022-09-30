@@ -50,6 +50,14 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT dept_id, dept_nme FROM [sysTower].dbo.user_master_dep ORDER BY dept_nme");
             }
         }
+        public DataTable LoadReqPo()
+        {
+            { 
+
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [po_no],[fbsids]  ,[itmnms],[req_qty] ,[unit] " +
+                    ",[isTest] ,[isBulk] ,[isDamage],[remark],[isTypin] FROM [dbo].[VIEW_werehouse_req_powise]");
+            }
+        }
         public DataSet SizesGet()
         {
             {

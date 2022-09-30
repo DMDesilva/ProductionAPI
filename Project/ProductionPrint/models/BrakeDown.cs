@@ -35,7 +35,7 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  brk.[Idx] ,brk.[machineIdx],brk.[brake_date] ,brk.[start_time] ,brk.[end_time] ,brk.[resone] ,brk.[isActive],prntmchn.[machine_mode],prntmchn.[serial_no]FROM [dbo].[_PrintSec_machine_brakedwn] brk INNER JOIN [dbo].[_PrintSec_machine] prntmchn on brk.[machineIdx]=prntmchn.Idx");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  brk.[Idx] ,brk.[machineIdx],brk.[brake_date] ,brk.[start_time] ,brk.[end_time] ,brk.[resone] ,brk.[isActive],prntmchn.[machine_mode],prntmchn.[serial_no],Convert(time(7),GETDATE()) as [etime] FROM [dbo].[_PrintSec_machine_brakedwn] brk INNER JOIN [dbo].[_PrintSec_machine] prntmchn on brk.[machineIdx]=prntmchn.Idx");
             }
         }
 

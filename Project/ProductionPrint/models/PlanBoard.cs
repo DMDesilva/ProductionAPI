@@ -154,6 +154,18 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_order_display", objDIc);
             }
         }
+
+        public DataSet LoadGetPlnRate(DateTime to , DateTime from)
+        {
+            {
+                var objDIc = new Dictionary<string, object>
+                {
+                    {"to",to },
+                    {"from",from },
+                };
+                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("sw_get_plan_sec_rate", objDIc);
+            }
+        }
         
         public DataSet LoadAllSectionPlanData(string frmDt)
         {

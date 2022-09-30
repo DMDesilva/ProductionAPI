@@ -12,6 +12,7 @@ namespace ProductionPrint.models
         public Guid machineIdx { get; set; }
         public Guid assignIdx { get; set; }
         public Guid spart_serial_Idx { get; set; }
+        public Guid serialNoIdx { get; set; }
         public Guid color_idx { get; set; }
         public DateTime assigndate { get; set; }
         public int prnttyp { get; set; }
@@ -35,6 +36,7 @@ namespace ProductionPrint.models
         {
             idx = new Guid();
             machineIdx = new Guid();
+            serialNoIdx = new Guid();
             assignIdx = new Guid();
             color_idx = new Guid();
             assigndate = DateTime.Now;
@@ -78,7 +80,13 @@ namespace ProductionPrint.models
         {
             {
                 //var objDIc = new Dictionary<string, object>();
-                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [idx],[spart_serial_Idx],[itm_id],[sb_itm_id] ,[stock_qty],[s_qty] ,[serial_no] ,[sb_itm_nme],[isActive] FROM [dbo].[VIEW_Print_Sec_sparepart_Serial]");
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [idx],[spart_serial_Idx],[itm_id],[sb_itm_id] ,[stock_qty],[s_qty] ,[serial_no] ,[sb_itm_nme],[isActive]  FROM [dbo].[VIEW_Print_Sec_sparepart_Serial]");
+            }
+        }
+        public DataTable LoadSpartSerialAssign_mc()
+        {
+            {
+                return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [idx],[itm_id],[sb_itm_id],[stock_qty],[s_qty],[serial_no],[sb_itm_nme],[isActive],[spart_serial_Idx],[machineIdx] ,[machine_mode] ,[machine_no],[usage]  FROM [dbo].[VIEW_Print_Sec_sparepart_Assign_machine]");
             }
         }
 
@@ -110,6 +118,7 @@ namespace ProductionPrint.models
                 var objDIc = new Dictionary<string, object> {
                // {"idx",idx},
                 {"machineIdx",machineIdx},
+                {"serialNoIdx",serialNoIdx},
                 {"assigndate",assigndate},
                 {"prnttyp",prnttyp},
                 {"spartsId",spartsId},

@@ -56,6 +56,12 @@ namespace ProductionPrint.Controllers
             PlanBoard plan = new PlanBoard(CommonData.ConStr());
             return plan.Loadorderdisplay(prm.DtPram1,prm.DtPram2);
         }
+        [HttpPost("loadGetPlnRate")]
+        public DataSet LoadGetPlnRate(ClsPrm prm)
+        {
+            PlanBoard plan = new PlanBoard(CommonData.ConStr());
+            return plan.LoadGetPlnRate(prm.DtPram1,prm.DtPram2);
+        }
 
         [HttpPost("loadPlannedSec")]
         public DataTable LoadPlannedSec(ClsPrm prm)
