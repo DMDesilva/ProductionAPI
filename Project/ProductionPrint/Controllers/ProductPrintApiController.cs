@@ -166,11 +166,26 @@ namespace ProductionPrint.Controllers
             return hwrk.Save_Production();
         }
 
+      
+
         [HttpGet("load_production_all")]
         public DataTable Load_production_all()
         {
             HourlyProduction pro = new HourlyProduction();
             return pro.Load_production_all();
+        }
+
+        [HttpGet("getOrderpo")]
+        public DataTable GetOrderpo()
+        {
+            OrderSheet ods = new OrderSheet();
+            return ods.GetOrderpo();
+        }
+
+        [HttpPost("viewOrdersheet")]
+        public DataSet ViewOrdersheet(OrderSheet ods)
+        {
+            return ods.ViewOrdersheet();
         }
 
     }
