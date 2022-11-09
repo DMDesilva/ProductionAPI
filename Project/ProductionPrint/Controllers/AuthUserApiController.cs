@@ -57,5 +57,27 @@ namespace ProductionPrint.Controllers
             // Users usr = new Users(CommonData.ConStr());
             return usr.EditUser();
         }
+
+        [HttpPost("sp_login")]
+        public DataTable Sp_login(LoginUsrAuth usr)
+        {
+            // Users usr = new Users(CommonData.ConStr());
+            return usr.Userlog();
+        }
+
+        [HttpPost("mCUserlog")]
+        public DataTable MCUserlog(LoginUsrAuth usr)
+        {
+            // Users usr = new Users(CommonData.ConStr());
+            return usr.MCUserlog();
+        }
+
+        [HttpPost("verifyAccount")]
+        public DataTable VerifyAccount(LoginUsrAuth usr)
+        {
+            // Users usr = new Users(CommonData.ConStr());
+            return usr.VerifyAccount();
+        }
+
     }
 }

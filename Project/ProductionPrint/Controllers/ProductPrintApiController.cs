@@ -182,10 +182,29 @@ namespace ProductionPrint.Controllers
             return ods.GetOrderpo();
         }
 
+        [HttpGet("getCmntCat")]
+        public DataTable GetCmntCat()
+        {
+            OrderSheet ods = new OrderSheet();
+            return ods.GetCmntCat();
+        }
+
         [HttpPost("viewOrdersheet")]
         public DataSet ViewOrdersheet(OrderSheet ods)
         {
             return ods.ViewOrdersheet();
+        }
+
+        [HttpPost("commentsave")]
+        public DataTable Commentsave(OrderSheet ods)
+        {
+            return ods.commentsave();
+        }
+
+        [HttpPost("comment_cat")]
+        public DataTable comment_cat(OrderSheet ods)
+        {
+            return ods.comment_cat();
         }
 
     }

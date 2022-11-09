@@ -17,6 +17,7 @@ namespace ProductionPrint.models
         public string ssubject { get; set; }
         public string po_no { get; set; }
         public string email { get; set; }
+        public string job_no { get; set; }
         public int qnty { get; set; }
 
         public EmailSend()
@@ -27,6 +28,7 @@ namespace ProductionPrint.models
             sbody = "";
             ssubject = "";
             po_no = "";
+            job_no = "";
             email = "";
             qnty =0;
         }
@@ -74,6 +76,31 @@ namespace ProductionPrint.models
             "</table>" + "</br>" +
             "<p>"+ DateTime.Now.ToString("yyyy-MM-dd")+"<p>" +
             "<h3> <b>"+ po_no + "</b> </h3> "+ "<h4> change into "+ qnty + "PCs. </h4> " +"<p> Qnty Changed Successfully.</p>" +
+           //Auto Generate Word
+           "<hr><p><font size='1'><I>This is a Auto Generated Mail From JK Mail System Developed By JK IT Department [Generated Date " + DateTime.Now.ToString("yyyy-MM-dd") + " Time " + DateTime.Now.ToString("hh:mm:ss") + "- From JK Messenger ]</I></font></p>" +
+           "</hr></body></html>";
+            GenarateMail(sto, scc, sbcc, sBody, ssubject);
+            return rtnVal;
+        }
+
+        public DataTable SendEmailsJobCreate()
+        {
+            var rtnVal = new DataTable();
+            string sBody = "<!DOCTYPE html> " +
+               "<html> " +
+               "<head> " +
+               "<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'></head> " +
+
+           "<body>" +
+            //Mail Header
+
+            "<table style='border: 3px solid red; font-family: Cambria; height: 34px;'>" +
+            "<tbody>" +
+            "<tr><th style='width: 700px;'> NEW JOB ALERT </th></tr> " +
+            "</tbody>" +
+            "</table>" + "</br>" +
+            "<p>"+ DateTime.Now.ToString("yyyy-MM-dd")+"<p>" +
+            "<h3> <b>"+ job_no + "</b> </h3> "+ "<h4>You have a pending new job. </h4> " + "<p> Refer above that Job No.</p>" +
            //Auto Generate Word
            "<hr><p><font size='1'><I>This is a Auto Generated Mail From JK Mail System Developed By JK IT Department [Generated Date " + DateTime.Now.ToString("yyyy-MM-dd") + " Time " + DateTime.Now.ToString("hh:mm:ss") + "- From JK Messenger ]</I></font></p>" +
            "</hr></body></html>";

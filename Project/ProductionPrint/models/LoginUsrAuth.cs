@@ -22,7 +22,7 @@ namespace ProductionPrint.models
         }
 
         public DataTable Userlog()
-        {   //LoginUsrAuth log = new LoginUsrAuth()
+        {   //LoginUsrAuth log = new LoginUsrAuth();
 
             byte[] inputArray = UTF8Encoding.UTF8.GetBytes(password);
             var tripleDES = new TripleDESCryptoServiceProvider();
@@ -35,21 +35,69 @@ namespace ProductionPrint.models
 
             string pass = Convert.ToBase64String(resultArray, 0, resultArray.Length);
             {
-               
-
-                var objDIc = new Dictionary<string, object> {
-                       
+                
+                var objDIc = new Dictionary<string, object>
+                {     
                     {"username",username},
                     {"pass",pass},
                 };
 
-                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("", objDIc);
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("spr_login", objDIc);
             }
-
-
 
         }
 
+        public DataTable MCUserlog()
+        {   //LoginUsrAuth log = new LoginUsrAuth();
+
+            byte[] inputArray = UTF8Encoding.UTF8.GetBytes(password);
+            var tripleDES = new TripleDESCryptoServiceProvider();
+            tripleDES.Key = UTF8Encoding.UTF8.GetBytes(sysPWKey);
+            tripleDES.Mode = CipherMode.ECB;
+            tripleDES.Padding = PaddingMode.PKCS7;
+            ICryptoTransform cTransform = tripleDES.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(inputArray, 0, inputArray.Length);
+            tripleDES.Clear();
+
+            string pass = Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            {
+
+                var objDIc = new Dictionary<string, object>
+                {
+                    {"username",username},
+                    {"pass",pass},
+                };
+
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("mc_inven_login", objDIc);
+            }
+
+        }
+
+        public DataTable VerifyAccount()
+        {   //LoginUsrAuth log = new LoginUsrAuth();
+
+            byte[] inputArray = UTF8Encoding.UTF8.GetBytes(password);
+            var tripleDES = new TripleDESCryptoServiceProvider();
+            tripleDES.Key = UTF8Encoding.UTF8.GetBytes(sysPWKey);
+            tripleDES.Mode = CipherMode.ECB;
+            tripleDES.Padding = PaddingMode.PKCS7;
+            ICryptoTransform cTransform = tripleDES.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(inputArray, 0, inputArray.Length);
+            tripleDES.Clear();
+
+            string pass = Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            {
+
+                var objDIc = new Dictionary<string, object>
+                {
+                    {"username",username},
+                    {"pass",pass},
+                };
+
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("order_sheet_login", objDIc);
+            }
+
+        }
 
         public static string Decryptor(string pass)
 

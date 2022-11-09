@@ -83,6 +83,12 @@ namespace ProductionPrint.Controllers
             return mc.GenaralJobSave();
         }
 
+        [HttpPost("sendEmailsJobCreate")]
+        public DataTable SendEmailsJobCreate(EmailSend em)
+        {
+            return em.SendEmailsJobCreate();
+        }
+
         [HttpPost("jobassignSave")]
         public DataTable JobassignSave(mcinventory mc)
         {

@@ -9,10 +9,20 @@ namespace ProductionPrint.models
     public class OrderSheet
     {
         public int ods_id { get; set; }
+        public int emp { get; set; }
+        public string cmnt_cat { get; set; }
+        public string cmnt { get; set; }
+        public string dept { get; set; }
+        public string usrnm { get; set; }
 
         public OrderSheet()
         {
             ods_id = 0;
+            emp = 0;
+            cmnt_cat = "";
+            cmnt = "";
+            dept = "";
+            usrnm = "";
         }
 
         public DataSet ViewOrdersheet()
@@ -53,5 +63,40 @@ namespace ProductionPrint.models
         {
             return (new DbAccess(CommonData.ConStr())).FillDataTable("select ods_id ,CONCAT(po_no,' - ',product_no) as po from dbo.load_view_mercha_poprod");
         }
-    }
+
+        public DataTable GetCmntCat()
+        {
+            return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [id] ,[cmt_typ]  FROM [dbo].[mercha_po_transa_orderdata_cmnt_cat]");
+        }
+
+        public DataTable commentsave()
+        {
+            {
+                var objDIc = new Dictionary<string, object> {
+
+                    {"ods_id",ods_id},
+                    {"cmnt_cat",cmnt_cat},
+                    {"dep",dept},
+                    {"cmnt",cmnt},
+                    {"emp",emp},
+                    {"usrnm",usrnm}
+                };
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_ods_comments", objDIc);
+            }
+
+            }
+        public DataTable comment_cat()
+        {
+            {
+                var objDIc = new Dictionary<string, object> {
+
+                    {"cmnt_cat",cmnt_cat}
+                   
+                };
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_comment_cat_create", objDIc);
+            }
+
+            }
+
+        }
 }

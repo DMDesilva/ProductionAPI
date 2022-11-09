@@ -93,7 +93,7 @@ namespace ProductionPrint.models
             return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [mc_key],[mccat_id] ," +
                 "[mccat_name]  ,[mctyp] ,[mc_desc] ,[brnd] ,[mc_modl] " +
                 ",[mc_seral] ,[manfac_yr] ,[pwr]  ,[amp],[phase] " +
-                " ,[voltage] ,[hz_val] ,[loctn_name],CONCAT([mc_key],' - ',[mc_desc]) as mchin,[typ] " +
+                " ,[voltage] ,[hz_val] ,[loctn_name],CONCAT([mc_key],' - ',[mc_desc]) as mchin,[typ],[rmrks]" +
                 "FROM [sysMcInventory].[dbo].[load_view_mcinv] order by mccat_id");
         }
         public DataTable GetAllSparepart()
