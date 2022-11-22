@@ -26,10 +26,12 @@ namespace ProductionPrint.models
         public Guid usr { get; set; }
         public int jb_typ { get; set; }
         public List<sprts> sprts { get; set; }
+        public List<mcnic> mcnic { get; set; }
         //----------------------------------------
         public string r_typs { get; set; }
         public string m_name { get; set; }
         public int mst_cat { get; set; }
+        public int emp { get; set; }
         public string job_img { get; set; }
         public string info { get; set; }
         private string conn { get; set; }
@@ -56,8 +58,9 @@ namespace ProductionPrint.models
             r_typs = "";
             m_name = "";
             mst_cat = 0;
+            emp = 0;
             conn = conn;
-
+           
         }
 
         public DataTable GetDepartments()
@@ -83,9 +86,11 @@ namespace ProductionPrint.models
         public DataTable GetmcjobReq()
         {
             return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT[idx] ,[job_no],[dep_id] ,[dept_nme] ,[mc_key],[job_date] ," +
-                "[job_time] ,[job_des]  ,[lvl],st,[jb_typ],[job_img]," +
-                "CONVERT(TIME(0),[rpaire_assign_time]) AS rpaire_assign_time,CONVERT(TIME(0),[rpaire_time]) AS rpaire_time " +
-                " ,[recreat_no] ,[recreate_info] ,Convert(time(0),[reassign_end_time]) as reassign_end_time,Convert(time(0),[recreatedate]) as recreatetime FROM [dbo].[VIEW_Mcinventory_repair_job_req] order by [job_date] desc");
+                "convert(varchar,(Convert(time(0),[job_time])),100)as[job_time] ,[job_des]  ,[lvl],st,[jb_typ],[job_img]," +
+                "convert(varchar,(Convert(time(0),[rpaire_assign_time])),100)as [rpaire_assign_time],convert(varchar,(Convert(time(0),[rpaire_time])),100)as [rpaire_time] " +
+                " ,[recreat_no] ,[recreate_info] ,Convert(time(0),[reassign_end_time]) as reassign_end_time,Convert(time(0),[recreatedate]) as recreatetime " +
+                ",[rejected_info] ,Convert(date,[rejecteddate]) as reg_date , " +
+                "convert(varchar, (Convert(time(0),[rejecteddate])), 100) as rej_time,[rpaire_date],[rpaire_assign_date] FROM [dbo].[VIEW_Mcinventory_repair_job_req] order by [job_no] desc");
         }
 
         public DataTable GetMachine()
@@ -105,16 +110,19 @@ namespace ProductionPrint.models
 
      public DataTable GetAllparts()
       {
-         return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [itm_id] ,[mas_cat] ,[cat_id]," +
-              "[cat_name],[sup_item_nme],[sup_item_code],[unit_name],[sb_itm_id] ,[sb_itm_nme],[stock_qty]" +
-            "FROM [erpWarehouse].[dbo].[View_load_all_stock] where cat_name='MAINTENANCE' and stock_qty >0");
+         return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [itm_id] ,[sup_item_code],[sup_item_nme],[cat_name],[sb_itm_id],[sb_itm_nme] " +
+             ",[stock_qty],[unit_name],[iss_qty] FROM [erpWarehouse].[dbo].[VIEW_maintance_issues]");
        }
         public DataTable GetAssinedJob()
           {
          return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [idx] ,[job_no] ,[dep_id] ,[dept_nme],[mc_key],[job_date]," +
-             "[job_time],[job_des],[lvl],[st],[jb_typ],[job_img],[m_name] ,[r_typs] ," +
+             "[job_time],[job_des],[lvl],[st],[jb_typ],[job_img] ,[r_typs] ," +
                 "[rpaire_assign_time],[rpaire_time],[recreat_no] ,[recreate_info] ,Convert(time(0),[reassign_end_time]) as reassign_end_time" +
-                ",Convert(time(0),[recreatedate]) as recreatetime FROM [dbo].[View_Mcinventory_assigned_jobs]");
+                ",Convert(time(0),[recreatedate]) as recreatetime FROM [dbo].[View_Mcinventory_assigned_jobs] order by st");
+          }
+        public DataTable GetAssinedMach()
+          {
+         return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [idx],[jb_req_idx] ,[job_no],[m_name] FROM [ORACLE].[dbo].[VIEW_Mcinventory_assigned_machnic]");
           }
         
         public DataTable Getspareparts()
@@ -182,10 +190,8 @@ namespace ProductionPrint.models
                     {"idx",idx},
                     {"job_no",job_no},
                     {"r_id",r_id},
-                    {"m_id",m_id},
-                  //  {"mc_key",mc_key},
-                  //  {"job_des",job_des},
                     {"sprts",new sprts().InvItemListToDataTable(sprts)},
+                    {"mcnic",new mcnic().InvItemListToDataTable(mcnic)},
                     {"usr",usr}
                 };
 
@@ -202,6 +208,19 @@ namespace ProductionPrint.models
                 };
 
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_jobend", objDIc);
+            }
+        }
+        public DataTable JobReject()
+         {
+            {
+                var objDIc = new Dictionary<string, object> {
+                  
+                    {"idx",idx},
+                    {"job_no",job_no},
+                    {"info",info},
+                    {"emp",emp}
+                };
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_job_reject", objDIc);
             }
         }
         public DataTable JobCreate()
@@ -257,4 +276,35 @@ namespace ProductionPrint.models
             return dt1;
         }
     }
+    public class mcnic
+    {
+        public int id { get; set; }
+        public string m_name { get; set; }
+      
+        public mcnic()
+        {
+            id = 0;
+            m_name = "";
+        }
+
+        public DataTable InvItemListToDataTable(List<mcnic> lst)
+        {
+            var dt1 = new DataTable();
+            dt1.Clear();
+            dt1.Columns.Add("id", typeof(int));
+            dt1.Columns.Add("m_name", typeof(string));
+
+            foreach (var item in lst)
+            {
+
+                DataRow _acc = dt1.NewRow();
+                _acc["id"] = item.id;
+                _acc["m_name"] = item.m_name;
+
+                dt1.Rows.Add(_acc);
+            }
+            return dt1;
+        }
+    }
+
 }

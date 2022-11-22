@@ -114,6 +114,12 @@ namespace ProductionPrint.Controllers
             mcinventory mc = new mcinventory(CommonData.ConStr());
             return mc.GetAssinedJob();
         }
+        [HttpGet("getAssinedMach")]
+        public DataTable GetAssinedMach()
+        {
+            mcinventory mc = new mcinventory(CommonData.ConStr());
+            return mc.GetAssinedMach();
+        }
 
         [HttpPost("jobend")]
         public DataTable Jobend(mcinventory mc)
@@ -125,6 +131,12 @@ namespace ProductionPrint.Controllers
         public DataTable JobCreate(mcinventory mc)
         {
             return mc.JobCreate();
+        }
+
+        [HttpPost("jobReject")]
+        public DataTable JobReject(mcinventory mc)
+        {
+            return mc.JobReject();
         }
     }
 }
