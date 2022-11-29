@@ -65,6 +65,13 @@ namespace ProductionPrint.Controllers
             return mc.GetmcjobReq();
         }
 
+        [HttpGet("getUsedSpartDetails")]
+        public DataTable GetUsedSpartDetails()
+        {
+            mcinventory mc = new mcinventory(CommonData.ConStr());
+            return mc.GetUsedSpartDetails();
+        }
+
         [HttpPost("masterSave")]
         public DataTable MasterSave(mcinventory mc)
         {
@@ -137,6 +144,11 @@ namespace ProductionPrint.Controllers
         public DataTable JobReject(mcinventory mc)
         {
             return mc.JobReject();
+        }
+        [HttpPost("jobupdate")]
+        public DataTable jobupdate(mcinventory mc)
+        {
+            return mc.jobupdate();
         }
     }
 }

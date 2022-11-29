@@ -182,6 +182,7 @@ namespace ProductionPrint.models
             }
             catch (Exception e)
             {
+                var err = e;
                 //  ErrorHandler.ErrorHandler.Log("ExecuteNonQueryCmd", e.Message, e.Source);
 #if DEBUG
                 throw;
@@ -246,6 +247,7 @@ namespace ProductionPrint.models
             }
             catch (Exception e)
             {
+                var err = e;
                 // ErrorHandler.ErrorHandler.Log("DBAccess-FillDataSet", "Qry :" + str + Environment.NewLine + "Error : " + e.Message, e.Source);
 #if DEBUG
                 throw;
@@ -330,6 +332,7 @@ namespace ProductionPrint.models
             }
             catch (Exception e)
             {
+                var err = e;
                 //ErrorHandler.ErrorHandler.Log("DBAccess-FillDataSet", "Qry " + cmdString + Environment.NewLine + "Error : " + e.Message, e.Source);
 #if DEBUG
                 throw;

@@ -14,7 +14,7 @@ namespace ProductionPrint.models
         public string password { get; set; }
 
         static string sysPWKey = "@1B2c3D4e5F6g7H8";
-        static string sysEncKey = "7H81B2c3D4e@5F6g";
+      //  static string sysEncKey = "7H81B2c3D4e@5F6g";
         public LoginUsrAuth()
         {
             username = "";
