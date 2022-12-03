@@ -150,5 +150,12 @@ namespace ProductionPrint.Controllers
         {
             return mc.jobupdate();
         }
+
+        [HttpGet("getDetailsreq")]
+        public DataSet GetDetailsreq()
+        {
+            mcinventory mc = new mcinventory(CommonData.ConStr());
+            return mc.GetDetailsreq();
+        }
     }
 }

@@ -89,6 +89,7 @@ namespace ProductionPrint.models
         {
             return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT[id] ,[m_name] FROM[dbo].[_Mcinventory_mechanics]");
         }
+
         public DataTable GetmcjobReq()
         {
             return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT[idx] ,[job_no],[dep_id] ,[dept_nme] ,[mc_key],[job_date] ," +
@@ -97,7 +98,7 @@ namespace ProductionPrint.models
                 " ,[recreat_no] ,[recreate_info] ,Convert(time(0),[reassign_end_time]) as reassign_end_time,Convert(time(0),[recreatedate]) as recreatetime " +
                 ",[rejected_info] ,Convert(date,[rejecteddate]) as reg_date , " +
                 "convert(varchar, (Convert(time(0),[rejecteddate])), 100) as rej_time,[rpaire_date],[rpaire_assign_date],[jobAhuth]" +
-                ",Convert(date,[plndt])as plndt,convert(varchar, (Convert(time(0),[plntime])), 100)  as plntime ,[r_id] FROM [dbo].[VIEW_Mcinventory_repair_job_req] order by [job_no] desc");
+                ",Convert(date,[plndt])as plndt,convert(varchar, (Convert(time(0),[plntime])), 100)  as plntime ,[r_id] FROM [dbo].[VIEW_Mcinventory_repair_job_req] where [isActive]=1 order by [job_no] desc");
         }
 
         public DataTable GetMachine()
@@ -129,7 +130,7 @@ namespace ProductionPrint.models
          return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT [idx] ,[job_no] ,[dep_id] ,[dept_nme],[mc_key],[job_date]," +
              "[job_time],[job_des],[lvl],[st],[jb_typ],[job_img] ,[r_id],[r_typs] ," +
                 "[rpaire_assign_time],[rpaire_time],[recreat_no] ,[recreate_info] ,Convert(time(0),[reassign_end_time]) as reassign_end_time" +
-                ",Convert(time(0),[recreatedate]) as recreatetime ,jobAhuth FROM [dbo].[View_Mcinventory_assigned_jobs] order by st");
+                ",Convert(time(0),[recreatedate]) as recreatetime ,jobAhuth FROM [dbo].[View_Mcinventory_assigned_jobs] where [isActive]=1 order by [job_no] desc");
           }
         public DataTable GetAssinedMach()
           {
@@ -142,6 +143,14 @@ namespace ProductionPrint.models
                 var objDIc = new Dictionary<string, object>();
 
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("view_sw_spareparts", objDIc);
+            }
+        }
+        public DataSet GetDetailsreq()
+        {
+            {
+                var objDIc = new Dictionary<string, object>();
+
+                return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("_getAssign_jobreq ", objDIc);
             }
         }
         public DataTable MasterSave()
