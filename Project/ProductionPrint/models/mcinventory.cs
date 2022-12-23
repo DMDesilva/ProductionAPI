@@ -31,6 +31,7 @@ namespace ProductionPrint.models
         public string r_typs { get; set; }
         public string m_name { get; set; }
         public int mst_cat { get; set; }
+        public int sb_itm_id { get; set; }
         public int emp { get; set; }
         public string job_img { get; set; }
         public string jobauth { get; set; }
@@ -115,8 +116,11 @@ namespace ProductionPrint.models
                 " cat_name, unit_name,moq,lead_tme, re_ordr FROM [erpWarehouse].[dbo].[report_view_stock]  WHERE  cat_id in (SELECT  [cat_id] " +
                 "FROM [erpWarehouse].[dbo].[itm_lgr_master_catgry]where [relate]=7 or [p_relate]=7) and stock_qty > 0");
         }
-
-     public DataTable GetAllparts()
+        public DataTable GetAllpartsMainitm()
+        {
+            return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT DISTINCT [itm_id] , CONCAT( [sup_item_code],' - ', [sup_item_nme]) as itm,[sup_item_code] ,[sup_item_nme]FROM [erpWarehouse].[dbo].[VIEW_maintance_issues]");
+        }
+        public DataTable GetAllparts()
       {
          return (new DbAccess(CommonData.ConStr())).FillDataTable("SELECT  [itm_id] ,[sup_item_code],[sup_item_nme],[cat_name],[sb_itm_id],[sb_itm_nme] " +
              ",[stock_qty],[unit_name],[iss_qty] FROM [erpWarehouse].[dbo].[VIEW_maintance_issues]");
@@ -153,6 +157,14 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).LoadDataSetBySP("_getAssign_jobreq ", objDIc);
             }
         }
+        public DataTable updateSycn()
+        {
+            {
+                var objDIc = new Dictionary<string, object>();
+
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_update_complete_sycn", objDIc);
+            }
+        }
         public DataTable MasterSave()
         {
             {
@@ -166,6 +178,17 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_mcinvetory_masterSave", objDIc);
             }
         }
+        //public DataTable JobpartRemove()
+        //{
+        //    {
+        //        var objDIc = new Dictionary<string, object> {
+        //            {"idx",idx},
+        //            {"sb_itm_id",sb_itm_id} 
+        //        };
+
+        //        return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("", objDIc);
+        //    }
+        //}
         public DataTable GenaralJobSave()
         {
             {

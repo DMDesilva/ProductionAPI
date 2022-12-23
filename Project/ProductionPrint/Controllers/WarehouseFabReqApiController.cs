@@ -54,5 +54,13 @@ namespace ProductionPrint.Controllers
             warehouseFabRequest rpt = new warehouseFabRequest(CommonData.ConStr());
             return rpt.Load_warehouse_report();
         }
+
+        [HttpGet("sendmailItems")]
+        public DataTable SendmailItems()
+        {
+            AutoGeneratemail auto = new AutoGeneratemail();
+
+            return auto.AutosendMailItmList();
+        }
     }
 }
