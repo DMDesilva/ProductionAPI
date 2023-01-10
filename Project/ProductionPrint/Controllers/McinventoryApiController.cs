@@ -115,6 +115,7 @@ namespace ProductionPrint.Controllers
             mcinventory mc = new mcinventory(CommonData.ConStr());
             return mc.GetAllparts();
         }
+
         [HttpGet("getMainitmAll")]
         public DataTable GetMainitmAll()
         {
@@ -138,6 +139,13 @@ namespace ProductionPrint.Controllers
         public DataTable Jobend(mcinventory mc)
         {
             return mc.JobEnd();
+        }
+
+        [HttpPost("getblncStock")]
+        public DataTable GetblncStock(ClsPrm prm)
+        {
+            mcinventory mc = new mcinventory(CommonData.ConStr());
+            return mc.GetblncStock(prm.iPram1,prm.iPram2);
         }
 
         [HttpPost("jobCreate")]

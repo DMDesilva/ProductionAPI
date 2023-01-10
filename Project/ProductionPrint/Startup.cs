@@ -34,6 +34,7 @@ namespace ProductionPrint
                       .AllowCredentials();
                 });
             });
+            services.AddResponseCompression();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSignalR(options=> {
                 options.EnableDetailedErrors = true;
@@ -67,7 +68,7 @@ namespace ProductionPrint
                 routes.MapHub<InventoryHub>("/notify");
                 
             });
-
+            app.UseResponseCompression();
         }
     }
 }

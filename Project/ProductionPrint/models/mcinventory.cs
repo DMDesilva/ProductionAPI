@@ -178,6 +178,17 @@ namespace ProductionPrint.models
                 return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_mcinvetory_masterSave", objDIc);
             }
         }
+        public DataTable GetblncStock(int itm_id, int sb_itm)
+        {
+            {
+                var objDIc = new Dictionary<string, object> {
+                    {"itm_id",itm_id},
+                    {"sb_itm",sb_itm}
+                };
+
+                return (new DbAccess(CommonData.ConStr())).LoadDatatableBySP("_Maintance_stock", objDIc);
+            }
+        }
         //public DataTable JobpartRemove()
         //{
         //    {
